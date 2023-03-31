@@ -1,0 +1,28 @@
+4 - Escreva um algoritmo para calcular a porcentagem qualquer de um número qualquer (Ex: 30% de 50)
+
+algoritimo "algoritimo porcentagem"
+inicio
+
+    var numero = 0
+    var porcentagem = 0
+
+    escreva("Digite um numero")
+    leia(numero)
+
+    escreva("Digite uma porcentagem")
+    leia(porcentagem)
+
+    porcentagem = porcentagem / 100
+    var resultado = numero * porcentagem
+    escreva (resultado)
+
+fimalgoritimo
+
+numero = 50
+porcentagem = 0.3
+resultado = 15
+
+"Digite um numero" 50
+"Digite uma porcentagem" 30
+
+15

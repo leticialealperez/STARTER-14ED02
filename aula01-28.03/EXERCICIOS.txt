@@ -1,0 +1,14 @@
+LÓGICA PROGRAMAÇÃO - Aplicar todos esses fundamentos para resolver um problema
+
+-> dados = input -> Ex: 18
+
+
+==> PROCESSING 
+-> Estruturas Condicionais = validações para desvios de fluxos (SE)
+
+-> Estruturas de Repetição = Formas de repetir um determinado conjunto de de instruções sem precisar reescreve-las
+
+-> Rotinas/Funções - Conjunto de de instruções que possuem uma tarefa bem definida e que são executadas quando chamadas
+
+
+-> informação = output -> Ex: Maior de idade

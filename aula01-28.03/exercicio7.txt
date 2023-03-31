@@ -1,0 +1,5 @@
+Utilize a lista de números abaixo, construa um algoritmo (conjuntos de passos por escrito) para resolver cada problema conforme o solicitado:
+
+[ -31, 18, 50, 98, 4, -53, 1, -8, 15, 89, 24, -3, 0, 10, 15, 47, 50, 15, 1, 4 ]
+
+7 - Escreva um algoritmo para buscar apenas os números positivos da lista

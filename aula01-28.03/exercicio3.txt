@@ -1,0 +1,26 @@
+3 - Escreva um algoritmo para calcular o fatorial de um número qualquer (Ex: 10) 
+
+var
+    soma : inteiro
+    número : inteiro
+
+inicio
+    escreva("Digite um numero")
+    leia(número)
+    soma = número
+
+    enquanto ( numero > 0) faça
+        numero -1
+        soma = soma * numero        
+    fimenquanto
+
+    escreva (soma)
+
+fimalgoritimo
+
+soma = 6
+numero = 0
+
+"Digite um numero" 3
+
+(1 * 2) * 3

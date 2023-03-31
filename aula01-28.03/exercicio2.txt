@@ -1,0 +1,25 @@
+2 - Escreva um algoritmo para mostrar todos os números ímpares menores que 50
+
+algoritimo "numeros impares"
+
+var contador : inteiro
+inicio
+
+    contador = 49
+
+    enquanto (contador > 0) faca
+        escreva (contador)
+        contador -2
+    fimenquanto
+
+fimalgoritimo
+
+contador = 45
+
+[49, 47, 45, 43, 41, 39, ... , 1]
+
+1 - Considere um dado de entrada chamado "contador" com o valor inicial 49
+2 - Mostre o valor de "contador"
+3 - Substitua o valor de "contador" subtraindo - 2 ao valor que já tinha
+4 - Verifique se o valor de "contador" é maior que 0
+5 - Se sim, repita as etapas 2, 3 e 4. Caso contrário, finalize o algoritmo.

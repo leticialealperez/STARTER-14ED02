@@ -1,0 +1,1 @@
+6 - Escreva um algoritmo que converta uma temperatura de Fahrenheit para Celsius (Ex: 42°F = x°C)

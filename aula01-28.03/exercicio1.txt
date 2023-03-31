@@ -1,0 +1,36 @@
+1 - Escreva um algoritmo para encontrar a soma dos números de 1 a 10 
+
+algoritimo "somar de 1 a 10"
+
+var contador : inteiro
+var resultado : inteiro
+
+inicio
+    contador = 1
+    resultado = 0
+
+    enquanto ( contador <= 10) faça 
+        resultado = resultado + contador
+        contador +1
+    fimenquanto
+
+    escreva (resultado)
+    
+finalagoritimo
+
+resultado = 55
+contador = 11
+
+1 - Considere um dado de entrada chamado "contador" com o valor inicial 1
+2 - Considere um dado de entrada chamado "resultado" com o valor inicial 0
+3 - Some o valor de "contador" com o valor de "resultado"
+4 - Substitua o valor de "resultado" com o resultado da soma feita na etapa 3
+5 - Substitua o valor de "contador" adicionando + 1 ao valor que já tinha
+6 - Verifique se o valor de "contador" é menos ou igual à 10
+7 - Se sim, repita as etapas 3, 4 e 5. Caso contrário, mostre o valor de "resultado"
+
+
+
+
+
+
