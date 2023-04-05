@@ -5,25 +5,6 @@
 
 */
 let kmPercorridos = Number(prompt('Qual a quantidade de Km percorridos?'))
-// CANCELAR => null => inexistente => quando convertido é igual a 0
-
-// NAO DIGITOU NADA? => "" => quando convertido é igual a 0
-
-// E SE ELE DIGITAR UM TEXTO? => NaN => Not a Number
-// isNaN(kmPercorridos)
-
-// if(isNaN(kmPercorridos)) {
-//     // isNaN => digitou texto => errou
-//     console.log("Digite apenas numeros")
-    
-// } else {
-//     // calculo visando o acerto
-// }
-
-// REGRA: null, undefined, "", 0 e false => false
-// false => 0
-
-
 let diasAlugados = Number(prompt('Qual a quantidade de dias que o carro foi alugado?'))
 
 let valorDia = diasAlugados * 90
@@ -33,7 +14,7 @@ let total = valorDia + valorKm
 
 document.write(`Valor total do carro alugado R$ ${total.toFixed(2)}.`)
 
-// OBS: variavel.toFixed(2)
+// OBS: variavel.toFixed(2) => fará com que o número seja mostrado com 2 casas decimais (Ex: 110.55)
 
 
 /*
@@ -134,3 +115,34 @@ else {
 // OBS: QUANDO JS ACHAR 1 CONDIÇÃO (TRUE), NÃO EXECUTA AS DEMAIS
 
 
+
+// ============================================================================
+// Problemas de uso do prompt() - Usuário é leigo
+// 1 - E SE O USUÁRIO CLICAR NO 'CANCELAR'?
+// Resposta: o valor retornado será null
+// Um dado null quando convertido usando Number() resulta no número 0
+
+
+// 2 - E SE O USUÁRIO NAO DIGITAR NADA?
+// Resposta: o valor retornado será "" (string vazia)
+// Um dado "" (string vazia) quando convertido usando Number() resulta no número 0
+
+// EXPLICAÇÃO 1 E 2:
+// A regra do Javascript define que toda variavel que conter os valores:
+// null, undefined, "", 0 e false será considerada como falsy (falso no contexto booleano - link da documentação https://developer.mozilla.org/en-US/docs/Glossary/Falsy)
+// Ao converter um valor falsy utilizando Number() teremos 0 como resultado.
+
+
+
+// E SE ELE DIGITAR UM TEXTO AO INVÉS DE NÚMERO?
+// Resposta: o valor retornado através da conversão de um texto (que não seja apenas número) para number utilizando Number() resultará em NaN
+// NaN significa Not-A-Number e só pode ser testado com o método isNaN()
+// link da documentação https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/NaN
+
+// if(isNaN(kmPercorridos)) {
+//     // isNaN => digitou texto => errou
+//     console.log("Digite apenas numeros")
+    
+// } else {
+//     // calculo visando o acerto
+// }
