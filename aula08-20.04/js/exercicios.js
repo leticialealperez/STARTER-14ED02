@@ -45,16 +45,17 @@ Ao final o sistema deverá mostrar um resumo final sobre o carrinho de compras c
  - Botão 3 - Imprimir resumo da compra
 */
 
-// GLOBAL
+// GLOBAL - Variável declarada fora de funções ou blocos poderão ser acessadas e modificadas em qualquer parte da aplicação
+
 // let carrinho = {
 //     itens: []
 // }
 
-
+// exemplo variável global
 let listaAluno = []
 
 
-// LOCAL
+// LOCAL - variável declara dentro de uma função só poderá ser acessada dentro da respectiva função
 function adicionarAluno() {
     // quando a variavel está apagada ela não esta sendo usada em lugar nenhum
     let novoAluno = {}
@@ -65,30 +66,37 @@ function adicionarAluno() {
     // console.log(novoAluno)
 
 
-    listaAluno.push(novoAluno) // [0] => { nome: 'Charles', turma: 'Starter 14ed'}
+    listaAluno.push(novoAluno) // [0] => ex: { nome: 'Charles', turma: 'Starter 14ed'}
 }
 
-// listaAlunos => plural => vários alunos
-// listaAlunos[0] => singular => { nome: 'Charles', turma: 'Starter 14ed'}
 
 
+// FUNÇÃO PARA LISTAR OS DADOS DE LISTA ALUNOS
 function listarAlunos() {
     for (let aluno of listaAluno) {
+
+        // listaAlunos => plural => vários alunos
+        // listaAlunos[0] => singular => { nome: 'Charles', turma: 'Starter 14ed'}
         document.write(`<p>${aluno.nome} - ${aluno.turma}</p>`)
+
     }
 }
 
 
-// BLOCO
+// BLOCO - variável declara dentro de um bloco (condicional ou de repetição) só poderá ser acessada dentro do respectivo bloco
+
+// EXEMPLO 1
 for (let i = 0; i < listaAluno.length; i++) {
     // EXISTENTE SOMENTE DENTRO DO FOR
 }
 
+// EXEMPLO 2
 if (true) {
+    // EXISTENTE SOMENTE DENTRO DO IF
     let item = 'arroz'
 }
 
-// NÃO DA CERTO
+// ISSO NÃO DA CERTO 
 console.log(i)
 console.log(item)
 
