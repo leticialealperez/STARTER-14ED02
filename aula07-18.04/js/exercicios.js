@@ -54,18 +54,18 @@ exatamente como está na atividade.
 //  let lista = [1, 2, 3]
 
 
- // CHAVE - objs => propriedades/atributos  ====  array => indices
- // VALOR - 
+// CHAVE - objs => propriedades/atributos  ====  array => indices
+// VALOR - 
 
- // for in => sempre vai ter acesso a CHAVE
- // ARRAYS como para OBJETOS
+// for in => sempre vai ter acesso a CHAVE
+// ARRAYS como para OBJETOS
 //  for(let key in lista){
 //     console.log(`${key} = ${lista[key]}`)
 //  }
 
 
- // for of => VALOR
- // ARRAYS
+// for of => VALOR
+// ARRAYS
 //  for(let numero of lista){
 //     console.log(`${numero}`)
 //  }
@@ -118,13 +118,13 @@ aluno2.nome = prompt('Digite o nome do Aluno 2: ')
 let somaAluno1 = 0;
 let somaAluno2 = 0;
 
-for(let contador = 0; contador < 2; contador++) {
+for (let contador = 0; contador < 2; contador++) {
     const nota = Number(prompt(`Aluno 1 - Digite a nota ${contador + 1}: `))
     somaAluno1 += nota;
     aluno1.notas.push(nota)
 }
 
-for(let contador = 0; contador < 2; contador++) {
+for (let contador = 0; contador < 2; contador++) {
     const nota = Number(prompt(`Aluno 2 - Digite a nota ${contador + 1}: `))
     somaAluno2 += nota;
     aluno2.notas.push(nota)
@@ -163,3 +163,45 @@ Nome: Alessandro, Idade: 28, Salário: 3000
 
 
 */
+
+lista = [
+    // [0]
+    {
+        nome: 'Joao',
+        sobrenome: 'da Silva'
+    },
+
+    // [1]
+    {
+        nome: 'Maria',
+        sobrenome: 'da Rosa'
+    }
+]
+
+// ISSO NÃO FUNCIONA
+// let meuObj = {
+//     nome: prompt(''),
+//     sobrenome: prompt('')
+// }
+
+
+// ISSO FUNCIONA
+// let obj = {}
+// obj.nome = prompt('')
+
+for (let i = 0; i < lista.length; i++) {
+    console.log(lista[i])
+}
+
+lista.push({
+    nome: 'Pedro',
+    sobrenome: 'Teixeira'
+})
+
+// lista[0]
+// lista[1]
+// lista[2]
+// lista[3]
+
+// lista[0].nome
+// lista[0]['nome']
