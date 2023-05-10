@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Growdev - Lista de Recados</title>
+    <link rel="stylesheet" href="index.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+    <main class="flex-center">
+        <div class="wrapper">
+            <h1>Growdev</h1>
+            <h3>Front-end II / DOM</h3>
+        </div>
+    </main>
+    <section class="flex-center">
+        <div class="wrapper">
+            <div id="programa">
+                <h2>Programa</h2>
+                <p>Starter Web Full-Stack</p>
+            </div>
+            <div id="turma">
+                <h2>Turma</h2>
+                <p>xª Edição</p>
+            </div>
+            <div id="modulo">
+                <h2>Módulo</h2>
+                <p>Front-end II</p>
+            </div>
+            <div id="presenca">
+                <div class="flex-row-center">
+                    <div>
+                        <p>
+                            Alunos presentes: 
+                            <span id="presentes">0</span>
+                        </p>
+                        <button id="btn-incluir" class="incluir">
+                            Incluir presença
+                        </button>
+                    </div>
+                    <div style="margin-left: 24px">
+                        <p class="vermelho" id="mensagem-presenca">
+                            Espere por mais alunos para começar!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="./index.js"></script>
+</body>
+
+</html>
