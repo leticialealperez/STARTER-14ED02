@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário</title>
+</head>
+<body>
+    
+    <form id="cadastro">
+        <fieldset>
+            <legend>Dados Pessoais</legend>
+
+            <!-- todo input deve ser filho de um form -->
+            <div style="margin-top: 16px;">
+                <label for="nome">Nome Completo: </label>
+            
+                <input id="nome" name="nome" type="text" minlength="10" maxlength="15" placeholder="Ex: João da Silva">
+            </div>
+            
+            <div style="margin-top: 16px;">
+                <label for="email">E-mail: </label>
+            
+                <input id="email" name="" type="email" required>
+            </div>
+            
+            <div style="margin-top: 16px;">
+                <label for="password">Password: </label>
+            
+                <input id="password" name="" type="password" required minlength="6">
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>Dados Profissionais</legend>
+
+            <div style="margin-top: 16px;">
+                <label for="email">Area de Interesse: </label>
+                
+                <!-- CHECK BOX-->
+                <input type="checkbox" name="area-interesse" id="opcao1" value="TI" checked>
+                <label for="opcao1">TI</label>
+
+                <input type="checkbox" name="area-interesse" id="opcao2" value="Administração">
+                <label for="opcao2">Administração</label>
+
+                <input type="checkbox" name="area-interesse" id="opcao3" value="Direito">
+                <label for="opcao3">Direito</label>
+
+                <input type="checkbox" name="area-interesse" id="opcao4">
+                <label for="opcao4">Profissão 4</label>
+
+                <input type="checkbox" name="area-interesse" id="opcao5">
+                <label for="opcao5">Profissão 5</label>  
+            </div>
+
+            <div style="margin-top: 16px;">
+                <label for="">Alocado no mercado: </label>
+
+                <!-- RADIO -->
+                <input type="radio" name="alocado-mercado" id="alocado-opcao1" value="sim" >
+                <label for="alocado-opcao1">Sim</label>
+
+                <input type="radio" name="alocado-mercado" id="alocado-opcao2" value="nao" >
+                <label for="alocado-opcao2">Não</label>
+
+                <input type="radio" name="alocado-mercado" id="alocado-opcao3" value="freela" >
+                <label for="alocado-opcao3">Freela</label>
+            </div>
+
+            <div style="margin-top: 16px;">
+                <label for="">Forma de contratação: </label>
+            
+                <!-- SELECT - OPTION -->
+                <select name="forma-contratacao" id="forma-contratacao">
+                    <option value="" disabled selected>- Selecione -</option>
+                    <option value="PJ">PJ</option>
+                    <option value="CLT">CLT</option>
+                    <option value="Freela">Freela</option>
+                    <option value="Concursado">Concursado</option>
+                    <option value="QI">QI</option>
+                    <option value="MEI">MEI</option>
+                </select>
+            </div>
+
+        </fieldset>
+
+        <!-- INPUT DE AÇÃO -->
+        <div>
+            <input type="button" value="Faz Alguma Coisa">
+        </div>
+
+        <div>
+            <input type="submit" value="Salvar">
+        </div>
+
+        <div>
+            <input type="reset" value="Limpar">
+        </div>
+
+    </form>
+
+    <script>
+        const formElement = document.getElementById('cadastro')
+
+        formElement.onsubmit = (evento) => {
+            evento.preventDefault()
+
+            const valido = evento.currentTarget.checkValidity();
+
+            if(!valido) {
+                alert("Algo de errado não está certo!")
+                return
+            }
+
+            
+
+            // console.log(evento.currentTarget.nome.value)
+        }
+
+        // formElement.addEventListener('submit', () => {
+
+        // })
+    </script>
+
+</body>
+</html>
