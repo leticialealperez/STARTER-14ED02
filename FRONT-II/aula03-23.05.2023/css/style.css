@@ -13,11 +13,11 @@ main {
 }
 
 section {
-    width: 300px;
+    width: 30%;
     height: min-content;
     background-color: #fff;
     position: absolute;
-    left: calc((100vw / 2) - (300px / 2));
+    left: calc((100vw / 2) - (30% / 2));
     top: calc((100vh / 2) - (300px / 2));
     border-radius: 15px;
     box-shadow: 0px 10px 30px -3px rgba(0,0,0,0.5);
@@ -69,4 +69,25 @@ input[type="submit"] {
 
 input[type="submit"]:hover {
   background-color: #3a3a3a;
+}
+
+@media(max-width: 1000px) {
+  section {
+    width: 40%;
+    left: calc((100vw / 2) - (40% / 2));
+  }
+}
+
+@media(max-width: 600px) {
+  section {
+    width: 70%;
+    left: calc((100vw / 2) - (70% / 2));
+  }
+}
+
+@media(max-width: 400px) {
+  section {
+    width: 90%;
+    left: calc((100vw / 2) - (90% / 2));
+  }
 }
