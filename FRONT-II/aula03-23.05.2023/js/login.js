@@ -1,3 +1,36 @@
+// document.onload = () => {
+// }
+
+document.addEventListener('DOMContentLoaded', () => {
+    // 1 - verifica se tem algo chamado 'token' no localStorage
+    // 1 - chave , 2 - valor
+
+    // OBS: quando precisamos armazenar OBJETOS OU ARRAYS no local ou session storage
+
+    // Converter um objeto/array => string   ==== JSON.stringify()
+    // const teste = { nome: 'Leticia' }
+    // JSON.stringify(teste)
+
+
+    // Converter um string/json => objeto/array   ==== JSON.parse()
+    // const teste = { "nome": "Leticia" }
+    // const convertido = JSON.parse(teste)
+    // console.log(convertido.nome)
+
+    const tokenLocalStorage = localStorage.getItem('token')
+
+    const tokenSessionStorge = sessionStorage.getItem('token')
+
+
+    console.log(tokenLocalStorage)
+    console.log(tokenSessionStorge)
+
+    if (tokenLocalStorage || tokenSessionStorge) {
+        window.location.href = 'home.html'
+    }
+
+})
+
 const formLoginElement = document.getElementById('form-login');
 
 formLoginElement.addEventListener('submit', async (evento) => {

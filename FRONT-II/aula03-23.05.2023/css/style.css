@@ -71,6 +71,13 @@ input[type="submit"]:hover {
   background-color: #3a3a3a;
 }
 
+.container-contato {
+  border: 2px solid #3a3a3a;
+  padding: 18px;
+  margin: 8px 28px;
+}
+
+
 @media(max-width: 1000px) {
   section {
     width: 40%;

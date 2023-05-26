@@ -4,9 +4,35 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recados</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <title>Contatos</title>
 </head>
 <body>
-    <h1>Recados</h1>
+    <button id="btn-sair">Sair</button>
+    <h1>Meus Contatos</h1>
+    <hr>
+    <p id="texto-apresentacao">
+        <!-- valor aqui depende de quem está logado -->
+    </p>
+
+    <main id="espaco-cards">
+        <div class="container-contato">
+            <h3>João</h3>
+            <p>(51) 9988-7755</p>
+            <p>joao@teste.com</p>
+        </div>
+        
+    </main>
+
+
+
+    <!-- CND axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <!-- config baseURL axios -->
+    <script src="./js/config-axios.js"></script>
+
+    <!-- nossa lógica de manipulação da DOM -->
+    <script src="./js/home.js"></script>
 </body>
 </html>
