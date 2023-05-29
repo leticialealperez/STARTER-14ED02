@@ -17,11 +17,33 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (emailLocal) {
         paragrafo.innerText = `Bem vindo, ${emailLocal}`
 
-        listContatos = await buscarContatos(emailLocal)
+        /*
+            {
+                "sucesso": true,
+                "paginaAtual": 3,
+                "totalRegistros": 22,
+                "totalPaginas": 3,
+                "mensagem": "Contatos do usuário leticia@teste.com listados com sucesso!",
+                "dados": []
+            }
+        
+        */
 
-        listContatos.forEach((contato) => {
-            montarCard(contato)
-        });
+        const respostaApi = await buscarContatos(emailLocal) // { modelo da api }
+
+        // se não tiver resposta da api (caiu no catch) não monta os cards e nem nada abaixo
+        if (!respostaApi) {
+            return
+        }
+
+        // se tiver resposta da api monta os cards e tudo mais
+        listContatos = respostaApi.dados
+
+        montarCard(listContatos)
+
+        // verifica a quantidade total de paginas para montar a quantidade certa de botões
+        // console.log(respostaApi.totalPaginas)
+        montarBotoes(emailLocal, respostaApi.totalPaginas)
     }
 
     if (emailSession) {
@@ -36,21 +58,26 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 })
 
-async function buscarContatos(emailUsuarioLogado) {
+async function buscarContatos(emailUsuarioLogado, paginaMostrada) {
+    paginaAtual = paginaMostrada
     try {
-        const resposta = await apiConfig.get(`/users/${emailUsuarioLogado}/contatos/listar`)
+        const resposta = await apiConfig.get(`/users/${emailUsuarioLogado}/contatos/listar`, {
+            params: {
+                pagina: paginaMostrada || 1,
+            }
+        })
 
         console.log(resposta.data.dados)
-        return resposta.data.dados
+        return resposta.data
 
     } catch (erro) {
         console.log(erro)
-        return []
+        return false
     }
 }
 
 // construir os cards de contatos
-function montarCard(contato) {
+function montarCard(contatos) {
     /*
         <div class="container-contato">
             <h3>João</h3>
@@ -60,26 +87,52 @@ function montarCard(contato) {
     */
 
     const main = document.getElementById('espaco-cards');
+    main.innerHTML = ''
 
-    // criar a div
-    const div = document.createElement('div') // <div></div>
-    div.classList.add('container-contato') // <div class="container-contato"></div>
+    contatos.forEach((contato) => {
+        // criar a div
+        const div = document.createElement('div') // <div></div>
+        div.classList.add('container-contato') // <div class="container-contato"></div>
 
-    // criar h3
-    const h3 = document.createElement('h3') // <h3></h3>
-    h3.innerText = contato.nome // // <h3>João</h3>
+        // criar h3
+        const h3 = document.createElement('h3') // <h3></h3>
+        h3.innerText = contato.nome // // <h3>João</h3>
 
-    const paragrafoTelefone = document.createElement('p') // <p></p>
-    paragrafoTelefone.innerText = contato.telefone // <p>(51) 9988-7755</p>
+        const paragrafoTelefone = document.createElement('p') // <p></p>
+        paragrafoTelefone.innerText = contato.telefone // <p>(51) 9988-7755</p>
 
-    const paragrafoEmail = document.createElement('p') // <p></p>
-    paragrafoEmail.innerText = contato.email // <p>joao@teste.com</p>
+        const paragrafoEmail = document.createElement('p') // <p></p>
+        paragrafoEmail.innerText = contato.email // <p>joao@teste.com</p>
 
-    // ordem de montagem da DOM
-    div.appendChild(h3)
-    div.appendChild(paragrafoTelefone)
-    div.appendChild(paragrafoEmail)
-    main.appendChild(div)
+        // ordem de montagem da DOM
+        div.appendChild(h3)
+        div.appendChild(paragrafoTelefone)
+        div.appendChild(paragrafoEmail)
+        main.appendChild(div)
+    });
+}
+
+// construir os botoes de navegação
+function montarBotoes(emailUsuario, quantidade) {
+    const divEspaco = document.getElementById('espaco-botoes')
+
+    /*
+
+        <button onclick="buscarContatos(email, 1)">Pagina 1</button>
+
+    */
+
+    for (let contador = 1; contador <= quantidade; contador++) {
+        const button = document.createElement('button') // <button></button>
+        button.setAttribute('class', `btn-paginacao pagina-${contador}`)
+        button.innerText = `Página ${contador}` // <button>Página 1</button>
+        button.addEventListener('click', async () => {
+            const respostaApi = await buscarContatos(emailUsuario, contador)
+            montarCard(respostaApi.dados)
+        })
+
+        divEspaco.appendChild(button)
+    }
 
 }
 
@@ -101,5 +154,11 @@ btnSair.addEventListener('click', () => {
     // direcionar o usuario pra página de login
     window.location.href = 'index.html'
 })
+
+
+
+function click(numPagina) {
+    alert(numPagina)
+}
 
 
