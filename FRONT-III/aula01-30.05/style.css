@@ -1,0 +1,47 @@
+/*
+
+OBS: se o container não tiver seu próprio tamanho, ele vai pegar o tamanho total do conteúdo dos seus elementos filhos 
+
+*/
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* DISPLAY FLEX - FLEX CONTAINER */
+.container {
+    height: 50vh;
+    background-color: #cccc;
+    display: flex;
+    flex-direction: row; /* eixo principal começa na esquerda e aponta para a direita */
+    /* flex-direction: column; eixo principal deve começar de cima e apontar para baixo */
+    /* flex-direction: row-reverse; eixo principal começa na direita e aponta para a esquerda */
+    /* flex-direction: column-reverse; eixo principal deve começar de baixo e apontar para cima */
+    justify-content: space-between; /*OBS: row = alinhar horizontalmente | column = alinhar verticalmente */
+    align-items: center; /*OBS: row = alinha verticalmente  | column = alinha horizontalmennte */
+}
+
+/* FLEX ITEMS - CONTINUA SENDO BLOCK */
+.caixa {
+    width: 100px;
+    height: 100px;
+}
+
+.verde {
+    background-color: green;
+    align-self: flex-end;
+}
+
+.vermelha {
+    background-color: red;
+}
+
+.amarela {
+    background-color: yellow;
+}
+
+.azul {
+    background-color: blue;
+}
