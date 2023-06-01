@@ -1,0 +1,74 @@
+h1, h3 {
+    color: red;
+}
+
+
+/* Celulares / MOBILE */
+/* a propriedade de cor dos textos irão mudar em dispositivos com até 576px */
+@media (max-width: 576px) {
+    /*regras css*/
+    h1, h3 {
+        color: green;
+    }
+
+    h1 {
+        font-size: 60px;
+    }
+
+    h3 {
+        text-decoration: underline;
+    }
+
+    .card {
+        
+    }
+}
+
+
+/* Tablets */
+/* de 577px até 992px */
+@media (min-width: 577px) and (max-width: 992px) {
+    /* regra de tablets */
+
+    h1, h3 {
+        color: blue;
+    }
+}
+
+
+/* Netbooks - possuem até 13pol +/- */
+/* 993px até 1200px */
+@media (min-width: 993px) and (max-width: 1200px) {
+    /* regra de netbooks */
+
+    h1, h3 {
+        color: orange;
+    }
+}
+
+
+/* Notebooks - possuem até 15pol +/- */
+/* de 1200px até 1400px  */
+@media (min-width: 1201px) and (max-width: 1400px) {
+    /* regra de notebooks */
+
+    h1, h3 {
+        color: blueviolet;
+    }
+
+    .class {
+
+    }
+
+
+    #identificador {
+
+    }
+}
+
+
+/* Desktop - possuem até 20pol +/- */
+/* acima 1400px  */
+
+
+/* Outros - tamanho > 20pol +/- */
