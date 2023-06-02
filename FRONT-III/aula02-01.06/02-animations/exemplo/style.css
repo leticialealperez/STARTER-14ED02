@@ -1,0 +1,64 @@
+h1 {
+    animation: flip-horizontal-bottom 2s cubic-bezier(0.550, 0.055, 0.675, 0.190) 2s infinite alternate-reverse;
+}
+
+@keyframes flip-horizontal-bottom {
+  0% {
+    transform: rotateX(0);
+  }
+  100% {
+    transform: rotateX(-180deg);
+  }
+}
+
+
+.quadrado {
+    width: 200px;
+    height: 200px;
+    background-color: red;
+    opacity: 1;
+    position: absolute;
+    animation: Animacao2 5s infinite ease-in; /* inicio e final dos percentuais */
+}
+
+/*rápido no inicio devagar no final */
+
+.quadrado2 {
+    width: 150px;
+    height: 150px;
+    background-color: blue;
+    position: absolute;
+    top: 250px;
+    animation: Animacao2 10s infinite; /**/
+}
+
+@keyframes Animacao1 {
+    /* estágio inicial */
+    from {
+        left: 0;
+    }
+
+    /* estágio final */
+    to {
+        right:0;
+    }
+}
+
+@keyframes Animacao2 {
+    /* 0% de Xsegundos */
+    0% {
+      left: 50px; 
+      background-color: blueviolet; 
+    }
+
+    /* 50% de X segundos */
+    50% {
+        left: 100px;
+        background-color: blue; 
+    }
+
+    /* quantidade em segundos */
+    100% {
+        left: 500px;
+    }
+}
