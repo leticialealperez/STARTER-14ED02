@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- CSS BOOTSTRAP -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+
+    <!-- ICONS BOOTSTRAP -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+    <!-- MEU CSS -->
+    <link rel="stylesheet" href="./css/style.css">
+
+    <title>Acessar | Recados</title>
+</head>
+
+<body data-bs-theme="dark">
+
+    <main class="container-fluid vh-100">
+        <!-- DUAS COLUNAS -->
+        <div class="row h-100">
+            <div class="d-none d-sm-block col-sm-4 col-md-6 col-lg-8 bg-img">
+                <!-- AQUI É UMA COLUNA VAZIA SÓ COM UM BG IMG -->
+            </div>
+            <div class="col-12 col-sm-8 col-md-6 col-lg-4 d-flex align-items-center">
+                <div class="container">
+                    <div class="row gy-3">
+                        <!-- CABEÇALHO TITULO -->
+                        <div class="col-12">
+                            <div class="container text-center">
+                                <i class="bi bi-person-circle fs-1 text-default"></i>
+                                <h1>Login</h1>
+                                <p class="lead">
+                                    Insira suas credenciais para acessar o sistema.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- FORMULARIO -->
+                        <div class="col-12">
+                            <form class="row g-3 needs-validation" novalidate id="form-login">
+                                <div class="col-12">
+                                    <label for="login-email" class="form-label">E-mail</label>
+                                    <input type="email" class="form-control" id="login-email" required>
+
+                                    <div class="valid-feedback">
+                                        OK! ✅
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Not OK! ❌
+                                    </div>
+                                </div>
+
+
+                                <div class="col-12">
+                                    <label for="login-senha" class="form-label">Senha</label>
+                                    <input type="password" class="form-control" id="login-senha" required minlength="6">
+
+                                    <div class="valid-feedback">
+                                        OK! ✅
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Not OK! ❌
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <button class="btn btn-primary w-100" type="submit">Acessar</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- RODAPÉ -->
+                        <div class="col-12 text-center">
+                            <p>
+                                <small>
+                                    Não possui conta?
+                                    <a href="#" class="text-decoration-none text-default" data-bs-toggle="modal"
+                                        data-bs-target="#exampleModal">Cadastre-se</a>
+                                </small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- FIXO, ABSOLUTOS, RELATIVOS -->
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="row g-3 needs-validation" novalidate id="form-login">
+                                <div class="col-12">
+                                    <label for="login-email" class="form-label">E-mail</label>
+                                    <input type="email" class="form-control" id="login-email" required>
+
+                                    <div class="valid-feedback">
+                                        OK! ✅
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Not OK! ❌
+                                    </div>
+                                </div>
+
+
+                                <div class="col-12">
+                                    <label for="login-senha" class="form-label">Senha</label>
+                                    <input type="password" class="form-control" id="login-senha" required minlength="6">
+
+                                    <div class="valid-feedback">
+                                        OK! ✅
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Not OK! ❌
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <button class="btn btn-primary w-100" type="submit">Acessar</button>
+                                </div>
+                            </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="botao-confirmar">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JS BOOTSTRAP -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+
+    <!-- MEU JS -->
+    <script src="./js/index.js"></script>
+</body>
+
+</html>

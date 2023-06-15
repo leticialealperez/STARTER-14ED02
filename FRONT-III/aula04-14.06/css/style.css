@@ -1,0 +1,37 @@
+/* CRIAR VARIAVEIS DE CORES, ETC DA APLICAÇÃO */
+/* PRIMARIA E A SECUNDÁRIA */
+:root {
+    --cor-primaria: #FF8533;
+    --cor-secundaria: #2e3c64;
+    --cor-borda-input: #ff85336c;
+}
+
+.bg-img {
+    background-image: url(../assets/1.jpg);
+    background-size: cover;
+    background-position: center;
+}
+
+.btn-primary {
+    background-color: var(--cor-primaria);
+    border-color: var(--cor-primaria);
+}
+
+.btn-primary:hover {
+    background-color: var(--cor-secundaria);
+    border-color: var(--cor-secundaria);
+}
+
+
+.form-control:focus {
+    border-color: var(--cor-primaria);
+    box-shadow: 0 0 0 .25rem var(--cor-borda-input);
+}
+
+.text-default {
+    color: var(--cor-primaria);
+}
+
+.text-default:hover {
+    color: var(--cor-secundaria);
+}
