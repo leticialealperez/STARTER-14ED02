@@ -28,6 +28,19 @@ h1 {
     background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
 }
 
+.card {
+    height: 500px;
+}
+
+.card-img-top {
+    width: 100%;
+    height: 50%;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
 @media (min-width: 750px) {
     div.input-group {
         width: 70%;

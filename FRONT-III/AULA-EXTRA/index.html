@@ -57,13 +57,13 @@
     <main class="container-fluid pb-2 bg-gradient">
         <div class="container">
             <!-- LISTAGEM DOS CARDS -->
-            <div class="row g-5">
+            <div class="row g-5" id="espaco-cards">
                 <!-- FIXO -->
                 <div class="col-12 col-md-6 col-lg-4">
                     <div class="card w-100">
                         <img src="https://rickandmortyapi.com/api/character/avatar/1.jpeg" class="card-img-top"
                             alt="Avatar">
-                        <div class="card-body">
+                        <div class="card-body px-4">
                             <h5 class="card-title">
                                 Nome Personagem
                             </h5>
@@ -93,18 +93,18 @@
                 <div class="col-12 d-flex justify-content-center">
                     <nav aria-label="...">
                         <ul class="pagination">
-                            <li class="page-item disabled">
+                            <li class="page-item" id="botao-prev">
                                 <a class="page-link">
                                     <i class="bi bi-chevron-compact-left"></i>
                                     Anterior
                                 </a>
                             </li>
 
-                            <li class="page-item active">
+                            <li class="page-item active" id="botao-atual">
                                 <a class="page-link">1</a>
                             </li>
                             
-                            <li class="page-item">
+                            <li class="page-item" id="botao-next">
                                 <a class="page-link">
                                     Próximo
                                     <i class="bi bi-chevron-compact-right"></i>
@@ -123,7 +123,7 @@
             <div class="col-12 offset-lg-3 col-lg-2">
                 <p>
                     Personagens:
-                    <span>XX</span>
+                    <span id="qtd-personagens">XX</span>
                 </p>
             </div>
             <div class="col-12 col-lg-2">
