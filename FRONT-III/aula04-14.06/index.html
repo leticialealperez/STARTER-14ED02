@@ -45,7 +45,7 @@
                             <form class="row g-3 needs-validation" novalidate id="form-login">
                                 <div class="col-12">
                                     <label for="login-email" class="form-label">E-mail</label>
-                                    <input type="email" class="form-control" id="login-email" required>
+                                    <input type="email" class="form-control" id="login-email" name="email" required>
 
                                     <div class="valid-feedback">
                                         OK! ✅
@@ -58,7 +58,7 @@
 
                                 <div class="col-12">
                                     <label for="login-senha" class="form-label">Senha</label>
-                                    <input type="password" class="form-control" id="login-senha" required minlength="6">
+                                    <input type="password" class="form-control" id="login-senha" name="senha" required minlength="6">
 
                                     <div class="valid-feedback">
                                         OK! ✅
@@ -79,8 +79,8 @@
                             <p>
                                 <small>
                                     Não possui conta?
-                                    <a href="#" class="text-decoration-none text-default" data-bs-toggle="modal"
-                                        data-bs-target="#exampleModal">Cadastre-se</a>
+                                    <a class="text-decoration-none text-default" data-bs-toggle="modal"
+                                        data-bs-target="#modal-cadastrar">Cadastre-se</a>
                                 </small>
                             </p>
                         </div>
@@ -92,18 +92,18 @@
 
     <!-- FIXO, ABSOLUTOS, RELATIVOS -->
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="modal-cadastrar" tabindex="-1" aria-labelledby="modalCadastrar" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Novo Usuário</h1>
+                    <h1 class="modal-title fs-5" id="modalCadastrar">Novo Usuário</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar Modal"></button>
                 </div>
                 <div class="modal-body">
                     <form class="row g-3 needs-validation" novalidate id="form-cadastro">
                         <div class="col-12">
                             <label for="cadastro-nome" class="form-label">Nome</label>
-                            <input type="text" class="form-control" id="cadastro-nome" required minlength="3">
+                            <input type="text" class="form-control" id="cadastro-nome" name="nome" required minlength="3">
 
                             <div class="valid-feedback">
                                 OK! ✅
@@ -115,7 +115,7 @@
 
                         <div class="col-12">
                             <label for="cadastro-email" class="form-label">E-mail</label>
-                            <input type="email" class="form-control" id="cadastro-email" required>
+                            <input type="email" class="form-control" id="cadastro-email" name="email" required>
 
                             <div class="valid-feedback">
                                 OK! ✅
@@ -128,7 +128,7 @@
 
                         <div class="col-12">
                             <label for="cadastro-senha" class="form-label">Senha</label>
-                            <input type="password" class="form-control" id="cadastro-senha" required minlength="6">
+                            <input type="password" class="form-control" id="cadastro-senha" name="senha" required minlength="6">
 
                             <div class="valid-feedback">
                                 OK! ✅
@@ -140,7 +140,7 @@
 
                         <div class="col-12">
                             <label for="cadastro-repetir-senha" class="form-label">Repetir Senha</label>
-                            <input type="password" class="form-control" id="cadastro-repetir-senha" required minlength="6" >
+                            <input type="password" class="form-control" id="cadastro-repetir-senha" name="repetir-senha" required minlength="6" >
 
                             <div class="valid-feedback show">
                                 OK! ✅
