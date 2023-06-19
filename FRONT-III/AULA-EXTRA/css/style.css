@@ -3,7 +3,7 @@
 }
 
 h1 {
-   font-size: 3.5rem;
+    font-size: 2.5rem;
 }
 
 .input-group-text {
@@ -41,8 +41,32 @@ h1 {
     cursor: pointer;
 }
 
+@media (max-width: 360px) {
+    h1 {
+        font-size: 2rem;
+    }
+
+    .page-link,
+    .input-group-lg>.btn,
+    .input-group-lg>.form-control,
+    .input-group-lg>.form-select,
+    .input-group-lg>.input-group-text {
+
+        font-size: 0.875rem;
+
+    }
+
+    .text-copyright {
+        font-size: 0.65rem;
+    }
+}
+
 @media (min-width: 750px) {
     div.input-group {
         width: 70%;
+    }
+
+    h1 {
+        font-size: 3.5rem;
     }
 }
