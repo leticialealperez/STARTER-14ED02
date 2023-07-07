@@ -9,33 +9,49 @@ Lista com 2 notas: (N1*P1) + (N2*P2) / 2 = Resultado
 Lista com 3 notas: (N1*P1) + (N2*P2) + (N3*P3) / 3 = Resultado
 */
 
-import { calcMediaPeso } from './Q2';
+import { calcMediaPeso } from './atividade2';
 import { lancarTransacao } from './atividade3';
 
 const listaNotas = [
 	//[0]
 	{
 		valor: 10,
-		peso: 2,
-		// 20
+		peso: 3,
+		// valor * peso = 30
 	},
+
 	//[1]
 	{
 		valor: 8,
 		peso: 3,
-		// 24
+		// valor * peso = 24
 	},
+
+	//[2]
 	{
 		valor: 9,
 		peso: 2,
-		//18
+		//valor * peso = 18
 	},
+
+	//[3]
 	{
 		valor: 7,
-		peso: 3,
-		// 21
+		peso: 2,
+		// valor * peso = 14
 	},
 ];
+
+// REGRA MÉDIA PONDERADA
+// (N1 * P1) + (N2 * P2) + (N3 * P3) + (N4 * P4) / (P1 + P2 + P3 + P4)
+
+// a média ponderada é equivalente à soma das notas multiplicadas pelos seus pesos
+// (N1 * P1) + (N2 * P2) + (N3 * P3) + (N4 * P4) = 86
+
+// o resultado da soma acima deve ser dividido pela soma dos pesos
+// (P1 + P2 + P3 + P4) = 10
+
+// média ponderada = 86 / 10 = 8.6
 
 console.log(calcMediaPeso(listaNotas));
 

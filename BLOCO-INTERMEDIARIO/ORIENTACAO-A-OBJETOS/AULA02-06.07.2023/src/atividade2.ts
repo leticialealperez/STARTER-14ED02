@@ -31,11 +31,13 @@ import { Nota } from './types';
 
 export function calcMediaPeso(listaNotas: Nota[]): number {
 	let TotalNotas: number = 0;
+	let TotalPesos: number = 0;
 
 	listaNotas.forEach((nota) => {
-		let auxiliar: number = nota.valor * nota.peso; //N[0]*P[0]
+		let auxiliar: number = nota.valor * nota.peso; // N[0] * P[0]
 		TotalNotas += auxiliar;
+		TotalPesos += nota.peso;
 	});
 
-	return TotalNotas / listaNotas.length; // returna total / 20
+	return TotalNotas / TotalPesos; // retorna um valor numerico resultante da divisão
 }
