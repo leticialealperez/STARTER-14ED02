@@ -1,4 +1,5 @@
 import prompt from 'prompt-sync';
+import { Aluno } from './classes/Aluno';
 const teclado = prompt();
 
 /*
@@ -24,3 +25,27 @@ const teclado = prompt();
     Ex: Um aluno, Uma empresa, Um imovel
 
 */
+
+const wallace = new Aluno('Wallace', '000.111.222.-33', 27);
+wallace.aprenderHabilidade('CSS');
+wallace.aprenderHabilidade('Javascript');
+wallace.mudarTurma();
+wallace.realizarAtividade(8);
+
+const felipe = new Aluno('Felipe', '222.333.444-55', 21);
+felipe.realizarAtividade(10);
+felipe.mudarTurma();
+felipe.aprenderHabilidade('HTML');
+
+const anderson = new Aluno('Anderson Quym', '555.666.777-88', 18);
+anderson.realizarAtividade(9.8);
+anderson.realizarAtividade(10);
+anderson.realizarAtividade(9);
+anderson.mudarTurma();
+anderson.aprenderHabilidade('Javacsript');
+
+// wallace.nomeCompleto = 'Wallace Dev';
+// wallace.CPF = '000.111.222-33';
+console.log(wallace);
+console.log(felipe);
+console.log(anderson);
