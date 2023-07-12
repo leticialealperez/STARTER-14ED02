@@ -21,6 +21,9 @@ turma: string;
     }
 */
 
+// export interface Aluno2 {
+// }
+
 export class Aluno {
 	nomeCompleto: string;
 	CPF: string;
@@ -52,7 +55,8 @@ export class Aluno {
 		this.notas.push(notaAtividade);
 	}
 
-	mudarTurma() {
+	mudarTurma(novoTurma: string): void {
 		// aqui é uma rotina que vai executar para modifcar uma propriedade
+		this.turma = novoTurma;
 	}
 }
