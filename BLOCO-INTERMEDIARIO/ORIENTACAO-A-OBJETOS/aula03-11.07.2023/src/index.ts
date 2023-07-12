@@ -57,8 +57,8 @@ const google = new Empresa(
 	'Google Inc. LTDA'
 );
 
-google.contratar('Wallace');
-google.contratar('Eduarda');
+// google.contratar('Wallace');
+// google.contratar('Eduarda');
 
 const growdev = new Empresa(
 	'Growdev',
@@ -66,18 +66,25 @@ const growdev = new Empresa(
 	'Growdev Serviços de Tecnologia LTDA.'
 );
 
-growdev.contratar('Fabricio');
-growdev.contratar('Rafael Apolinário');
-growdev.contratar('Leticia');
+// growdev.contratar('Fabricio');
+// growdev.contratar('Rafael Apolinário');
+// growdev.contratar('Leticia');
 
-growdev.demitir('Jaque');
+// growdev.demitir('Jaque');
 
-console.log(google);
-console.log(growdev);
+// console.log(google);
+// console.log(growdev);
 
 let opcao = 0;
 
-while (opcao !== 9) {
-	// recebam o nome do funcionario a ser demitido
-	// receber o nome do funcionario a ser contratado
-}
+do {
+	opcao = +teclado('Informe a opção desejada: '); // casting
+
+	// se opcao for igual a 1 = DEMITIR UM FUNCIONARIO
+	// receber o nome do funcionario a ser demitido utilizando o prompt de comando
+
+	// se opcao for igual a 2 = CONTRATAR UM FUNCIONARIO
+	// receber o nome do funcionario a ser contratado utilizando o prompt de comando
+
+	// se opcao for igual a 0 = sair do laço de repetição e mostrar os dados da empresa
+} while (opcao !== 0);
