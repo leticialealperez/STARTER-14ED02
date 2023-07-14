@@ -24,39 +24,60 @@ turma: string;
 // export interface Aluno2 {
 // }
 
-export class Aluno {
-	nomeCompleto: string;
-	CPF: string;
-	idade: number;
-	habilidades: string[];
-	notas: number[];
-	turma: string;
+export abstract class Aluno {
+	private _nomeCompleto: string;
+	private _CPF: string;
+	private _idade: number;
+	private _habilidades: string[];
+	private _notas: number[];
+	private _turmaAtual: string;
+	private _historicoModificacao: { responsavel: string; motivo: string }[];
 
 	// construtor é a função padrão que sempre executa quando a gente instancia uma classe, serve para setarmos os valores para os atributos da classe
 	constructor(nomeA: string, CpfAluno: string, idade: number) {
 		// parametro
-		this.nomeCompleto = nomeA;
-		this.CPF = CpfAluno;
-		this.idade = idade;
+		this._nomeCompleto = nomeA;
+		this._CPF = CpfAluno;
+		this._idade = idade;
 
 		// default
-		this.habilidades = [];
-		this.notas = [];
-		this.turma = 'Programa Starter - 14ed - Turma 2';
+		this._habilidades = [];
+		this._notas = [];
+		this._turmaAtual = 'Programa Starter - 14ed - Turma 2';
+		this._historicoModificacao = [];
 	}
 
-	aprenderHabilidade(novaHabilidade: string): void {
-		// aqui é uma rotina que vai executar para modifcar uma propriedade
-		this.habilidades.push(novaHabilidade);
+	public aprenderHabilidade(novaHabilidade: string): void {}
+
+	public realizarAtividade(notaAtividade: number): void {}
+
+	public mudarTurma(novoTurma: string): void {}
+
+	public atualizarCPF(responsavel: string, motivo: string, novoCpf: string) {}
+
+	// GETERS -> métodos acessores
+	// deve retornar o tipo do dado do atributo que está tornando acessivel
+	// todo getter não recebe parametro
+	public get nomeCompleto(): string {
+		return this._nomeCompleto;
 	}
 
-	realizarAtividade(notaAtividade: number): void {
-		// aqui é uma rotina que vai executar para modifcar uma propriedade
-		this.notas.push(notaAtividade);
+	public get CPF(): string {
+		return this._CPF;
 	}
 
-	mudarTurma(novoTurma: string): void {
-		// aqui é uma rotina que vai executar para modifcar uma propriedade
-		this.turma = novoTurma;
+	// SETTERS -> métodos modificadores
+	// deve sempre receber um parametro que será o novo valor para o atributo que está setando/modificando
+	// não deve retornar nada
+	public set nomeCompleto(novoNome: string) {
+		if (novoNome.length < 3) {
+			console.log('Nome não pode conter menos que 3 caracters');
+			return;
+		}
+		// registro dessa modificação
+		const dataAtual = new Date();
+		console.log(`Nome modificado em: ${dataAtual}`);
+
+		this._nomeCompleto = novoNome;
 	}
 }

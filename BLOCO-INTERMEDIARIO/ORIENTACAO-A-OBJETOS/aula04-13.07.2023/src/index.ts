@@ -1,6 +1,6 @@
 import prompt from 'prompt-sync';
-import { Aluno } from './classes/Aluno';
 import { Empresa } from './classes/Empresa';
+import { Growdever } from './classes/Growdever';
 const teclado = prompt();
 
 /*
@@ -27,23 +27,34 @@ const teclado = prompt();
 
 */
 
-const wallace = new Aluno('Wallace', '000.111.222.-33', 27);
+const wallace = new Growdever('Wallace', '000.111.222.-33', 27);
+wallace.nomeCompleto = 'Wallace Dev';
+
+wallace.atualizarCPF(
+	'Leticia',
+	'Registro estava errado por erro de sistema',
+	'000.111.222.-35'
+);
+console.log(`${wallace.nomeCompleto} - ${wallace.CPF}`);
+
 wallace.aprenderHabilidade('CSS');
 wallace.aprenderHabilidade('Javascript');
 wallace.mudarTurma('Programa Advanced - 2ed - Turma 1');
 wallace.realizarAtividade(8);
 
-const felipe = new Aluno('Felipe', '222.333.444-55', 21);
+const felipe = new Growdever('Felipe', '222.333.444-55', 21);
 felipe.realizarAtividade(10);
 felipe.mudarTurma('Programa Advanced - 2ed - Turma 2');
 felipe.aprenderHabilidade('HTML');
+console.log(`${felipe.nomeCompleto} - ${felipe.CPF}`);
 
-const anderson = new Aluno('Anderson Quym', '555.666.777-88', 18);
+const anderson = new Growdever('Anderson Quym', '555.666.777-88', 18);
 anderson.realizarAtividade(9.8);
 anderson.realizarAtividade(10);
 anderson.realizarAtividade(9);
 anderson.mudarTurma('Programa Advanced - 3ed - Turma 1');
 anderson.aprenderHabilidade('Javascript');
+console.log(`${anderson.nomeCompleto} - ${anderson.CPF}`);
 
 // wallace.nomeCompleto = 'Wallace Dev';
 // wallace.CPF = '000.111.222-33';
@@ -74,17 +85,3 @@ const growdev = new Empresa(
 
 // console.log(google);
 // console.log(growdev);
-
-let opcao = 0;
-
-do {
-	opcao = +teclado('Informe a opção desejada: '); // casting
-
-	// se opcao for igual a 1 = DEMITIR UM FUNCIONARIO
-	// receber o nome do funcionario a ser demitido utilizando o prompt de comando
-
-	// se opcao for igual a 2 = CONTRATAR UM FUNCIONARIO
-	// receber o nome do funcionario a ser contratado utilizando o prompt de comando
-
-	// se opcao for igual a 0 = sair do laço de repetição e mostrar os dados da empresa
-} while (opcao !== 0);
