@@ -1,12 +1,20 @@
 import { randomUUID } from 'crypto';
 
 abstract class Base {
-	protected _id: string;
-	protected _criadoEm: Date;
+	private _id: string;
+	private _criadoEm: Date;
 
 	constructor() {
 		this._id = randomUUID();
 		this._criadoEm = new Date();
+	}
+
+	public get id(): string {
+		return this._id;
+	}
+
+	public get criadoEm(): Date {
+		return this._criadoEm;
 	}
 }
 
@@ -27,7 +35,7 @@ class Admin extends User {
 	constructor() {
 		super('teste@teste.com', '123');
 
-		this._criadoEm;
+		this.criadoEm;
 	}
 }
 
@@ -35,7 +43,7 @@ class Cliente extends User {
 	constructor() {
 		super('teste@teste.com', '123');
 
-		this._criadoEm;
+		this.criadoEm;
 	}
 }
 
