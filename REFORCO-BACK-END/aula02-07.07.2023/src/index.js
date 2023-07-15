@@ -185,8 +185,8 @@ app.get('/transacoes', (request, response) => {
             })
         }
 
-        // 200 - 500
-        // [, 200, 300, 400,]
+        // min200 - max500
+        // [100, 200, 300, 400, 600]
         listaTransacoesFiltrada = listaTransacoesFiltrada.filter((transacao) => transacao.valor >= valorMinConvertido && transacao.valor <= valorMaxConvertido)
 
         return response.status(200).json({
@@ -207,8 +207,6 @@ app.get('/transacoes', (request, response) => {
             })
         }
 
-        // 200 - 500
-        // [, 200, 300, 400,]
         listaTransacoesFiltrada = listaTransacoesFiltrada.filter((transacao) => transacao.valor >= valorMinConvertido)
     }
 
@@ -223,8 +221,6 @@ app.get('/transacoes', (request, response) => {
             })
         }
 
-        // 200 - 500
-        // [, 200, 300, 400,]
         listaTransacoesFiltrada = listaTransacoesFiltrada.filter((transacao) => transacao.valor <= valorMaxConvertido)
     }
 
