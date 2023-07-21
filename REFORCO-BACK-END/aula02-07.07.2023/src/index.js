@@ -34,7 +34,7 @@ const carteira = {
 // CADASTRO
 // POST => verbos/metodos
 app.post('/transacoes', (request, response) => {
-    const { valor, tipo } = request.body;
+    const { valor, tipo, descricao } = request.body;
     // validar se existe .valor dentro do body
     // "", 0, undefined, null
     if (!valor) {
@@ -72,11 +72,18 @@ app.post('/transacoes', (request, response) => {
         })
     }
 
+    if (!descricao) {
+        return response.status(400).json({
+            mensagem: 'É preciso informar a descrição da transação'
+        })
+    }
+
     // nesta linha
     const novaTransacao = {
         id: randomUUID(), // "123dsd45-4548sdsd78-fvsds-454sdsd54"
         valor: valorConvertido,
         tipo: tipoConvertido,
+        descricao: descricao,
         dataLancamento: new Date().toLocaleString('pt-BR')
     }
 
@@ -140,7 +147,7 @@ app.get('/transacoes/:idTransacao', (request, response) => {
 // deve ser possível listar transações entre um range de valor (min && max) - OK
 // deve ser possível listar transações com um valor mínimo - OK
 // deve ser possível listar transações com um valor máximo - OK
-// REGRA: mostrar apenas as propriedades tipo, valor e dataLancamento - OK
+// REGRA: mostrar apenas as propriedades tipo, valor, dataLancamento e descricao - OK
 app.get('/transacoes', (request, response) => {
 
     // FILTROS NÃO PODE SER OBRIGATÓRIO
@@ -191,7 +198,7 @@ app.get('/transacoes', (request, response) => {
 
         return response.status(200).json({
             mensagem: "Transações listadas com sucesso!",
-            transacoes: listaTransacoesFiltrada.map(({ valor, tipo, dataLancamento }) => ({ valor, tipo, dataLancamento }))
+            transacoes: listaTransacoesFiltrada.map(({ valor, tipo, dataLancamento, descricao }) => ({ valor, tipo, dataLancamento, descricao }))
         })
 
     }
@@ -231,7 +238,7 @@ app.get('/transacoes', (request, response) => {
 
         //     return { valor, tipo, dataLancamento }
         // })
-        transacoes: listaTransacoesFiltrada.map(({ valor, tipo, dataLancamento }) => ({ valor, tipo, dataLancamento }))
+        transacoes: listaTransacoesFiltrada.map(({ valor, tipo, dataLancamento, descricao }) => ({ valor, tipo, dataLancamento, descricao }))
     })
 })
 
@@ -239,6 +246,7 @@ app.get('/transacoes', (request, response) => {
 // ATUALIZAR
 // PUT => verbos/metodos
 //
+
 
 
 // DELETAR
