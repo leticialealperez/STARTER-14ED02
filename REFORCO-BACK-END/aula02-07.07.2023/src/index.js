@@ -14,6 +14,7 @@ app.get('/', (request, response) => {
 
 
 // definição da variável que será a carteira com saldo e as transações realizadas
+
 const carteira = {
     saldo: 0,
     transacoes: []
@@ -31,7 +32,7 @@ app.post('/transacoes', (request, response) => {
         })
     }
 
-    const valorConvertido = Number(valor)
+    const valorConvertido = Number(valor) // "1000" => 1000
 
     if (isNaN(valorConvertido) || valorConvertido < 0) {
         return response.status(400).json({
@@ -202,15 +203,109 @@ app.get('/transacoes', (request, response) => {
     })
 })
 
+/*
+    id - não vai ser modificado
+    dataLancamento - não vai ser modificado
+    valor - 
+    tipo - 
+    descricao - 
 
+*/
 // ATUALIZAR
 // PUT => verbos/metodos
+app.put('/transacoes/:idTransacao', (request, response) => {
+    // todas as propriedades a serem atualizadas são opcionais na entrada do dado
+    const { valor, tipo, descricao } = request.body;
+    const { idTransacao } = request.params;
+
+    console.log(request.body);
+    // ao menos uma propriedade deve ser atualizada
+    if (!valor && !tipo && !descricao) {
+        return response.status(400).json({
+            mensagem: 'É preciso informar ao menos uma propriedade a ser atualizada.'
+        })
+    }
+
+    let valorConvertido; // undefined
+
+    if (valor) {
+        valorConvertido = Number(valor)
+
+        // aceita somente números e deve ser igual ou maior que zero
+        if (isNaN(valorConvertido) || valorConvertido < 0) {
+            return response.status(400).json({
+                mensagem: "O valor não pode ser negativo e deve ser um dado numérico.",
+            })
+        }
+    }
+
+    // só é aceito 'entrada' e 'saida'
+    let tipoConvertido; // undefined
+
+    if (tipo) {
+        if (typeof tipo === 'string') {
+            tipoConvertido = tipo.toLowerCase()
+        }
+
+        if (tipoConvertido !== 'entrada' && tipoConvertido !== 'saida') {
+            return response.status(400).json({
+                mensagem: 'O tipo precisa ser "entrada" ou "saida"',
+            })
+        }
+    }
+
+    // COMO VOU SABER QUAL TRANSAÇÃO PRECISO ATUALIZAR? pelo ID [2] = {...}
+    const indiceEncontrado = carteira.transacoes.findIndex((transacao) => transacao.id === idTransacao) // 0, 1, 2, 3 ...
+
+    // não encontrou nenhuma transação pelo ID informado na rota
+    if (indiceEncontrado === -1) {
+        return response.status(404).json({
+            mensagem: 'Transação não encontrada pelo ID informado.'
+        })
+    }
+
+    //    0, "", null, undefined, false => false => NÃO/FALSE
+    //    1, " ", true => true
+    const listaCopia = [...carteira.transacoes]
+    const novaTransacao = {
+        ...listaCopia[indiceEncontrado], // copiar as infos de ID e dataLancamento
+        tipo: tipoConvertido || listaCopia[indiceEncontrado].tipo,
+        valor: valorConvertido || listaCopia[indiceEncontrado].valor,
+        descricao: descricao || listaCopia[indiceEncontrado].descricao
+    }
+
+    listaCopia[indiceEncontrado] = novaTransacao
+
+    console.log(carteira.transacoes)
+
+    const novoSaldo = listaCopia.reduce((valorInicial, transacao) => {
+        if (transacao.tipo === 'entrada') {
+            return valorInicial + transacao.valor
+        }
+
+        if (transacao.tipo === 'saida') {
+            return valorInicial - transacao.valor
+        }
+    }, 0)
+
+    if (novoSaldo < 0) {
+        return response.status(400).json({
+            mensagem: "Não é possível modificar a transação informada por não possui saldo suficiente para o decremento."
+        })
+    }
+
+    carteira.transacoes[indiceEncontrado] = listaCopia[indiceEncontrado]
 
 
-
+    return response.status(200).json({
+        mensagem: 'Transação atualizada com sucesso.',
+        transacao: carteira.transacoes[indiceEncontrado]
+    })
+})
 
 // DELETAR
 // DELETE => verbos/metodos
+
 
 
 
