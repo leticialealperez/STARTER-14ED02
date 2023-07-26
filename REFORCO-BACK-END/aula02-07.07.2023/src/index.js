@@ -305,13 +305,3 @@ app.put('/transacoes/:idTransacao', (request, response) => {
 
 // DELETAR
 // DELETE => verbos/metodos
-
-
-
-
-
-
-
-
-
-
