@@ -7,7 +7,7 @@ interface DetalhesTurma {
 	alunos: Growdever[];
 }
 
-class Turma {
+export class Turma {
 	private _id: string;
 	private _edicao: string;
 	private _programa: string;
