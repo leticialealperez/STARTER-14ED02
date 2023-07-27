@@ -1,3 +1,7 @@
-import { Growdever } from '../models/Growdever';
+import { Growdever } from "../models/Growdever";
 
-const alunos: Growdever[] = [];
+export const alunos: Growdever[] = [
+  new Growdever("Ana", 18),
+  new Growdever("Felipe", 20),
+  new Growdever("Wallace Dev", 22),
+];
