@@ -17,6 +17,7 @@ app.get('/', (request: Request, response: Response) => {
 	return response.status(200).json({ ok: true, mensagem: 'API Growdevers' });
 });
 
+// Growdevers
 // LISTAR TODOS GROWDEVERS
 app.get('/growdevers', (request: Request, response: Response) => {
 	let listaAlunos: DetalhesAluno[] = [];
