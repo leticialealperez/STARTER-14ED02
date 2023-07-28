@@ -8,4 +8,8 @@ export class Habilidade {
 		this._id = randomUUID();
 		this._descricao = descricao;
 	}
+
+	public get descricao(): string {
+		return this._descricao;
+	}
 }

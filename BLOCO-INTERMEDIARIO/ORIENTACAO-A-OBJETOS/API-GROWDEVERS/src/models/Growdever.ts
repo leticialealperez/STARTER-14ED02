@@ -2,9 +2,11 @@ import { randomUUID } from 'crypto';
 import { Habilidade } from './Habilidade';
 
 export interface DetalhesAluno {
+	id: string;
 	nome: string;
 	idade: number;
 	matricula: string;
+	habilidades: Array<Habilidade>;
 }
 
 export class Growdever {
@@ -38,15 +40,6 @@ export class Growdever {
 		return detalhesAluno;
 	}
 
-	// METODOS ACESSORES => somente leitura
-	public get id(): string {
-		return this._id;
-	}
-
-	public get nome(): string {
-		return this._nome;
-	}
-
 	// METODO MODIFICADORES => atualização do atributo
 	public set nome(novoNome: string) {
 		// lógica de validação do novo nome
@@ -57,10 +50,6 @@ export class Growdever {
 				'Nome não pode ser alterado. Não tem caracters mínimos para alteração.'
 			);
 		}
-	}
-
-	public get idade(): number {
-		return this._idade;
 	}
 
 	public set idade(novaIdade: number) {
