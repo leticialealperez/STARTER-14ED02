@@ -3,6 +3,7 @@ import 'dotenv/config';
 import express, { Request, Response } from 'express';
 import controllerGrowdever from './controllers/GrowdeversController';
 import controllerHabilidades from './controllers/HabilidadesControllers';
+import MatriculasController from './controllers/MatriculasController';
 import TurmasController from './controllers/TurmasController';
 
 const app = express();
@@ -34,6 +35,6 @@ app.post('/turmas', TurmasController.cadastrar);
 app.get('/turmas', TurmasController.listar);
 
 // Matriculas
-// ADD ALUNO EM UMA TURMA - matricular
-// REMOVER ALUNO DE UMA TURMA - cancelar
-// LISTAR ALUNOS MATRICULADOS EM TURMA - listar
+app.put('/matriculas/add', MatriculasController.matricular);
+app.put('/matriculas/remover', MatriculasController.cancelar);
+app.get('/matriculas/:id', MatriculasController.listar);
