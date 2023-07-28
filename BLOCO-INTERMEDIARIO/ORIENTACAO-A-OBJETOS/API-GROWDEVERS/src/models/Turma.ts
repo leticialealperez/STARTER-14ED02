@@ -1,10 +1,11 @@
 import { randomUUID } from 'crypto';
-import { Growdever } from './Growdever';
+import { DetalhesAluno, Growdever } from './Growdever';
 
-interface DetalhesTurma {
+export interface DetalhesTurma {
+	id: string;
 	edicao: string;
 	programa: string;
-	alunos: Growdever[];
+	alunos: DetalhesAluno[];
 }
 
 export class Turma {
@@ -26,7 +27,7 @@ export class Turma {
 
 	public removeAluno(idAluno: string): boolean {
 		const indice = this._alunosMatriculados.findIndex(
-			(aluno) => aluno.id === idAluno
+			(aluno) => aluno.detalheAluno().id === idAluno
 		);
 
 		if (indice < 0) {
@@ -44,9 +45,12 @@ export class Turma {
 
 	public detalheTurma(): DetalhesTurma {
 		const detalhes = {
+			id: this._id,
 			edicao: this._edicao,
 			programa: this._programa,
-			alunos: this._alunosMatriculados,
+			alunos: this._alunosMatriculados.map((aluno) =>
+				aluno.detalheAluno()
+			),
 		};
 
 		return detalhes;

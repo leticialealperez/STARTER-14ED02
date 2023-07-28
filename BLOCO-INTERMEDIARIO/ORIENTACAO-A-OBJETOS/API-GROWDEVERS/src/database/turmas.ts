@@ -1,3 +1,3 @@
 import { Turma } from '../models/Turma';
 
-const turmas: Turma[] = [];
+export const turmas: Turma[] = [];
