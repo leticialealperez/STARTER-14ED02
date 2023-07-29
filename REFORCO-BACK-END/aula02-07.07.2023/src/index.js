@@ -2,6 +2,8 @@ import cors from 'cors';
 import { randomUUID } from 'crypto';
 import 'dotenv/config';
 import express from 'express';
+import { validaDescricao, validaFiltros, validaIDTransacao, validaTipo, validaValor } from './middlewares';
+
 
 const app = express();
 app.use(express.json());
@@ -15,7 +17,7 @@ app.get('/', (request, response) => {
 
 // definição da variável que será a carteira com saldo e as transações realizadas
 
-const carteira = {
+export const carteira = {
     saldo: 0,
     transacoes: []
 }
@@ -23,53 +25,13 @@ const carteira = {
 // ROTAS PARA TRANSAÇÕES
 // CADASTRO
 // POST => verbos/metodos
-app.post('/transacoes', (request, response) => {
+app.post('/transacoes', validaValor, validaTipo, validaDescricao, (request, response) => {
     const { valor, tipo, descricao } = request.body;
-
-    if (!valor) {
-        return response.status(400).json({
-            mensagem: 'É preciso informar o valor da transação'
-        })
-    }
-
-    const valorConvertido = Number(valor) // "1000" => 1000
-
-    if (isNaN(valorConvertido) || valorConvertido < 0) {
-        return response.status(400).json({
-            mensagem: "o dado enviado para valor não é um dado numérico válido."
-        })
-    }
-
-
-    if (!tipo) {
-        return response.status(400).json({
-            mensagem: 'É preciso informar o tipo da transação'
-        })
-    }
-
-    let tipoConvertido;
-
-    if (typeof tipo === 'string') {
-        tipoConvertido = tipo.toLowerCase()
-    }
-
-    if (tipoConvertido !== 'entrada' && tipoConvertido !== 'saida') {
-        return response.status(400).json({
-            mensagem: 'O tipo precisa ser "entrada" ou "saida"'
-        })
-    }
-
-    if (!descricao) {
-        return response.status(400).json({
-            mensagem: 'É preciso informar a descrição da transação'
-        })
-    }
-
 
     const novaTransacao = {
         id: randomUUID(),
-        valor: valorConvertido,
-        tipo: tipoConvertido,
+        valor: valor,
+        tipo: tipo,
         descricao: descricao,
         dataLancamento: new Date().toLocaleString('pt-BR')
     }
@@ -98,20 +60,12 @@ app.post('/transacoes', (request, response) => {
 // LISTAR APENAS UM - POR ID
 // GET => verbos/metodos
 // QUANDO PRECISO BUSCAR ALGO ESPECIFICO USAMOS route params
-app.get('/transacoes/:idTransacao', (request, response) => {
-    const { idTransacao } = request.params
-
-    const transacaoEncontrada = carteira.transacoes.find((transacao) => transacao.id === idTransacao)
-
-    if (!transacaoEncontrada) {
-        return response.status(404).json({
-            mensagem: "Este ID informado não consta na base de dados!"
-        })
-    }
+app.get('/transacoes/:idTransacao', validaIDTransacao, (request, response) => {
+    const { indiceTransacao } = request.body
 
     return response.status(200).json({
         mensagem: "Transação encontrada",
-        transacao: transacaoEncontrada,
+        transacao: carteira.transacoes[indiceTransacao],
     })
 })
 
@@ -125,46 +79,17 @@ app.get('/transacoes/:idTransacao', (request, response) => {
 // deve ser possível listar transações com um valor mínimo - OK
 // deve ser possível listar transações com um valor máximo - OK
 // REGRA: mostrar apenas as propriedades tipo, valor, dataLancamento e descricao - OK
-app.get('/transacoes', (request, response) => {
-
-    // FILTROS NÃO PODE SER OBRIGATÓRIO
-    const { tipoTransacao, valorMin, valorMax } = request.query;
+app.get('/transacoes', validaFiltros, (request, response) => {
+    const { tipoTransacao, valorMin, valorMax } = request.body;
 
     let listaTransacoesFiltrada = [...carteira.transacoes];
 
     if (tipoTransacao) {
-        if (tipoTransacao !== 'entrada' && tipoTransacao !== 'saida') {
-            return response.status(400).json({
-                mensagem: "Parametro inválido para tipo da transação."
-            });
-        }
-
         listaTransacoesFiltrada = listaTransacoesFiltrada.filter((transacao) => transacao.tipo === tipoTransacao)
     }
 
     if (valorMin && valorMax) {
-        const valorMinConvertido = Number(valorMin)
-        const valorMaxConvertido = Number(valorMax)
-
-        if (isNaN(valorMinConvertido)) {
-            return response.status(400).json({
-                mensagem: "Parametro inválido para valor mínimo."
-            })
-        }
-
-        if (isNaN(valorMaxConvertido)) {
-            return response.status(400).json({
-                mensagem: "Parametro inválido para valor máximo."
-            })
-        }
-
-        if (valorMinConvertido > valorMaxConvertido) {
-            return response.status(400).json({
-                mensagem: "Parametros inválidos. O valor mínimo deve ser menor que o valor máximo."
-            })
-        }
-
-        listaTransacoesFiltrada = listaTransacoesFiltrada.filter((transacao) => transacao.valor >= valorMinConvertido && transacao.valor <= valorMaxConvertido)
+        listaTransacoesFiltrada = listaTransacoesFiltrada.filter((transacao) => transacao.valor >= valorMin && transacao.valor <= valorMax)
 
         return response.status(200).json({
             mensagem: "Transações listadas com sucesso!",
@@ -174,27 +99,11 @@ app.get('/transacoes', (request, response) => {
     }
 
     if (valorMin) {
-        const valorMinConvertido = Number(valorMin)
-
-        if (isNaN(valorMinConvertido)) {
-            return response.status(400).json({
-                mensagem: "Parametro inválido para valor mínimo."
-            })
-        }
-
-        listaTransacoesFiltrada = listaTransacoesFiltrada.filter((transacao) => transacao.valor >= valorMinConvertido)
+        listaTransacoesFiltrada = listaTransacoesFiltrada.filter((transacao) => transacao.valor >= valorMin)
     }
 
     if (valorMax) {
-        const valorMaxConvertido = Number(valorMax)
-
-        if (isNaN(valorMaxConvertido)) {
-            return response.status(400).json({
-                mensagem: "Parametro inválido para valor máximo."
-            })
-        }
-
-        listaTransacoesFiltrada = listaTransacoesFiltrada.filter((transacao) => transacao.valor <= valorMaxConvertido)
+        listaTransacoesFiltrada = listaTransacoesFiltrada.filter((transacao) => transacao.valor <= valorMax)
     }
 
     return response.status(200).json({
@@ -209,7 +118,6 @@ app.get('/transacoes', (request, response) => {
     valor - 
     tipo - 
     descricao - 
-
 */
 // ATUALIZAR
 // PUT => verbos/metodos
@@ -218,7 +126,6 @@ app.put('/transacoes/:idTransacao', (request, response) => {
     const { valor, tipo, descricao } = request.body;
     const { idTransacao } = request.params;
 
-    console.log(request.body);
     // ao menos uma propriedade deve ser atualizada
     if (!valor && !tipo && !descricao) {
         return response.status(400).json({
@@ -305,3 +212,42 @@ app.put('/transacoes/:idTransacao', (request, response) => {
 
 // DELETAR
 // DELETE => verbos/metodos
+app.delete(`/transacoes/:id`, (request, response) => {
+    const params = request.params // { id: '121212' }
+
+    const indiceEncontrado = carteira.transacoes.findIndex(
+        (transaction) => transaction.id === params.id
+    )
+
+    if (indiceEncontrado === -1) {
+        return response.status(404).json('Transação não encontrada.')
+    }
+
+    // NÃO PODE FICAR NEGATIVO O VALOR DO SALDO
+    const listaCopia = [...carteira.transacoes]
+    listaCopia.splice(indiceEncontrado, 1)
+
+    const novoSaldo = listaCopia.reduce((valorInicial, transacao) => {
+        if (transacao.tipo === 'entrada') {
+            return valorInicial + transacao.valor
+        }
+
+        if (transacao.tipo === 'saida') {
+            return valorInicial - transacao.valor
+        }
+    }, 0)
+
+    if (novoSaldo < 0) {
+        return response.status(400).json({
+            mensagem: "Não é possível excluir a transação pois sua carteira ficará negativa."
+        })
+    }
+
+    carteira.saldo = novoSaldo
+    carteira.transacoes = listaCopia
+
+    return response.status(200).json({
+        mensagem: `Transação excluida com sucesso. Seu novo saldo é de ${carteira.saldo.toLocaleString('pt-BR', { style: "currency", currency: "BRL" })}`,
+        transcoes: carteira.transacoes
+    })
+})
