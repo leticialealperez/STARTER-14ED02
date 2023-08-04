@@ -17,6 +17,31 @@ app.get('/', (request, response) => {
 
 // definição da variável que será a carteira com saldo e as transações realizadas
 
+// {
+//     email: '',
+//     senha: '',
+//     carteira: {
+//         saldo: 0,
+//         transacoes: []
+//     }
+// }
+
+// 04/08 - SEXTA
+// bcrypt => salvar a senha encriptografada => enc/dec
+// JWT => deve ser enviado o token nas requisições de transações => retornar sempre o token de auth
+// DEPLOY RENDER
+
+// 11/08 - SEXTA
+// REVISAR INTEGRAÇÃO
+// consumo em uma aplicação com html css e js puro
+// - config do axios
+
+// 18/08 - SEXTA
+// REVISAR INTEGRAÇÃO
+// consumo em uma aplicação com html css e js puro
+// - config do axios
+
+
 export const carteira = {
     saldo: 0,
     transacoes: []
