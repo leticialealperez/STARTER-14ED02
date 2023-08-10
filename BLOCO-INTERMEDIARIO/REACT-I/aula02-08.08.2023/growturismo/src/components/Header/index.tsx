@@ -7,7 +7,7 @@ function Header() {
   return (
     <HeaderStyled>
       <FlexContainerStyled modo="header">
-        <TittleStyled tamanho="md">Growtravel</TittleStyled>
+        <TittleStyled tamanho="md">GrowTravel</TittleStyled>
         <NavigationStyled>
           <ul>
             <li>

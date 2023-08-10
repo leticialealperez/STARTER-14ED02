@@ -1,5 +1,5 @@
 import Footer from "../../components/Footer";
-import Header from "../../components/Header/Header";
+import Header from "../../components/Header";
 
 interface DefaultLayoutProps {
   children: React.ReactNode;
