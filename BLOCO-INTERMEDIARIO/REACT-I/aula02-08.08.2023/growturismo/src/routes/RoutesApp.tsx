@@ -1,43 +1,43 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Home from "../pages/Home";
-import Planos from "../pages/Planos";
-import QuemSomos from "../pages/QuemSomos";
-import Servicos from "../pages/Servicos";
-import DefaultLayout from "../config/layout/DefaultLayout";
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import Home from '../pages/Home';
+import Planos from '../pages/Planos';
+import QuemSomos from '../pages/QuemSomos';
+import Servicos from '../pages/Servicos';
+import DefaultLayout from '../config/layout/DefaultLayout';
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: (
       <DefaultLayout>
         <Home />
       </DefaultLayout>
-    ),
+    )
   },
   {
-    path: "/planos",
+    path: '/planos',
     element: (
       <DefaultLayout>
         <Planos />
       </DefaultLayout>
-    ),
+    )
   },
   {
-    path: "/quem-somos",
+    path: '/quem-somos',
     element: (
       <DefaultLayout>
         <QuemSomos />
       </DefaultLayout>
-    ),
+    )
   },
   {
-    path: "/servicos",
+    path: '/servicos',
     element: (
       <DefaultLayout>
         <Servicos />
       </DefaultLayout>
-    ),
-  },
+    )
+  }
 ]);
 
 function RoutesApp() {

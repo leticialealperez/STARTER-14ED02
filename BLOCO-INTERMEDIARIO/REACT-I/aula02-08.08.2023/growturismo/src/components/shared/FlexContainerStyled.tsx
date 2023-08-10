@@ -1,7 +1,7 @@
-import styled, { css } from "styled-components";
+import styled, { css } from 'styled-components';
 
 interface FlexContainerStyledProps {
-  modo: "header" | "content" | "footer";
+  modo: 'header' | 'content' | 'footer';
 }
 
 const FlexContainerStyled = styled.div<FlexContainerStyledProps>`
@@ -12,7 +12,7 @@ const FlexContainerStyled = styled.div<FlexContainerStyledProps>`
 
   ${(props) => {
     switch (props.modo) {
-      case "header":
+      case 'header':
         return css`
           width: 992px;
           justify-content: space-between;
@@ -23,13 +23,13 @@ const FlexContainerStyled = styled.div<FlexContainerStyledProps>`
             padding: 0 24px;
           }
         `;
-      case "content":
+      case 'content':
         return css`
           height: calc(100vh - 190px);
           align-items: center;
           justify-content: space-around;
         `;
-      case "footer":
+      case 'footer':
         return css`
           justify-content: space-between;
           color: #fff;

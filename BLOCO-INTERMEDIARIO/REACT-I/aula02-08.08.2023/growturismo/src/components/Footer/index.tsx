@@ -1,5 +1,5 @@
-import FlexContainerStyled from "../shared/FlexContainerStyled";
-import FooterStyled from "./FooterStyled";
+import FlexContainerStyled from '../shared/FlexContainerStyled';
+import FooterStyled from './FooterStyled';
 
 function Footer() {
   return (

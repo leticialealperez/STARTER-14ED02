@@ -1,7 +1,7 @@
-import FlexContainerStyled from "../shared/FlexContainerStyled";
-import TittleStyled from "../shared/TittleStyled";
-import HeaderStyled from "./HeaderStyled";
-import NavigationStyled from "./NavigationStyled";
+import FlexContainerStyled from '../shared/FlexContainerStyled';
+import TittleStyled from '../shared/TittleStyled';
+import HeaderStyled from './HeaderStyled';
+import NavigationStyled from './NavigationStyled';
 
 function Header() {
   return (
