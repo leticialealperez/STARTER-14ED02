@@ -8,7 +8,7 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "lint": "npx eslint src",
-    "lint:fix": "yarn eslint -- --fix",
+    "lint:fix": "yarn eslint --fix",
     "prettier": "npx prettier src --check",
     "prettier:fix": "yarn prettier -- --write",
     "format": "yarn lint:fix && yarn prettier:fix"
