@@ -1,26 +1,17 @@
 import FlexContainerStyled from '../shared/FlexContainerStyled';
+import LinkStyled from '../shared/LinkStyled';
 import TittleStyled from '../shared/TittleStyled';
 import HeaderStyled from './HeaderStyled';
-import NavigationStyled from './NavigationStyled';
+import Navbar from './Navbar';
 
 function Header() {
   return (
     <HeaderStyled>
       <FlexContainerStyled modo="header">
-        <TittleStyled tamanho="md">GrowTravel</TittleStyled>
-        <NavigationStyled>
-          <ul>
-            <li>
-              <a href="">Quem Somos</a>
-            </li>
-            <li>
-              <a href="">Serviços</a>
-            </li>
-            <li>
-              <a href="">Planos</a>
-            </li>
-          </ul>
-        </NavigationStyled>
+        <TittleStyled tamanho="md">
+          <LinkStyled to={'/'}>GrowTravel</LinkStyled>
+        </TittleStyled>
+        <Navbar />
       </FlexContainerStyled>
     </HeaderStyled>
   );

@@ -1,8 +1,8 @@
-import imgHome from '/assets/home.svg';
+import ButtonStyled from '../components/Content/ButtonStyled';
+import ContentStyled from '../components/Content/ContentStyled';
 import FlexContainerStyled from '../components/shared/FlexContainerStyled';
 import TittleStyled from '../components/shared/TittleStyled';
-import ContentStyled from '../components/Content/ContentStyled';
-import ButtonStyled from '../components/Content/ButtonStyled';
+import imgHome from '/assets/home.svg';
 
 function Home() {
   return (
