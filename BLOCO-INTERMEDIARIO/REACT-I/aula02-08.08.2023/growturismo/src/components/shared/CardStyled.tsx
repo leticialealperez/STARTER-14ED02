@@ -30,6 +30,7 @@ const CardStyled = styled.div`
 
       border-radius: 20px;
       border: 2px solid #122a57;
+      font-weight: 600;
 
       cursor: pointer;
 
@@ -38,6 +39,7 @@ const CardStyled = styled.div`
       &:hover {
         background-color: #4b5f87;
         color: #ffff;
+        border: 2px solid #4b5f87;
       }
     }
   }
