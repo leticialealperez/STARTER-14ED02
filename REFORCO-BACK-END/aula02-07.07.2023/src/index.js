@@ -4,7 +4,6 @@ import 'dotenv/config';
 import express from 'express';
 import { validaDescricao, validaFiltros, validaIDTransacao, validaTipo, validaValor } from './middlewares';
 
-
 const app = express();
 app.use(express.json());
 app.use(cors());
@@ -22,8 +21,7 @@ export const carteira = {
 }
 
 // ROTAS PARA TRANSAÇÕES
-// CADASTRO
-// POST => verbos/metodos
+// CADASTRAR
 app.post('/transacoes', validaValor, validaTipo, validaDescricao, (request, response) => {
     const { valor, tipo, descricao } = request.body;
 
@@ -57,8 +55,6 @@ app.post('/transacoes', validaValor, validaTipo, validaDescricao, (request, resp
 })
 
 // LISTAR APENAS UM - POR ID
-// GET => verbos/metodos
-// QUANDO PRECISO BUSCAR ALGO ESPECIFICO USAMOS route params
 app.get('/transacoes/:idTransacao', validaIDTransacao, (request, response) => {
     const { indiceTransacao } = request.body
 
@@ -68,16 +64,7 @@ app.get('/transacoes/:idTransacao', validaIDTransacao, (request, response) => {
     })
 })
 
-// LISTAR VÁRIOS
-// GET => verbos/metodos
-// QUANDO PRECISO BUSCAR UMA LISTA DE DADOS (filtrada ou não) query params
-// deve ser possível listar todas as transações - OK
-// deve ser possível listar somente as transacoes de entrada - OK
-// deve ser possível listar somente as transacoes de saída - OK
-// deve ser possível listar transações entre um range de valor (min && max) - OK
-// deve ser possível listar transações com um valor mínimo - OK
-// deve ser possível listar transações com um valor máximo - OK
-// REGRA: mostrar apenas as propriedades tipo, valor, dataLancamento e descricao - OK
+// LISTAR TODAS COM FILTROS
 app.get('/transacoes', validaFiltros, (request, response) => {
     const { tipoTransacao, valorMin, valorMax } = request.body;
 
@@ -111,15 +98,7 @@ app.get('/transacoes', validaFiltros, (request, response) => {
     })
 })
 
-/*
-    id - não vai ser modificado
-    dataLancamento - não vai ser modificado
-    valor - 
-    tipo - 
-    descricao - 
-*/
 // ATUALIZAR
-// PUT => verbos/metodos
 app.put('/transacoes/:idTransacao', (request, response) => {
     // todas as propriedades a serem atualizadas são opcionais na entrada do dado
     const { valor, tipo, descricao } = request.body;
@@ -210,7 +189,6 @@ app.put('/transacoes/:idTransacao', (request, response) => {
 })
 
 // DELETAR
-// DELETE => verbos/metodos
 app.delete(`/transacoes/:id`, (request, response) => {
     const params = request.params // { id: '121212' }
 
