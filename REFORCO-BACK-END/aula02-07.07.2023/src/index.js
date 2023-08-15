@@ -2,7 +2,8 @@ import cors from 'cors';
 import { randomUUID } from 'crypto';
 import 'dotenv/config';
 import express from 'express';
-import { validaDescricao, validaFiltros, validaIDTransacao, validaTipo, validaValor } from './middlewares';
+import { validaDescricao, validaFiltros, validaIDTransacao, validaTipo, validaValor, validarEmailESenha } from './middlewares';
+import { compararHash, gerarHash } from './utilitarios/bcrypt';
 
 const app = express();
 app.use(express.json());
@@ -13,8 +14,9 @@ app.get('/', (request, response) => {
     return response.status(200).send('<h1>API Growdev Rodando 🚀</h1>')
 })
 
-
 // definição da variável que será a carteira com saldo e as transações realizadas
+export const usuarios = [];
+
 export const carteira = {
     saldo: 0,
     transacoes: []
@@ -228,3 +230,60 @@ app.delete(`/transacoes/:id`, (request, response) => {
         transcoes: carteira.transacoes
     })
 })
+
+
+// CADASTRAR USUARIO
+app.post('/usuarios', validarEmailESenha, async (request, response) => {
+    const { email, senha } = request.body;
+
+    // não pode existir dois usuarios com o mesmo e-mail
+    const existe = usuarios.some((u) => u.email === email);
+    if (existe) {
+        return response.status(400).json('E-mail já cadastrado por outro usuário.')
+    }
+
+    const senhaEncrypt = await gerarHash(senha);
+
+    const novoUsuario = {
+        email: email,
+        senha: senhaEncrypt,
+        carteira: {
+            saldo: 0,
+            transacoes: []
+        }
+    }
+
+    usuarios.push(novoUsuario);
+
+    return response.status(201).json({
+        mensagem: 'Usuario cadastrado com sucesso!',
+        dados: novoUsuario,
+    })
+
+})
+
+
+app.post('/usuarios/login', validarEmailESenha, async (request, response) => {
+    const { email, senha } = request.body;
+
+    const usuario = usuarios.find((u) => u.email === email);
+
+    if (!usuario) {
+        return response.status(401).json({
+            mensagem: 'E-mail ou senha incorretos'
+        });
+    }
+
+    const senhaIgual = await compararHash(senha, usuario.senha)
+
+    if (!senhaIgual) {
+        return response.status(401).json({
+            mensagem: 'E-mail ou senha incorretos'
+        });
+    }
+
+    return response.status(200).json({
+        mensagem: 'Usuário autorizado!'
+    })
+
+});
