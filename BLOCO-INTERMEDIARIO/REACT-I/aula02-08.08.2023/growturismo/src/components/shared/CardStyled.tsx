@@ -1,17 +1,41 @@
 import styled from 'styled-components';
 
-const CardStyled = styled.div`
+interface CardStyledProps {
+  border?: boolean;
+}
+
+const CardStyled = styled.div<CardStyledProps>`
   width: 240px;
-  height: 300px;
+  height: 320px;
 
   padding: 24px;
+  border: ${(props) => (props.border ? '3px solid #122a57' : 'none')};
 
   div {
     width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-around;
     gap: 12px;
+
+    ul {
+      margin: 4px 0;
+    }
+
+    li {
+      font-size: 1.5rem;
+      list-style-type: square;
+      list-style-position: inside;
+    }
+
+    hr {
+      border: none;
+      width: 100%;
+      height: 3px;
+      background-color: #122a57;
+    }
 
     img {
       width: 100%;
@@ -20,27 +44,6 @@ const CardStyled = styled.div`
     h2 {
       color: #122a57;
       font-size: 1.8rem;
-    }
-
-    button {
-      background-color: transparent;
-      color: #122a57;
-      width: 120px;
-      padding: 10px 20px;
-
-      border-radius: 20px;
-      border: 2px solid #122a57;
-      font-weight: 600;
-
-      cursor: pointer;
-
-      transition: 0.2s;
-
-      &:hover {
-        background-color: #4b5f87;
-        color: #ffff;
-        border: 2px solid #4b5f87;
-      }
     }
   }
 `;

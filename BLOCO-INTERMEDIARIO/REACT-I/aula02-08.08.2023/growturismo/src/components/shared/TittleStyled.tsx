@@ -23,7 +23,7 @@ const TittleStyled = styled.h1<TittleStyledProps>`
           font-size: 4.8rem;
         `;
     }
-  }}
+  }};
 `;
 
 export default TittleStyled;
