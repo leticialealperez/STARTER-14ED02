@@ -25,7 +25,7 @@ const servicos: ServicosType[] = [
     imgUrl: imgPacotes,
     imgAlt: 'Pacotes de viagens',
     label: 'Pacotes'
-  }
+  },
 ];
 
 function Servicos() {

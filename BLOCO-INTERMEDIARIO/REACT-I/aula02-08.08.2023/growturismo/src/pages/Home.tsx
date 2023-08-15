@@ -12,7 +12,9 @@ function Home() {
           GrowTravel
         </TittleStyled>
         <p>O melhor serviço para você!</p>
-        <ButtonStyled>Saiba mais!</ButtonStyled>
+        <ButtonStyled primario tamanho="lg">
+          Saiba mais!
+        </ButtonStyled>
       </ContentStyled>
       <ContentStyled>
         <img src={imgHome} alt="banner de apresentação" />
