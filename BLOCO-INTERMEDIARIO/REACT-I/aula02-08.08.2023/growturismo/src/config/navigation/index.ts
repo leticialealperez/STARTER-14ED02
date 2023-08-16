@@ -15,6 +15,10 @@ const navigation: Array<NavigationType> = [
   {
     url: '/planos',
     label: 'Planos'
+  },
+  {
+    url: '/contato',
+    label: 'Contato'
   }
 ];
 
