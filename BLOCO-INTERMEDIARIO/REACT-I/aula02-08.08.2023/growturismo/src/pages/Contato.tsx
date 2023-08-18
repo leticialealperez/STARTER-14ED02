@@ -1,10 +1,24 @@
 import { useState } from 'react';
+import Feedback from '../components/Content/Feedback';
+import Input from '../components/Content/Input';
 import InputStyled from '../components/Content/InputStyled';
+import WrapperForm from '../components/Content/WrapperForm';
 import FlexContainerStyled from '../components/shared/FlexContainerStyled';
 import TittleStyled from '../components/shared/TittleStyled';
 
 //const valorInput = 'Le';
 // const teste = 10;
+
+interface FeedbackType {
+  cor: 'success' | 'error' | 'info' | 'warning' | '';
+  texto: string;
+  mostrar: boolean;
+}
+
+interface ContatosType {
+  nome: string;
+  telefone: string;
+}
 
 // COMPARTILHAMENTO DE ESTADOS ENTRE COMPONENTES
 function Contato() {
@@ -15,8 +29,93 @@ function Contato() {
     mensagem: ''
   });
 
+  const [feedback, setFeedback] = useState<FeedbackType>({
+    cor: '',
+    texto: '',
+    mostrar: false
+  });
+
+  const [contatos, setContatos] = useState<ContatosType[]>([]);
+
   function enviarDados() {
-    console.log(formulario);
+    if (!formulario.nome) {
+      setFeedback({
+        cor: 'warning',
+        mostrar: true,
+        texto: 'É preciso informar o nome ❌'
+      });
+
+      return;
+    }
+
+    if (!formulario.email) {
+      setFeedback({
+        cor: 'warning',
+        mostrar: true,
+        texto: 'É preciso informar o e-mail ❌'
+      });
+
+      return;
+    }
+
+    if (!formulario.telefone) {
+      setFeedback({
+        cor: 'warning',
+        mostrar: true,
+        texto: 'É preciso informar o telefone ❌'
+      });
+
+      return;
+    }
+
+    if (!formulario.mensagem) {
+      setFeedback({
+        cor: 'warning',
+        mostrar: true,
+        texto: 'É preciso informar a mensagem ❌'
+      });
+
+      return;
+    }
+
+    setFeedback({
+      cor: 'info',
+      mostrar: true,
+      texto: 'Enviando seus dados... 🚀'
+    });
+
+    setTimeout(() => {
+      console.log(formulario);
+
+      setContatos([
+        ...contatos,
+        {
+          nome: formulario.nome,
+          telefone: formulario.telefone
+        }
+      ]);
+
+      setFeedback({
+        cor: 'success',
+        mostrar: true,
+        texto: 'Dados Recebidos. Em breve entraremos em contato 🎉'
+      });
+
+      setFormulario({
+        email: '',
+        mensagem: '',
+        nome: '',
+        telefone: ''
+      });
+    }, 4000);
+
+    setTimeout(() => {
+      setFeedback({
+        cor: '',
+        mostrar: false,
+        texto: ''
+      });
+    }, 6000);
   }
 
   function mudaEstado(evento: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
@@ -25,7 +124,7 @@ function Contato() {
 
   return (
     <FlexContainerStyled modo="content">
-      <div>
+      <WrapperForm>
         <TittleStyled tamanho="sm" primario>
           Formulário
         </TittleStyled>
@@ -37,31 +136,57 @@ function Contato() {
             enviarDados();
           }}
         >
-          <InputStyled>
-            <label>Nome: </label>
-            <input type="text" name="nome" value={formulario.nome} onChange={mudaEstado} />
-          </InputStyled>
+          <Input
+            elemento="input"
+            tipoInput="text"
+            nomeInput="nome"
+            valor={formulario.nome}
+            textoLabel="Nome"
+            funcaoOnChange={mudaEstado}
+          />
 
-          <InputStyled>
-            <label>E-mail: </label>
-            <input type="email" name="email" value={formulario.email} onChange={mudaEstado} />
-          </InputStyled>
+          <Input
+            elemento="input"
+            tipoInput="email"
+            nomeInput="email"
+            valor={formulario.email}
+            textoLabel="E-mail"
+            funcaoOnChange={mudaEstado}
+          />
 
-          <InputStyled>
-            <label>Telefone: </label>
-            <input type="text" name="telefone" value={formulario.telefone} onChange={mudaEstado} />
-          </InputStyled>
+          <Input
+            elemento="input"
+            tipoInput="text"
+            nomeInput="telefone"
+            valor={formulario.telefone}
+            textoLabel="Telefone"
+            funcaoOnChange={mudaEstado}
+          />
 
-          <InputStyled>
-            <label>Mensagem: </label>
-            <textarea value={formulario.mensagem} name="mensagem" onChange={mudaEstado} />
-          </InputStyled>
+          <Input
+            elemento="textarea"
+            nomeInput="mensagem"
+            valor={formulario.mensagem}
+            textoLabel="Mensagem"
+            funcaoOnChange={mudaEstado}
+          />
 
           <InputStyled>
             <button type="submit">Enviar</button>
           </InputStyled>
         </form>
-      </div>
+
+        <Feedback cor={feedback.cor} texto={feedback.texto} show={feedback.mostrar} />
+      </WrapperForm>
+
+      {/* CRIAR AQUI UMA UL PARA MOSTRAR OS ELEMENTOS QUE TIVEREM DENTRO DA LISTA DE CONTATOS */}
+      <ul>
+        {contatos.map((contato) => (
+          <li style={{ fontSize: '1.4rem' }}>
+            {contato.nome} - {contato.telefone}
+          </li>
+        ))}
+      </ul>
     </FlexContainerStyled>
   );
 }

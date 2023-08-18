@@ -12,21 +12,23 @@ const InputStyled = styled.div`
   input {
     padding: 8px;
     border-radius: 12px;
-    width: 260px;
+    width: 100%;
     border: 2px solid #122a57;
   }
 
   textarea {
     padding: 8px;
     border-radius: 12px;
-    width: 260px;
+    width: 100%;
     border: 2px solid #122a57;
+    height: 60px;
+    resize: none;
   }
 
   button {
     padding: 8px;
     border-radius: 12px;
-    width: 260px;
+    width: 100%;
     border: 2px solid #122a57;
     background-color: #122a57;
     color: #ffff;
