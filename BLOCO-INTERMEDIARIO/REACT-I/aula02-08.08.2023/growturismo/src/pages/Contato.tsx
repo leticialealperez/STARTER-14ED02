@@ -87,6 +87,7 @@ function Contato() {
     setTimeout(() => {
       console.log(formulario);
 
+      // CREATE
       setContatos([
         ...contatos,
         {
@@ -181,9 +182,36 @@ function Contato() {
 
       {/* CRIAR AQUI UMA UL PARA MOSTRAR OS ELEMENTOS QUE TIVEREM DENTRO DA LISTA DE CONTATOS */}
       <ul>
-        {contatos.map((contato) => (
+        {contatos.map((contato, index) => (
           <li style={{ fontSize: '1.4rem' }}>
-            {contato.nome} - {contato.telefone}
+            <div>
+              <p>
+                {contato.nome} - {contato.telefone}
+              </p>
+
+              <button
+                onClick={() => {
+                  console.log(`Atualizar contato de indice ${index}`);
+                  const novoNome = prompt('Informe o novo nome: ');
+                  const novoTelefone = prompt('Informe o novo telefone');
+
+                  const aux = [...contatos];
+                  aux[index].nome = novoNome ?? aux[index].nome;
+                  aux[index].telefone = novoTelefone ?? aux[index].telefone;
+
+                  setContatos(aux);
+                }}
+              >
+                Atualizar
+              </button>
+              <button
+                onClick={() => {
+                  console.log(`Excluir contato de indice ${index}`);
+                }}
+              >
+                Excluir
+              </button>
+            </div>
           </li>
         ))}
       </ul>
