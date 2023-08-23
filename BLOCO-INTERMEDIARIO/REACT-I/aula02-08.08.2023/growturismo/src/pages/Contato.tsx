@@ -206,7 +206,13 @@ function Contato() {
               </button>
               <button
                 onClick={() => {
-                  console.log(`Excluir contato de indice ${index}`);
+                  const confirma = confirm('Tem certeza que seja excluir o contato?');
+
+                  if (confirma) {
+                    const aux = [...contatos];
+                    aux.splice(index, 1);
+                    setContatos(aux);
+                  }
                 }}
               >
                 Excluir
