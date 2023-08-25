@@ -17,10 +17,3 @@ function Navbar() {
 }
 
 export default Navbar;
-
-// [1, 2, 3].map((item) => item * 2)  [2, 4, 6]
-// ['joao', 'maria, 'pedro'].map((item) => item.toUpperCase()) ['JOAO', 'MARIA', 'PEDRO']
-
-// [1, 2, 3].map((item) => <h1>item</h1>)
-
-// [<h1>1</h1>, <h1>2</h1>, <h1>3</h1>]

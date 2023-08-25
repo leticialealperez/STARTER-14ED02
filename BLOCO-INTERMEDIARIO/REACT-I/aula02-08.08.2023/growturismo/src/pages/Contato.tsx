@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import ButtonActionStyled from '../components/Content/ButtonActionsStyled';
+import ContatoItemStyled from '../components/Content/ContatoItemStyled';
 import Feedback from '../components/Content/Feedback';
 import Input from '../components/Content/Input';
 import InputStyled from '../components/Content/InputStyled';
@@ -87,6 +89,7 @@ function Contato() {
     setTimeout(() => {
       console.log(formulario);
 
+      // CREATE
       setContatos([
         ...contatos,
         {
@@ -181,10 +184,48 @@ function Contato() {
 
       {/* CRIAR AQUI UMA UL PARA MOSTRAR OS ELEMENTOS QUE TIVEREM DENTRO DA LISTA DE CONTATOS */}
       <ul>
-        {contatos.map((contato) => (
-          <li style={{ fontSize: '1.4rem' }}>
-            {contato.nome} - {contato.telefone}
-          </li>
+        {contatos.map((contato, index) => (
+          <ContatoItemStyled>
+            <div>
+              <p>
+                <strong>#{index + 1} </strong>
+                {contato.nome} - {contato.telefone}
+              </p>
+
+              <div>
+                <ButtonActionStyled
+                  mode="update"
+                  onClick={() => {
+                    console.log(`Atualizar contato de indice ${index}`);
+                    const novoNome = prompt('Informe o novo nome: ');
+                    const novoTelefone = prompt('Informe o novo telefone');
+
+                    const aux = [...contatos];
+                    aux[index].nome = novoNome ?? aux[index].nome;
+                    aux[index].telefone = novoTelefone ?? aux[index].telefone;
+
+                    setContatos(aux);
+                  }}
+                >
+                  ✏️
+                </ButtonActionStyled>
+                <ButtonActionStyled
+                  mode="delete"
+                  onClick={() => {
+                    const confirma = confirm('Tem certeza que seja excluir o contato?');
+
+                    if (confirma) {
+                      const aux = [...contatos];
+                      aux.splice(index, 1);
+                      setContatos(aux);
+                    }
+                  }}
+                >
+                  🗑️
+                </ButtonActionStyled>
+              </div>
+            </div>
+          </ContatoItemStyled>
         ))}
       </ul>
     </FlexContainerStyled>
