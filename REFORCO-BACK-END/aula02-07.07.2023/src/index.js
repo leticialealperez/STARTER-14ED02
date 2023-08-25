@@ -2,8 +2,9 @@ import cors from 'cors';
 import { randomUUID } from 'crypto';
 import 'dotenv/config';
 import express from 'express';
-import { validaDescricao, validaFiltros, validaIDTransacao, validaTipo, validaValor, validarEmailESenha } from './middlewares';
+import { validaDescricao, validaFiltros, validaTipo, validaToken, validaValor, validarEmailESenha } from './middlewares';
 import { compararHash, gerarHash } from './utilitarios/bcrypt';
+import { gerarToken } from './utilitarios/jwt';
 
 const app = express();
 app.use(express.json());
@@ -24,8 +25,16 @@ export const carteira = {
 
 // ROTAS PARA TRANSAÇÕES
 // CADASTRAR
-app.post('/transacoes', validaValor, validaTipo, validaDescricao, (request, response) => {
+app.post('/transacoes', validaToken, validaValor, validaTipo, validaDescricao, (request, response) => {
     const { valor, tipo, descricao } = request.body;
+    const usuarioId = request.headers.authorization;
+
+    const usuarioEncontrado = usuarios.find((usuario) => usuario.id === usuarioId)
+
+    if(!usuarioEncontrado) {
+        return response.status(400).json({
+        mensagem: "Usuário não encontrado.",
+    })}
 
     const novaTransacao = {
         id: randomUUID(),
@@ -35,42 +44,68 @@ app.post('/transacoes', validaValor, validaTipo, validaDescricao, (request, resp
         dataLancamento: new Date().toLocaleString('pt-BR')
     }
 
-    if (tipoConvertido === 'entrada') {
-        carteira.saldo += valorConvertido
+    if (tipo === 'entrada') {
+        carteira.saldo += valor
     } else {
 
-        if (carteira.saldo < valorConvertido) {
+        if (carteira.saldo < valor) {
             return response.status(400).json({
                 mensagem: "Você não possui saldo suficiente para esta transação."
             })
         }
 
-        carteira.saldo -= valorConvertido
+        carteira.saldo -= valor
     }
 
-    carteira.transacoes.push(novaTransacao)
+    usuarioEncontrado.carteira.transacoes.push(novaTransacao)
 
     return response.status(201).json({
         mensagem: `Transação realizada com sucesso. Seu novo saldo é de R$ ${carteira.saldo.toFixed(2)}`,
-        transacoes: carteira.transacoes
-    })
+        dados: usuarioEncontrado.carteira.transacoes
+    })    
 })
 
 // LISTAR APENAS UM - POR ID
-app.get('/transacoes/:idTransacao', validaIDTransacao, (request, response) => {
-    const { indiceTransacao } = request.body
+app.get('/transacoes/:idTransacao',validaToken, (request, response) => {
+    const { idTransacao } = request.params
+    const usuarioId = request.headers.authorization;
+
+    const usuarioEncontrado = usuarios.find((usuario) => usuario.id === usuarioId)
+
+    if(!usuarioEncontrado) {
+            return response.status(400).json({
+            mensagem: "Usuário não encontrado.",
+        })
+    }
+
+    const transacaoEncontrda = usuarioEncontrado.carteira.transacoes.find((trans) => trans.id === idTransacao)
+
+    if(!transacaoEncontrda) {
+        return response.status(400).json({
+            mensagem: "Transação não encontrada.",
+        })
+    }
 
     return response.status(200).json({
         mensagem: "Transação encontrada",
-        transacao: carteira.transacoes[indiceTransacao],
+        dados: transacaoEncontrda,
     })
 })
 
 // LISTAR TODAS COM FILTROS
-app.get('/transacoes', validaFiltros, (request, response) => {
+app.get('/transacoes',validaToken, validaFiltros, (request, response) => {
     const { tipoTransacao, valorMin, valorMax } = request.body;
+     const usuarioId = request.headers.authorization;
 
-    let listaTransacoesFiltrada = [...carteira.transacoes];
+    const usuarioEncontrado = usuarios.find((usuario) => usuario.id === usuarioId)
+
+    if(!usuarioEncontrado) {
+            return response.status(400).json({
+            mensagem: "Usuário não encontrado.",
+        })
+    }
+
+    let listaTransacoesFiltrada = [...usuarioEncontrado.carteira.transacoes];
 
     if (tipoTransacao) {
         listaTransacoesFiltrada = listaTransacoesFiltrada.filter((transacao) => transacao.tipo === tipoTransacao)
@@ -96,15 +131,24 @@ app.get('/transacoes', validaFiltros, (request, response) => {
 
     return response.status(200).json({
         mensagem: "Transações listadas com sucesso!",
-        transacoes: listaTransacoesFiltrada.map(({ valor, tipo, dataLancamento, descricao }) => ({ valor, tipo, dataLancamento, descricao }))
+        transacoes: listaTransacoesFiltrada.map(({ id, valor, tipo, dataLancamento, descricao }) => ({ id, valor, tipo, dataLancamento, descricao }))
     })
 })
 
 // ATUALIZAR
-app.put('/transacoes/:idTransacao', (request, response) => {
+app.put('/transacoes/:idTransacao', validaToken, (request, response) => {
     // todas as propriedades a serem atualizadas são opcionais na entrada do dado
     const { valor, tipo, descricao } = request.body;
     const { idTransacao } = request.params;
+    const usuarioId = request.headers.authorization;
+
+    const usuarioEncontrado = usuarios.find((usuario) => usuario.id === usuarioId)
+
+    if(!usuarioEncontrado) {
+            return response.status(400).json({
+            mensagem: "Usuário não encontrado.",
+        })
+    }
 
     // ao menos uma propriedade deve ser atualizada
     if (!valor && !tipo && !descricao) {
@@ -142,7 +186,7 @@ app.put('/transacoes/:idTransacao', (request, response) => {
     }
 
     // COMO VOU SABER QUAL TRANSAÇÃO PRECISO ATUALIZAR? pelo ID [2] = {...}
-    const indiceEncontrado = carteira.transacoes.findIndex((transacao) => transacao.id === idTransacao) // 0, 1, 2, 3 ...
+    const indiceEncontrado = usuarioEncontrado.carteira.transacoes.findIndex((transacao) => transacao.id === idTransacao) // 0, 1, 2, 3 ...
 
     // não encontrou nenhuma transação pelo ID informado na rota
     if (indiceEncontrado === -1) {
@@ -153,7 +197,7 @@ app.put('/transacoes/:idTransacao', (request, response) => {
 
     //    0, "", null, undefined, false => false => NÃO/FALSE
     //    1, " ", true => true
-    const listaCopia = [...carteira.transacoes]
+    const listaCopia = [...usuarioEncontrado.carteira.transacoes]
     const novaTransacao = {
         ...listaCopia[indiceEncontrado], // copiar as infos de ID e dataLancamento
         tipo: tipoConvertido || listaCopia[indiceEncontrado].tipo,
@@ -162,8 +206,6 @@ app.put('/transacoes/:idTransacao', (request, response) => {
     }
 
     listaCopia[indiceEncontrado] = novaTransacao
-
-    console.log(carteira.transacoes)
 
     const novoSaldo = listaCopia.reduce((valorInicial, transacao) => {
         if (transacao.tipo === 'entrada') {
@@ -181,20 +223,29 @@ app.put('/transacoes/:idTransacao', (request, response) => {
         })
     }
 
-    carteira.transacoes[indiceEncontrado] = listaCopia[indiceEncontrado]
+    usuarioEncontrado.carteira.transacoes[indiceEncontrado] = listaCopia[indiceEncontrado]
 
 
     return response.status(200).json({
         mensagem: 'Transação atualizada com sucesso.',
-        transacao: carteira.transacoes[indiceEncontrado]
+        dados: usuarioEncontrado.carteira.transacoes[indiceEncontrado]
     })
 })
 
 // DELETAR
-app.delete(`/transacoes/:id`, (request, response) => {
+app.delete(`/transacoes/:id`, validaToken, (request, response) => {
     const params = request.params // { id: '121212' }
+    const usuarioId = request.headers.authorization;
 
-    const indiceEncontrado = carteira.transacoes.findIndex(
+    const usuarioEncontrado = usuarios.find((usuario) => usuario.id === usuarioId)
+
+    if(!usuarioEncontrado) {
+            return response.status(400).json({
+            mensagem: "Usuário não encontrado.",
+        })
+    }
+
+    const indiceEncontrado = usuarioEncontrado.carteira.transacoes.findIndex(
         (transaction) => transaction.id === params.id
     )
 
@@ -203,7 +254,7 @@ app.delete(`/transacoes/:id`, (request, response) => {
     }
 
     // NÃO PODE FICAR NEGATIVO O VALOR DO SALDO
-    const listaCopia = [...carteira.transacoes]
+    const listaCopia = [...usuarioEncontrado.carteira.transacoes]
     listaCopia.splice(indiceEncontrado, 1)
 
     const novoSaldo = listaCopia.reduce((valorInicial, transacao) => {
@@ -245,6 +296,7 @@ app.post('/usuarios', validarEmailESenha, async (request, response) => {
     const senhaEncrypt = await gerarHash(senha);
 
     const novoUsuario = {
+        id: randomUUID(),
         email: email,
         senha: senhaEncrypt,
         carteira: {
@@ -282,8 +334,11 @@ app.post('/usuarios/login', validarEmailESenha, async (request, response) => {
         });
     }
 
+    const token = gerarToken(usuario.id)
+
     return response.status(200).json({
-        mensagem: 'Usuário autorizado!'
+        mensagem: 'Usuário autorizado!',
+        dados: token
     })
 
 });

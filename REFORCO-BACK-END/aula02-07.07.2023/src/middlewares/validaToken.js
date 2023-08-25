@@ -36,8 +36,10 @@ export function validaToken(request, response, next) {
     // {id: 'aoskdoask', email: 'example@gmail.com'}
     const usuarioDecodificado = decodificarToken(tokenSemBearer)
 
+    console.log(usuarioDecodificado)
+
     // MANDA NO AUTHORIZATION O ID DO USUARIO LOGADO
-    request.headers.authorization = usuarioDecodificado.id
+    request.headers.authorization = usuarioDecodificado
 
     next()
 }

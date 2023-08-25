@@ -7,9 +7,10 @@ export function validaTipo(request, response, next) {
         })
     }
 
-    let tipoConvertido;
+    let tipoConvertido = '';
 
     if (typeof tipo === 'string') {
+        console.log(tipo)
         tipoConvertido = tipo.toLowerCase()
     }
 
