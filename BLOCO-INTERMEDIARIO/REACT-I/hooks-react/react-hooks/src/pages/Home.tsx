@@ -2,6 +2,7 @@ import { useState } from 'react';
 import ButtonStyled from '../components/ButtonStyled';
 import Card from '../components/Card/Card';
 import ContainerStyled from '../components/ContainerStyled';
+import HeaderStyled from '../components/HeaderStyled';
 import InputStyled from '../components/InputStyled';
 import TitleStyled from '../components/TitleStyled';
 
@@ -58,10 +59,18 @@ function Home() {
 
 	return (
 		<ContainerStyled>
-			<div>
-				<h2>Total Presentes com inicial A: 10</h2>
-			</div>
-			<TitleStyled>Lista de Presenças</TitleStyled>
+			<HeaderStyled>
+				<div>
+					<strong>Leticia</strong>
+					<img
+						src='https://github.com/leticialealperez.png'
+						alt='Foto de Perfil'
+					/>
+				</div>
+				<TitleStyled>Lista de Presenças</TitleStyled>
+			</HeaderStyled>
+
+			<strong>Total Presentes com inicial A: 10</strong>
 			<InputStyled
 				type='text'
 				placeholder='Digite um nome...'
