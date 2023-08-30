@@ -1,4 +1,3 @@
-import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Home from '../pages/Home';
 
@@ -9,8 +8,8 @@ const router = createBrowserRouter([
 	},
 ]);
 
-const RoutesApp: React.FC = () => {
+function RoutesApp() {
 	return <RouterProvider router={router} />;
-};
+}
 
 export default RoutesApp;
