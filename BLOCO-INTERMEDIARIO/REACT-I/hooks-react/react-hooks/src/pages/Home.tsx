@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import ButtonStyled from '../components/ButtonStyled';
 import Card from '../components/Card/Card';
 import ContainerStyled from '../components/ContainerStyled';
@@ -18,14 +18,22 @@ interface UserGithub {
 }
 
 function Home() {
-	const [students, setStudents] = useState<Presence[]>([]);
+	// [0] => estado => 'Teste'
+	// [1] => função que altera o valor do estado => setState('Nova string')
+
+	// ?? => só valida null ou undefined
+	// || => valida null, undefined, "", 0, false
+	// [] => true
+	// {} => true
+	const dados = localStorage.getItem('students');
+	const [students, setStudents] = useState<Presence[]>(JSON.parse(dados ?? '[]'));
+
 	const [user, setUser] = useState<UserGithub>({
-		name: 'Leticia',
-		avatarUrl: 'https://github.com/leticialealperez.png',
+		name: '',
+		avatarUrl: '',
 	});
-	// const [count, setCount] = useState(0);
+
 	const [listaFiltrada, setListaFiltrada] = useState<Presence[]>([]);
-	// const input = document.querySelector('.input');
 	const inputRef = useRef<HTMLInputElement | null>(null);
 
 	useEffect(() => {
@@ -37,12 +45,11 @@ function Home() {
 
 	useEffect(() => {
 		// sempre vai executar um efeito colateral
-		// 2 - Callback no useEffect com dependencias array vazio quer dizer que vai executar somente quando home for RENDERIZADA (uma única vez) - didMount
-		// 3 - Callback no useEffect com dependencia preenchida quer dizer que vai executar ao render e na atualização da variavel que esta na dependencia - didUpdate
-		// 4 - CLEAR, a ultima coisa que vai executar dentro do useEffect - didUnmount
+		// 2 - Callback no useEffect com dependencias array vazio quer dizer que vai executar somente quando home for RENDERIZADA (uma única vez) - didMount => quando monta
+		// 4 - CLEAR, a ultima coisa que vai executar dentro do useEffect - didUnmount - quando desmonta ou termina o effect
 
 		async function buscaUsuario() {
-			const respostaAPI = await axios.get('https://api.github.com/users/wallacefcosta');
+			const respostaAPI = await axios.get('https://api.github.com/users/leticialealperez');
 			setUser({
 				name: respostaAPI.data.name,
 				avatarUrl: respostaAPI.data.avatar_url,
@@ -61,7 +68,28 @@ function Home() {
 	}, []);
 
 	useEffect(() => {
+		// 3 - Callback no useEffect com dependencia preenchida quer dizer que vai executar ao render e na atualização da variavel que esta na dependencia - didUpdate
+
 		console.log('RODOU AQUI');
+		localStorage.setItem('students', JSON.stringify(students));
+
+		let nome = '';
+		if (students.length) {
+			nome = students[0].name;
+		}
+
+		async function buscaUsuario() {
+			const respostaAPI = await axios.get(`https://api.github.com/users/${nome}`);
+
+			if (respostaAPI.data.id) {
+				setUser({
+					name: respostaAPI.data.name,
+					avatarUrl: respostaAPI.data.avatar_url,
+				});
+			}
+		}
+
+		buscaUsuario();
 	}, [students]);
 
 	const count = useMemo(() => {
@@ -71,23 +99,18 @@ function Home() {
 		return total;
 	}, [listaFiltrada]);
 
-	function addPresence() {
-		// ❌ não vai rolar
-		// const aux = students; // equivalente referencia e valor => 0x123 [...]
-		// aux.push({});
-		// students.push({ name: 'Leticia', time: '29/08/2023' });
-
-		// ✅ vai rolar
-		// adiciona um novo item no estado students
-		// const aux2 = [...students]; // copia só os DADOS
-		// aux2.push({ name: 'Leticia', time: '29/08/2023' });
+	const addPresence = useCallback(() => {
+		if (!inputRef.current?.value) {
+			inputRef.current?.focus();
+			return;
+		}
 
 		setStudents([
-			...students,
 			{
 				name: inputRef.current?.value ?? '',
 				time: new Date().toLocaleDateString('pt-BR', { hour: '2-digit', minute: '2-digit', second: '2-digit' }),
 			},
+			...students, // []
 		]);
 
 		if (inputRef.current?.value.startsWith('A')) {
@@ -103,17 +126,33 @@ function Home() {
 				},
 			]);
 		}
-
 		inputRef.current!.value = '';
-	}
+	}, [listaFiltrada, students]);
 
-	// function updatePresence() {
-	// 	alert('Atualizar!');
-	// }
+	const updatePresence = useCallback(
+		(indice: number) => {
+			const nome = prompt('Nome: ');
+			if (!nome) return;
 
-	// function deletePresence() {
-	// 	alert('Deletar!');
-	// }
+			// COMO ATUALIZAR O NOME DO REGISTRO QUE POSSUI ESSE INDICE?
+			const aux = [...students]; // []
+			aux[indice].name = nome;
+			setStudents(aux);
+		},
+		[students]
+	);
+
+	const deletePresence = useCallback(
+		(indice: number) => {
+			if (confirm('Tem certeza que quer excluir?')) {
+				const aux = [...students];
+				aux.splice(indice, 1);
+
+				setStudents(aux);
+			}
+		},
+		[students]
+	);
 
 	return (
 		<ContainerStyled>
@@ -139,10 +178,14 @@ function Home() {
 			<ButtonStyled onClick={addPresence}>Adicionar</ButtonStyled>
 
 			{/* CHAMADA PARA OS CARDS COM BASE NA LISTA DE DADOS */}
-			{students.map((student) => (
+			{students.map((student, index) => (
 				<Card
+					key={index}
+					indice={index}
 					name={student.name}
 					time={student.time}
+					funcaoAtualizar={updatePresence}
+					funcaoDeletar={deletePresence}
 				/>
 			))}
 		</ContainerStyled>

@@ -4,9 +4,20 @@ import CardStyled from './CardStyled';
 interface CardProps {
 	name: string;
 	time: string;
+	funcaoAtualizar: (indice: number) => void;
+	funcaoDeletar: (indice: number) => void;
+	indice: number;
 }
 
 function Card(props: CardProps) {
+	function editar() {
+		props.funcaoAtualizar(props.indice);
+	}
+
+	function deletar() {
+		props.funcaoDeletar(props.indice);
+	}
+
 	return (
 		<CardStyled>
 			<div>
@@ -14,8 +25,8 @@ function Card(props: CardProps) {
 				<small>{props.time}</small>
 			</div>
 			<ContainerButtonsStyled>
-				<button>Editar</button>
-				<button>Apagar</button>
+				<button onClick={editar}>Editar</button>
+				<button onClick={deletar}>Apagar</button>
 			</ContainerButtonsStyled>
 		</CardStyled>
 	);
