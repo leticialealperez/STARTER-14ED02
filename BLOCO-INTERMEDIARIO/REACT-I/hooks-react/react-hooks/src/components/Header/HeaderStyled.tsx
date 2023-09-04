@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 const HeaderStyled = styled.header`
+	width: 60%;
 	margin: 84px 0 24px;
 	display: flex;
 	flex-direction: column;

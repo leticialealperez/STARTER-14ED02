@@ -1,4 +1,4 @@
-import ContainerButtonsStyled from '../ContainerButtonsStyled';
+import ContainerButtonsStyled from '../ActionButtons/ContainerButtonsStyled';
 import CardStyled from './CardStyled';
 
 interface CardProps {

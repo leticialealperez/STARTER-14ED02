@@ -6,17 +6,11 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     box-sizing: border-box;
     font-family: ${(props) => props.theme.fonts.join(', ')};
-    color: ${(props) => props.theme.colors['light'].fontColor};
   }
 
-  a, a:hover, a:focus, a:active {
-    text-decoration: none;
-    color: inherit;
-  }
-
-  a:hover {
-    cursor: pointer;
-    
+  body {
+    background-color: ${(props) => props.theme.colors.backgroundColor};
+    color: ${(props) => props.theme.colors.fontColor};
   }
 `;
 

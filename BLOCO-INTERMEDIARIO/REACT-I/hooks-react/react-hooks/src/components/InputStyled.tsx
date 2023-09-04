@@ -10,7 +10,7 @@ const InputStyled = styled.input`
 	font-size: ${(props) => props.theme.fontSizes.small};
 
 	&:focus {
-		outline-color: ${(props) => props.theme.colors['dark'].secondary};
+		outline-color: ${(props) => props.theme.colors.secondary};
 	}
 `;
 

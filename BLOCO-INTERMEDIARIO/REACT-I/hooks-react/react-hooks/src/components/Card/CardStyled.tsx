@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const CardStyled = styled.div`
 	height: 100px;
 	width: 60%;
-	background-color: ${(props) => props.theme.colors['dark'].primary};
+	background-color: ${(props) => props.theme.colors.primary};
 	border-radius: 10px;
 	margin-bottom: 20px;
 	display: flex;
@@ -12,7 +12,7 @@ const CardStyled = styled.div`
 	padding: 24px;
 
 	div {
-		color: ${(props) => props.theme.colors['dark'].fontColor};
+		color: ${(props) => props.theme.colors.fontColor};
 
 		small {
 			color: inherit;

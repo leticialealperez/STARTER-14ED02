@@ -6,7 +6,7 @@ const ContainerButtonsStyled = styled.div`
 	align-items: center;
 	justify-content: center;
 	width: 50%;
-	color: ${(props) => props.theme.colors['dark'].fontColor};
+	color: ${(props) => props.theme.colors.fontColor};
 
 	button {
 		width: 100px;

@@ -4,6 +4,7 @@ import 'styled-components';
 // and extend them!
 declare module 'styled-components' {
 	export interface DefaultTheme {
+		title: 'dark' | 'light';
 		fonts: Array<string>;
 		fontSizes: {
 			small: string;
@@ -11,18 +12,10 @@ declare module 'styled-components' {
 			large: string;
 		};
 		colors: {
-			dark: {
-				primary: string;
-				secondary: string;
-				backgroundColor: string;
-				fontColor: string;
-			};
-			light: {
-				primary: string;
-				secondary: string;
-				backgroundColor: string;
-				fontColor: string;
-			};
+			primary: string;
+			secondary: string;
+			backgroundColor: string;
+			fontColor: string;
 		};
 	}
 }
