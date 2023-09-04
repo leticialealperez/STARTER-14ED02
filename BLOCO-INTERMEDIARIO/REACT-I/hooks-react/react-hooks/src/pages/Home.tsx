@@ -6,7 +6,7 @@ import ContainerStyled from '../components/ContainerStyled';
 import HeaderStyled from '../components/Header/HeaderStyled';
 import TitleStyled from '../components/Header/TitleStyled';
 import InputStyled from '../components/InputStyled';
-import ContainerTheme from '../components/SwitchTheme/ContainerTheme';
+import SwitchTheme from '../components/SwitchTheme';
 
 interface Presence {
 	name: string;
@@ -115,7 +115,7 @@ function Home() {
 
 	return (
 		<ContainerStyled>
-			<ContainerTheme />
+			<SwitchTheme />
 			<HeaderStyled>
 				<div>
 					<strong>{user.name}</strong>

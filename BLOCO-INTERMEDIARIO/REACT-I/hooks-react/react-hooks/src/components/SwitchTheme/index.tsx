@@ -4,7 +4,7 @@ import DarkModeIcon from './DarkModeIcon';
 import LightModeIcon from './LightModeIcon';
 import SwitchThemeStyled from './SwitchThemeStyled';
 
-function ContainerTheme() {
+function SwitchTheme() {
 	const { toggleTheme } = useGlobalContext();
 	return (
 		<ContainerThemeStyled>
@@ -21,4 +21,4 @@ function ContainerTheme() {
 	);
 }
 
-export default ContainerTheme;
+export default SwitchTheme;
