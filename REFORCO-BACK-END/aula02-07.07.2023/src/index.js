@@ -290,7 +290,10 @@ app.post('/usuarios', validarEmailESenha, async (request, response) => {
     // não pode existir dois usuarios com o mesmo e-mail
     const existe = usuarios.some((u) => u.email === email);
     if (existe) {
-        return response.status(400).json('E-mail já cadastrado por outro usuário.')
+        return response.status(400).json({
+        mensagem: 'E-mail já cadastrado por outro usuário.',
+        dados: null,
+    })
     }
 
     const senhaEncrypt = await gerarHash(senha);
@@ -314,7 +317,7 @@ app.post('/usuarios', validarEmailESenha, async (request, response) => {
 
 })
 
-
+// LOGIN
 app.post('/usuarios/login', validarEmailESenha, async (request, response) => {
     const { email, senha } = request.body;
 
@@ -340,5 +343,12 @@ app.post('/usuarios/login', validarEmailESenha, async (request, response) => {
         mensagem: 'Usuário autorizado!',
         dados: token
     })
-
 });
+
+// LISTAR USUÁRIOS (somente para testar)
+app.get('/usuarios', (request, response) => {
+     return response.status(200).json({
+        mensagem: 'Usuarios buscados com sucesso!',
+        dados: usuarios,
+    })
+})
