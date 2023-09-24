@@ -45,23 +45,23 @@ app.post('/transacoes', validaToken, validaValor, validaTipo, validaDescricao, (
     }
 
     if (tipo === 'entrada') {
-        carteira.saldo += valor
+        usuarioEncontrado.carteira.saldo += valor
     } else {
 
-        if (carteira.saldo < valor) {
+        if (usuarioEncontrado.carteira.saldo < valor) {
             return response.status(400).json({
                 mensagem: "Você não possui saldo suficiente para esta transação."
             })
         }
 
-        carteira.saldo -= valor
+        usuarioEncontrado.carteira.saldo -= valor
     }
 
     usuarioEncontrado.carteira.transacoes.push(novaTransacao)
 
     return response.status(201).json({
-        mensagem: `Transação realizada com sucesso. Seu novo saldo é de R$ ${carteira.saldo.toFixed(2)}`,
-        dados: usuarioEncontrado.carteira.transacoes
+        mensagem: `Transação realizada com sucesso. Seu novo saldo é de R$ ${usuarioEncontrado.carteira.saldo.toFixed(2)}`,
+        dados: usuarioEncontrado.carteira
     })    
 })
 
@@ -116,9 +116,11 @@ app.get('/transacoes',validaToken, validaFiltros, (request, response) => {
 
         return response.status(200).json({
             mensagem: "Transações listadas com sucesso!",
-            transacoes: listaTransacoesFiltrada.map(({ valor, tipo, dataLancamento, descricao }) => ({ valor, tipo, dataLancamento, descricao }))
+            dados: {
+                saldo: usuarioEncontrado.carteira.saldo,
+                transacoes: listaTransacoesFiltrada.map(({ id, valor, tipo, dataLancamento, descricao }) => ({ id, valor, tipo, dataLancamento, descricao }))
+            }
         })
-
     }
 
     if (valorMin) {
@@ -131,7 +133,10 @@ app.get('/transacoes',validaToken, validaFiltros, (request, response) => {
 
     return response.status(200).json({
         mensagem: "Transações listadas com sucesso!",
-        transacoes: listaTransacoesFiltrada.map(({ id, valor, tipo, dataLancamento, descricao }) => ({ id, valor, tipo, dataLancamento, descricao }))
+        dados: {
+            saldo: usuarioEncontrado.carteira.saldo,
+            transacoes: listaTransacoesFiltrada.map(({ id, valor, tipo, dataLancamento, descricao }) => ({ id, valor, tipo, dataLancamento, descricao }))
+        }
     })
 })
 
