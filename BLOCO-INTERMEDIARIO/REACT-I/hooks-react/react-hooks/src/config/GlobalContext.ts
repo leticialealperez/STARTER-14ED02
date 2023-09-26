@@ -13,3 +13,4 @@ export const GlobalContext = createContext<GlobalContextType>({
 });
 
 export const useGlobalContext = () => useContext(GlobalContext);
+

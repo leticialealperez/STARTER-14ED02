@@ -31,3 +31,4 @@ export const light: DefaultTheme = {
 		fontColor: '#3a3a3a',
 	},
 };
+

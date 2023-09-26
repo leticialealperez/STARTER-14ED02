@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const CardStyled = styled.div`
 	height: 100px;
@@ -14,16 +14,16 @@ const CardStyled = styled.div`
 	div {
 		color: ${(props) => props.theme.colors.fontColor};
 
-		small {
-			color: inherit;
-			display: block;
-		}
+    small {
+      color: inherit;
+      display: block;
+    }
 
-		strong {
-			color: inherit;
-			font-size: ${(props) => props.theme.fontSizes.small};
-		}
-	}
+    strong {
+      color: inherit;
+      font-size: ${(props) => props.theme.fontSizes.small};
+    }
+  }
 `;
 
 export default CardStyled;
