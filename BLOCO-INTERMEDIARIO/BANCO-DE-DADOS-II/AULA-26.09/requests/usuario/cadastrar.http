@@ -1,0 +1,9 @@
+POST http://localhost:8080/usuarios HTTP/1.1
+content-type: application/json
+
+{
+    "nomeCompleto": "João da Silva",
+    "dataNascimento": "1995-09-26",
+    "email": "joao@teste.com",
+    "senha": "senha123"
+}
