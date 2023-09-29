@@ -1,1 +1,1 @@
-export * from './alunos.routes';
+export * from './aluno.routes';

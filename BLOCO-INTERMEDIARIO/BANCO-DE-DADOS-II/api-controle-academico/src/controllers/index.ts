@@ -1,1 +1,1 @@
-export * from './alunos.controller';
+export * from './aluno.controller';

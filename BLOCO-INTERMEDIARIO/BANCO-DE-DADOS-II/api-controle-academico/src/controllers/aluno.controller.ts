@@ -2,8 +2,9 @@ import { Request, Response } from 'express';
 import repository from '../database/prisma.connection';
 import { Aluno } from '../models';
 
-export class AlunosController {
-	public async cadastrar(req: Request, res: Response) {
+export class AlunoController {
+	// ✅
+	public async create(req: Request, res: Response) {
 		const { nome, email, senha, idade } = req.body;
 
 		const alunoExiste = await repository.aluno.findUnique({ where: { email: email } });
@@ -39,5 +40,15 @@ export class AlunosController {
 		});
 	}
 
-	public async listarTodos(req: Request, res: Response) {}
+	// TO-DO
+	public async listAll(req: Request, res: Response) {}
+
+	// TO-DO
+	public async listByID(req: Request, res: Response) {}
+
+	// TO-DO
+	public async update(req: Request, res: Response) {}
+
+	// TO-DO
+	public async delete(req: Request, res: Response) {}
 }
