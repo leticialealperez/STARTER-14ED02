@@ -1,0 +1,23 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url = env("DATABASE_URL")
+}
+
+// MODEL é convertida numa tabela no DB
+model Aluno {
+    id String @id @default(uuid()) @db.Uuid
+    nomeCompleto String @map("nome_completo") @db.VarChar(100)
+    email String @db.VarChar(100) @unique
+    idade Int?
+    password String @db.Text
+    authToken String? @db.Text @map("auth_token")
+
+    criadoEm DateTime @default(now()) @map("criado_em")
+    atualizadoEm DateTime @updatedAt @map("atualizado_em")
+
+    @@map("aluno")
+}
