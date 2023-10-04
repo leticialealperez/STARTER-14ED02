@@ -19,8 +19,11 @@ model Aluno {
     criadoEm DateTime @default(now()) @map("criado_em")
     atualizadoEm DateTime @updatedAt @map("atualizado_em")
 
-    // DEFINE UMA RELAÇÃO 1-1 = um aluno possuem 1 endereço
+    // DEFINE UMA RELAÇÃO 1-1 = um aluno possui 0 ou 1 endereço
     endereco Endereco?
+
+    // DEFINE UMA RELACAO 1-N = um aluno possui 0 ou varias avaliações
+    avaliacao Avaliacao[]
 
     @@map("aluno")
 }
@@ -40,5 +43,18 @@ model Endereco {
     aluno Aluno @relation(fields: [idAluno], references: [id])
 
     @@map("endereco")
+}
+
+model Avaliacao {
+    id String @id @default(uuid()) @db.Uuid
+    modulo String @db.VarChar(100)
+    nota Decimal @db.Decimal(4, 2)
+    criadoEm DateTime @default(now()) @map("criado_em")
+    atualizadoEm DateTime @updatedAt @map("atualizado_em")
+
+    idAluno String @db.Uuid @map("id_aluno")
+    aluno Aluno @relation(fields: [idAluno], references: [id])
+
+    @@map("avaliacao")
 }
 
