@@ -278,8 +278,8 @@ app.delete(`/transacoes/:id`, validaToken, (request, response) => {
         })
     }
 
-    carteira.saldo = novoSaldo
-    carteira.transacoes = listaCopia
+    usuarioEncontrado.carteira.saldo = novoSaldo
+    usuarioEncontrado.carteira.transacoes = listaCopia
 
     return response.status(200).json({
         mensagem: `Transação excluida com sucesso. Seu novo saldo é de ${carteira.saldo.toLocaleString('pt-BR', { style: "currency", currency: "BRL" })}`,
