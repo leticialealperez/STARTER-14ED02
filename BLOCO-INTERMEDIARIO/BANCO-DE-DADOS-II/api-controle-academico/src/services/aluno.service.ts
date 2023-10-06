@@ -1,6 +1,7 @@
 import { Aluno as AlunoDB, Endereco as EnderecoDB } from '@prisma/client';
+import { randomUUID } from 'crypto';
 import repository from '../database/prisma.connection';
-import { CadastrarAlunoDTO } from '../dtos';
+import { AtualizarAlunoDTO, CadastrarAlunoDTO, LoginDTO } from '../dtos';
 import { Aluno, Endereco } from '../models';
 
 export class AlunoService {
@@ -47,15 +48,58 @@ export class AlunoService {
 		return this.mapToModel(alunoDB);
 	}
 
-	// TO-DO - pensar no que é necessario receber como parametro para atualização de um registro de aluno e criar o DTO
-	// TO-DO - desenvolver a lógica de atualização do registro no banco de dados
-	// TO-DO - deve retornar o aluno atualizado (trocar o tipo do retorno de any para o tipo correto)
-	public async atualizar(): Promise<any> {}
+	public async atualizar(dados: AtualizarAlunoDTO): Promise<Aluno> {
+		const alunoAtualizado = await repository.aluno.update({
+			where: { id: dados.id },
+			data: {
+				nomeCompleto: dados.nome,
+				idade: dados.idade,
+				password: dados.senha,
+			},
+			include: { endereco: true },
+		});
 
-	// TO-DO - pensar no que é necessario receber como parametro para exclusao de um registro de aluno (não precisa DTO)
-	// TO-DO - desenvolver a lógica de exclusão do registro no banco de dados
-	// TO-DO - deve retornar o aluno deletado (trocar o tipo do retorno de any para o tipo correto)
-	public async deletar(): Promise<any> {}
+		return this.mapToModel(alunoAtualizado);
+	}
+
+	public async deletar(id: string): Promise<Aluno> {
+		const alunoExcluido = await repository.aluno.delete({
+			where: { id: id },
+			include: { endereco: true },
+		});
+
+		return this.mapToModel(alunoExcluido);
+	}
+
+	public async login(dados: LoginDTO): Promise<string | null> {
+		const alunoEncontrado = await repository.aluno.findUnique({
+			where: {
+				email: dados.email,
+				password: dados.senha,
+			},
+		});
+
+		if (!alunoEncontrado) {
+			return null;
+		}
+
+		const token = randomUUID();
+
+		await repository.aluno.update({
+			where: { id: alunoEncontrado.id },
+			data: { authToken: token },
+		});
+
+		return token;
+	}
+
+	public async validarToken(token: string): Promise<boolean> {
+		const alunoEncontrado = await repository.aluno.findFirst({
+			where: { authToken: token },
+		});
+
+		return !!alunoEncontrado;
+	}
 
 	private mapToModel(alunoDB: AlunoDB & { endereco: EnderecoDB | null }): Aluno {
 		const endereco = alunoDB?.endereco

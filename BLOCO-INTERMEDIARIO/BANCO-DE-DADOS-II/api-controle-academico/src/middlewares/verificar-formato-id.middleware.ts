@@ -1,8 +1,28 @@
 import { NextFunction, Request, Response } from 'express';
+import { AlunoService } from '../services';
+
 export class VerificarFormatoId {
-	public validar(req: Request, res: Response, next: NextFunction) {
-		// TO-DO - lógica de validação do ID recebido no route params
-		// Regra: um ID deve conter 36 bytes/caracteres
-		// OBS: lembrar de chamar o middleware na rota que precisa dessa validação 👀
+	public async validar(req: Request, res: Response, next: NextFunction) {
+		const { id } = req.params;
+
+		if (id.length !== 36) {
+			return res.status(400).json({
+				ok: false,
+				mensagem: 'ID inválido',
+			});
+		}
+
+		const service = new AlunoService();
+
+		const alunoExiste = await service.listarPorID(id);
+
+		if (!alunoExiste) {
+			return res.status(400).json({
+				ok: false,
+				mensagem: 'Aluno não encontrado',
+			});
+		}
+
+		return next();
 	}
 }

@@ -25,6 +25,10 @@ model Aluno {
     // DEFINE UMA RELACAO 1-N = um aluno possui 0 ou varias avaliações
     avaliacao Avaliacao[]
 
+    // 1- N
+    // 1 - N
+    matriculas Matricula[]
+
     @@map("aluno")
 }
 
@@ -56,5 +60,36 @@ model Avaliacao {
     aluno Aluno @relation(fields: [idAluno], references: [id])
 
     @@map("avaliacao")
+}
+
+model Turma {
+    id String @db.Uuid @default(uuid()) @id
+    formacao String @db.VarChar(100)
+    edicao Int @db.SmallInt
+    turma String? @db.VarChar(20)
+    maxAlunos Int? @db.SmallInt @map("max_alunos")
+    criadoEm DateTime @default(now()) @map("criado_em")
+    atualizadoEm DateTime @updatedAt @map("atualizado_em")
+
+    // 1 - N
+    matriculas Matricula[]
+
+    @@map("turma")
+}
+
+model Matricula {
+    numeroControle BigInt @db.BigInt @unique @map("numero_controle")
+    ativo Boolean @db.Boolean @default(true)
+    criadoEm DateTime @default(now()) @map("criado_em")
+    atualizadoEm DateTime @updatedAt @map("atualizado_em")
+
+    idAluno String @db.Uuid @map("id_aluno")
+    aluno Aluno @relation(fields: [idAluno], references: [id])
+
+    idTurma String @db.Uuid @map("id_turma")
+    turma Turma @relation(fields: [idTurma], references: [id])
+
+    @@map("matricula")
+    @@id([idAluno, idTurma])
 }
 
