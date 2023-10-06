@@ -58,7 +58,7 @@ export class AlunoController {
 		});
 	}
 
-	// TO-DO
+	// ✅
 	public async update(req: Request, res: Response) {
 		const { nome, idade, senha } = req.body;
 		const { id } = req.params;
@@ -87,7 +87,7 @@ export class AlunoController {
 		});
 	}
 
-	// TO-DO
+	// ✅
 	public async login(req: Request, res: Response) {
 		const { email, senha } = req.body;
 
