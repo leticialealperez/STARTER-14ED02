@@ -1,0 +1,28 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model Usuario {
+    id String @db.Uuid @id @default(uuid())
+    nomeCompleto String @db.VarChar(100) @map("nome_completo")
+    idade Int? @db.Integer
+    email String @db.VarChar(100) @unique 
+    senha String @db.Text
+    endereco String? @db.Text
+    ativo Boolean @db.Boolean @default(true)
+    dataNascimento DateTime @db.Date @map("data_nascimento")
+    criadoEm DateTime @db.Timestamp() @default(now()) @map("criado_em")
+    atualizadoEm DateTime @db.Timestamp() @updatedAt @map("atualizado_em")
+
+    @@map("usuario")
+}
+
+
+
+
+
