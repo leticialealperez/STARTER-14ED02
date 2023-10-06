@@ -1,4 +1,6 @@
 const modalCadastrar = new bootstrap.Modal("#transaction-modal");
+const modalAtualizar = new bootstrap.Modal("#transaction-update-modal");
+const modalDeletar = new bootstrap.Modal("#transaction-delete-modal");
 let token = JSON.parse(sessionStorage.getItem("usuarioLogado"));
 let tokenLocal = JSON.parse(localStorage.getItem("usuarioLogado"));
 
@@ -11,7 +13,6 @@ const api = axios.create({
     headers: { Authorization: `Bearer ${token}` }, // Preseta no nosso headers o token
 });
 
-
 // CADASTRAR TRANSACAO
 document
     .getElementById("transaction-form")
@@ -20,9 +21,7 @@ document
 
         const valor = document.getElementById("value-input").value;
         const descricao = document.getElementById("description-input").value;
-        const tipo = document.querySelector(
-            'input[name="type-input"]:checked'
-        ).value;
+        const tipo = document.querySelector('input[name="type-input"]:checked').value;
 
         console.log("VALOR: ", valor);
         console.log("DESCRICAO: ", descricao);
@@ -77,29 +76,25 @@ document.addEventListener("DOMContentLoaded", async () => {
             params: { tipoTransacao: "saida" },
         });
 
-        console.log(resultadoEntradas.data.dados);
-        console.log(resultadoSaidas.data.dados);
-
         mostrarTransacoes(
             resultadoEntradas.data.dados.transacoes,
             resultadoSaidas.data.dados.transacoes
         );
 
-        mostrarSaldo(resultadoEntradas.data.dados.saldo)
-
+        mostrarSaldo(resultadoEntradas.data.dados.saldo);
     } catch (error) {
         console.log(error.response.data.mensagem);
-        alert(`❌ ${error.response.data.mensagem}`)
+        alert(`❌ ${error.response.data.mensagem}`);
         sair();
     }
 });
 
 function mostrarTransacoes(listaEntradas, listaSaidas) {
-    let entradasInnerHtml = '';
+    let entradasInnerHtml = "";
     listaEntradas.forEach(
         (transacao) =>
-        entradasInnerHtml +=
-            `   <div class="row mb-4">
+        (entradasInnerHtml += `   
+                <div class="row mb-4">
                     <div class="col-12">
                          <div class="container p-0 mb-3">
                             <div class="row">
@@ -107,10 +102,10 @@ function mostrarTransacoes(listaEntradas, listaSaidas) {
                                     <h3 class="fs-2">R$ ${transacao.valor.toFixed(2)}</h3>
                                 </div>
                                 <div class="col-12 col-md-4 d-flex justify-content-end gap-2">
-                                    <button type="button" class="btn button-default"
-                                        onclick="editar()">Editar</button>
-                                    <button type="button" class="btn button-default"
-                                        onclick="apagar()">Apagar</button>
+                                    <button type="button" class="btn button-default" data-bs-toggle="modal" data-bs-target="#transaction-update-modal"
+                                        onclick=prepararEdicao("${transacao.id}")>Editar</button>
+                                    <button type="button" class="btn button-default" data-bs-toggle="modal" data-bs-target="#transaction-delete-modal"
+                                        onclick=apagar("${transacao.id}")>Apagar</button>
                                 </div>
                             </div>
                         </div>
@@ -125,14 +120,14 @@ function mostrarTransacoes(listaEntradas, listaSaidas) {
                             </div>
                         </div>
                     </div>
-                </div>`
+                </div>`)
     );
 
-    let saidasInnerHtml = '';
+    let saidasInnerHtml = "";
     listaSaidas.map(
         (transacao) =>
-        saidasInnerHtml +=
-            `   <div class="row mb-4">
+        (saidasInnerHtml += `   
+                <div class="row mb-4">
                     <div class="col-12">
                         <div class="container p-0 mb-3">
                             <div class="row">
@@ -140,10 +135,10 @@ function mostrarTransacoes(listaEntradas, listaSaidas) {
                                     <h3 class="fs-2">R$ ${transacao.valor.toFixed(2)}</h3>
                                 </div>
                                 <div class="col-12 col-md-4 d-flex justify-content-end gap-2">
-                                    <button type="button" class="btn button-default"
-                                        onclick="editar()">Editar</button>
-                                    <button type="button" class="btn button-default"
-                                        onclick="apagar()">Apagar</button>
+                                    <button type="button" class="btn button-default" data-bs-toggle="modal" data-bs-target="#transaction-update-modal"
+                                        onclick=prepararEdicao("${transacao.id}")>Editar</button>
+                                    <button type="button" class="btn button-default" data-bs-toggle="modal" data-bs-target="#transaction-delete-modal"
+                                        onclick=apagar("${transacao.id}")>Apagar</button>
                                 </div>
                             </div>
                         </div>
@@ -158,7 +153,7 @@ function mostrarTransacoes(listaEntradas, listaSaidas) {
                             </div>
                         </div>
                     </div>
-                </div>`
+                </div>`)
     );
     // Mostrar na div de entradas e saidas
     document.getElementById("div-entradas").innerHTML = entradasInnerHtml;
@@ -166,39 +161,107 @@ function mostrarTransacoes(listaEntradas, listaSaidas) {
 }
 
 function mostrarSaldo(saldo) {
-    document.getElementById("total").innerHTML = `R$ ${saldo.toFixed(2)}`
+    document.getElementById("total").innerHTML = `R$ ${saldo.toFixed(2)}`;
 }
 
-// FUNÇÃO PARA SAIR 
+// FUNÇÃO PARA SAIR
 function sair() {
     localStorage.removeItem("usuarioLogado");
     sessionStorage.removeItem("usuarioLogado");
 
     window.location.href = "index.html";
-};
+}
 
 document.getElementById("button-logout").addEventListener("click", sair);
 
 function verificarSeEstaLogado() {
     // Se tiver no localStorage, seta para o session
     if (tokenLocal) {
-        sessionStorage.setItem("usuarioLogado", JSON.stringify(tokenLocal))
+        sessionStorage.setItem("usuarioLogado", JSON.stringify(tokenLocal));
 
         // Atribui o que tem no localStorage p/ o sessionStorage
-        token = tokenLocal
+        token = tokenLocal;
     }
 
     // Se não tiver token no sessionStorage navega para o index.html
-    if(!token) {
-        window.location.href = "index.html"
-        return
+    if (!token) {
+        window.location.href = "index.html";
+        return;
     }
 }
 
-function editar(id) {
-    alert("Editando....", id);
+let idSelecionado
+
+// PREPARA A NOSSA ATUALIZACAO PREENCHENDO O FORM
+async function prepararEdicao(id) {
+    console.log("Editando....", id);
+    idSelecionado = id
+    try {
+        const resultado = await api.get(`/transacoes/${id}`);
+
+        // PREENCHE O NOSSO FORM COM O QUE A API RESPONDER
+        document.getElementById("value-update-input").value = resultado.data.dados.valor;
+        document.getElementById("description-update-input").value = resultado.data.dados.descricao;
+
+
+        // VERIFICA QUAL O TIPO PARA SABER QUAL VAI CHECKED
+        if (resultado.data.dados.tipo === 'entrada') {
+            document.querySelector('input[name="type-update-input"][value="entrada"]').checked = true;
+        } else {
+            document.querySelector('input[name="type-update-input"][value="saida"]').checked = true;
+        }
+
+    } catch (error) {
+        console.log(error.response.menssage);
+    }
 }
 
-function apagar(id) {
-    alert("Apagando....", id);
+// ATUALIZAR
+document.getElementById('transaction-update-form').addEventListener('submit', async (e) => {
+    e.preventDefault()
+
+    const valor = document.getElementById("value-update-input").value;
+    const descricao = document.getElementById("description-update-input").value;
+    const tipo = document.querySelector('input[name="type-update-input"]:checked').value;
+
+    // console.log({ tipo, valor, descricao });
+
+    try {
+        // ATUALIZA A TRANSACAO
+        const resultado = await api.put(`/transacoes/${idSelecionado}`, { valor, tipo, descricao })
+
+        // FECHA O MODAL 
+        modalAtualizar.hide()
+
+        console.log(resultado.data);
+
+        // DA O RELOAD NA PAGINA
+        location.reload()
+
+        // MOSTRA O ALERTA COM A MENSAGEM DA API
+        alert(`✔ ${resultado.data.mensagem}`);
+    } catch (error) {
+        console.log(error.response.data.message)
+        alert(`❌ ${error.response.data.mensagem}`);
+    }
+})
+
+async function apagar(id) {
+    console.log("Apagando....", id);
+
+    document.getElementById("button-delete-confirm").addEventListener("click", async () => {
+        try {
+            const resultado = await api.delete(`/transacoes/${id}`)
+
+            modalDeletar.hide()
+
+            location.reload()
+
+            // MOSTRA O ALERTA COM A MENSAGEM DA API
+            alert(`✔ ${resultado.data.mensagem}`);
+        } catch (error) {
+            console.log(error.response.data.message)
+            alert(`❌ ${error.response.data.mensagem}`);
+        }
+    })
 }
