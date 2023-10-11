@@ -1,8 +1,46 @@
 import { Box, Button, TextField, Typography } from '@mui/material';
 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { cadastro } from '../services/auth.service';
 
 function Cadastro() {
+	const navigate = useNavigate();
+
+	async function handleSubmit(evento: React.FormEvent<HTMLFormElement>) {
+		evento.preventDefault();
+
+		// document.getElementById('nome').value
+		// document.getElementById('email').value
+		// document.getElementById('password').value
+		// console.log(evento.currentTarget.nome.value);
+		// console.log(evento.currentTarget.email.value);
+		// console.log(evento.currentTarget.password.value);
+
+		const aluno = {
+			nome: evento.currentTarget.nome.value,
+			email: evento.currentTarget.email.value,
+			senha: evento.currentTarget.password.value,
+		};
+
+		const resposta = await cadastro(aluno);
+
+		if (resposta.ok === false) {
+			alert(resposta.mensagem);
+			return;
+		}
+
+		const confirmou = confirm(`${resposta.mensagem}. Deseja ser direcionado para página de login?`);
+
+		if (confirmou) {
+			navigate('/');
+		}
+
+		// RESET DO FORMULARIO
+		evento.currentTarget.nome.value = '';
+		evento.currentTarget.email.value = '';
+		evento.currentTarget.password.value = '';
+	}
+
 	return (
 		<Box
 			component='main'
@@ -20,7 +58,16 @@ function Cadastro() {
 					Cadastre-se
 				</Typography>
 
-				<form>
+				<form onSubmit={handleSubmit}>
+					<TextField
+						id='nome'
+						type='text'
+						label='Nome Completo'
+						variant='outlined'
+						fullWidth
+						margin='dense'
+					/>
+
 					<TextField
 						id='email'
 						type='email'
