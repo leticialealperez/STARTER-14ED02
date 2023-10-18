@@ -5,22 +5,31 @@ export class Auth {
 	public async validar(req: Request, res: Response, next: NextFunction) {
 		const token = req.headers.authorization;
 
+		console.log(req.body);
+
 		if (!token) {
 			return res.status(401).json({
+				code: 401,
 				ok: false,
 				mensagem: 'Token é obrigatório',
 			});
 		}
 
 		const service = new AlunoService();
-		const tokenValido = await service.validarToken(token);
+		const alunoAutenticado = await service.validarToken(token);
 
-		if (!tokenValido) {
+		if (!alunoAutenticado) {
 			return res.status(401).json({
+				code: 401,
 				ok: false,
 				mensagem: 'Token inválido',
 			});
 		}
+
+		req.body = {
+			...req.body,
+			idAluno: alunoAutenticado,
+		};
 
 		return next();
 	}

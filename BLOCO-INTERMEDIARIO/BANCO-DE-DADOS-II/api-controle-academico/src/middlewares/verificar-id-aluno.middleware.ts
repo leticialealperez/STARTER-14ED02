@@ -1,12 +1,13 @@
 import { NextFunction, Request, Response } from 'express';
 import { AlunoService } from '../services';
 
-export class VerificarFormatoId {
+export class VerificarIdAluno {
 	public async validar(req: Request, res: Response, next: NextFunction) {
 		const { id } = req.params;
 
 		if (id.length !== 36) {
 			return res.status(400).json({
+				code: 400,
 				ok: false,
 				mensagem: 'ID inválido',
 			});

@@ -1,12 +1,12 @@
 import { Router } from 'express';
 import { AlunoController } from '../controllers';
-import { Auth, CadastroAluno, Login, VerificarFormatoId } from '../middlewares';
+import { Auth, CadastroAluno, Login, VerificarIdAluno } from '../middlewares';
 
 export function alunoRoutes() {
 	const router = Router();
 	const controller = new AlunoController();
 	const cadastrarAluno = new CadastroAluno();
-	const verificarFormatoId = new VerificarFormatoId();
+	const verificarFormatoId = new VerificarIdAluno();
 	const login = new Login();
 	const auth = new Auth();
 

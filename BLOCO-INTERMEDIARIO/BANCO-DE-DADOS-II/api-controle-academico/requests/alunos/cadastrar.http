@@ -2,8 +2,8 @@ POST http://localhost:8080/alunos HTTP/1.1
 content-type: application/json
 
 {
-    "nome": "Pedro da Silva",
-    "senha": "senha123",
-    "email": "pedro@teste.com",
+    "nome": "John Lennon",
+    "senha": "xablau123",
+    "email": "john@teste.com",
     "idade": 25
 }

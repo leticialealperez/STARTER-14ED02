@@ -73,21 +73,6 @@ export class AvaliacaoService {
 	}
 
 	public async atualizar(dados: AtualizarAvaliacaoDTO): Promise<ResponseDTO> {
-		const avaliacaoEncontrada = await repository.avaliacao.findUnique({
-			where: {
-				id: dados.idAvaliacao,
-				idAluno: dados.idAluno,
-			},
-		});
-
-		if (!avaliacaoEncontrada) {
-			return {
-				code: 404,
-				ok: false,
-				mensagem: 'Avaliação não encontrada',
-			};
-		}
-
 		const avaliacaoAtualizada = await repository.avaliacao.update({
 			where: {
 				id: dados.idAvaliacao,
@@ -108,21 +93,6 @@ export class AvaliacaoService {
 	}
 
 	public async deletar(dados: DeletarAvaliacaoDTO): Promise<ResponseDTO> {
-		const avaliacaoEncontrada = await repository.avaliacao.findUnique({
-			where: {
-				id: dados.idAvaliacao,
-				idAluno: dados.idAluno,
-			},
-		});
-
-		if (!avaliacaoEncontrada) {
-			return {
-				code: 404,
-				ok: false,
-				mensagem: 'Avaliação não encontrada',
-			};
-		}
-
 		const avaliacaoExcluida = await repository.avaliacao.delete({
 			where: {
 				id: dados.idAvaliacao,

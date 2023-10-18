@@ -93,12 +93,14 @@ export class AlunoService {
 		return token;
 	}
 
-	public async validarToken(token: string): Promise<boolean> {
+	public async validarToken(token: string): Promise<string | null> {
 		const alunoEncontrado = await repository.aluno.findFirst({
 			where: { authToken: token },
 		});
 
-		return !!alunoEncontrado;
+		if (!alunoEncontrado) return null;
+
+		return alunoEncontrado.id;
 	}
 
 	private mapToModel(alunoDB: AlunoDB & { endereco: EnderecoDB | null }): Aluno {

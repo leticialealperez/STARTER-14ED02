@@ -1,0 +1,2 @@
+GET http://localhost:8080/avaliacoes HTTP/1.1
+Authorization: ae4ca526-763f-4bc8-9203-d50cfb77683d
