@@ -8,6 +8,7 @@ const apiService = axios.create({
 export default apiService;
 
 export interface ResponseAPI {
+	code: number;
 	ok: boolean;
 	mensagem: string;
 	dados?: any;
