@@ -1,5 +1,5 @@
 export interface AtualizarAlunoDTO {
-	id: string;
+	idAluno: string;
 	nome?: string;
 	idade?: number;
 	senha?: string;

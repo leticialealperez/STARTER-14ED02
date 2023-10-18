@@ -1,8 +1,8 @@
-POST http://localhost:8080/alunos HTTP/1.1
+POST http://localhost:8080/avaliacoes HTTP/1.1
 content-type: application/json
-Authorization: ae4ca526-763f-4bc8-9203-d50cfb77683d
+Authorization: TOKEN
 
 {
-    "modulo": "Banco de Dados II",
-    "nota": 10
+    "modulo": "Front-End I",
+    "nota": 8
 }

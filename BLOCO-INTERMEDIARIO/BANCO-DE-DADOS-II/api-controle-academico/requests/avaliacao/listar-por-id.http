@@ -1,2 +1,2 @@
-GET http://localhost:8080/avaliacoes/816a1c64-4b10-4779-b51c-a6d8f16cf547 HTTP/1.1
-Authorization: ae4ca526-763f-4bc8-9203-d50cfb77683d
+GET http://localhost:8080/avaliacoes/idAvaliacao HTTP/1.1
+Authorization: TOKEN

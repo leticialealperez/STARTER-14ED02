@@ -5,8 +5,6 @@ export class Auth {
 	public async validar(req: Request, res: Response, next: NextFunction) {
 		const token = req.headers.authorization;
 
-		console.log(req.body);
-
 		if (!token) {
 			return res.status(401).json({
 				code: 401,
@@ -26,10 +24,7 @@ export class Auth {
 			});
 		}
 
-		req.body = {
-			...req.body,
-			idAluno: alunoAutenticado,
-		};
+		req.body.idAluno = alunoAutenticado;
 
 		return next();
 	}

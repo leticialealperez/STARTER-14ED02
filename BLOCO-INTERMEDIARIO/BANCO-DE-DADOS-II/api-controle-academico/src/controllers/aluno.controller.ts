@@ -2,110 +2,122 @@ import { Request, Response } from 'express';
 import { AlunoService } from '../services';
 
 export class AlunoController {
-	// ✅
-	public async create(req: Request, res: Response) {
-		const { nome, email, senha, idade } = req.body;
-		const service = new AlunoService();
+	public async cadastrar(req: Request, res: Response) {
+		try {
+			const { nome, email, senha, idade } = req.body;
+			const service = new AlunoService();
 
-		const alunoExiste = await service.verificarEmailExistente(email);
+			const response = await service.cadastrar({ nome, email, senha, idade });
 
-		if (alunoExiste) {
-			return res.status(400).json({
+			return res.status(response.code).json(response);
+		} catch (error: any) {
+			return res.status(500).json({
+				code: 500,
 				ok: false,
-				mensagem: 'E-mail já cadastrado',
+				mensagem: error.toString(),
 			});
 		}
-
-		const novoAluno = await service.cadastrar({ email, nome, senha, idade });
-
-		return res.status(201).json({
-			ok: true,
-			mensagem: 'Aluno cadastrado!',
-			dados: novoAluno.toJSON(),
-		});
 	}
 
-	// ✅
-	public async listAll(req: Request, res: Response) {
-		const service = new AlunoService();
-		const alunosDB = await service.listarTodos();
+	public async listar(_: Request, res: Response) {
+		try {
+			const service = new AlunoService();
+			const response = await service.listar();
 
-		return res.status(200).json({
-			ok: true,
-			mensagem: 'Alunos listados com sucesso',
-			dados: alunosDB.map((a) => a.toJSON()),
-		});
-	}
-
-	// ✅
-	public async listByID(req: Request, res: Response) {
-		const { id } = req.params;
-		const service = new AlunoService();
-
-		const alunoDB = await service.listarPorID(id);
-
-		if (!alunoDB) {
-			return res.status(404).json({
+			return res.status(response.code).json(response);
+		} catch (error: any) {
+			return res.status(500).json({
+				code: 500,
 				ok: false,
-				mensagem: 'Aluno não encontrado',
+				mensagem: error.toString(),
 			});
 		}
-
-		return res.status(200).json({
-			ok: true,
-			mensagem: 'Aluno encontrado',
-			dados: alunoDB.toJSON(),
-		});
 	}
 
-	// ✅
-	public async update(req: Request, res: Response) {
-		const { nome, idade, senha } = req.body;
-		const { id } = req.params;
+	public async listPorID(req: Request, res: Response) {
+		try {
+			const { id } = req.params;
+			const service = new AlunoService();
 
-		const service = new AlunoService();
-		const alunoAtualizado = await service.atualizar({ id, nome, idade, senha });
+			const response = await service.listarPorID(id);
 
-		return res.status(200).json({
-			ok: true,
-			mensagem: 'Aluno atualizado',
-			dados: alunoAtualizado.toJSON(),
-		});
+			return res.status(response.code).json(response);
+		} catch (error: any) {
+			return res.status(500).json({
+				code: 500,
+				ok: false,
+				mensagem: error.toString(),
+			});
+		}
 	}
 
-	// ✅
-	public async delete(req: Request, res: Response) {
-		const { id } = req.params;
-		const service = new AlunoService();
+	public async atualizar(req: Request, res: Response) {
+		try {
+			const { nome, idade, senha } = req.body;
+			const { id } = req.params;
 
-		const alunoExcluido = await service.deletar(id);
+			const service = new AlunoService();
+			const response = await service.atualizar({ idAluno: id, nome, idade, senha });
 
-		return res.status(200).json({
-			ok: true,
-			mensagem: 'Aluno excluido',
-			dados: alunoExcluido.toJSON(),
-		});
+			return res.status(response.code).json(response);
+		} catch (error: any) {
+			return res.status(500).json({
+				code: 500,
+				ok: false,
+				mensagem: error.toString(),
+			});
+		}
 	}
 
-	// ✅
+	public async deletar(req: Request, res: Response) {
+		try {
+			const { id } = req.params;
+			const service = new AlunoService();
+
+			const response = await service.deletar(id);
+
+			return res.status(response.code).json(response);
+		} catch (error: any) {
+			return res.status(500).json({
+				code: 500,
+				ok: false,
+				mensagem: error.toString(),
+			});
+		}
+	}
+
 	public async login(req: Request, res: Response) {
-		const { email, senha } = req.body;
+		try {
+			const { email, senha } = req.body;
 
-		const service = new AlunoService();
+			const service = new AlunoService();
 
-		const token = await service.login({ email, senha });
+			const response = await service.login({ email, senha });
 
-		if (!token) {
-			return res.status(401).json({
+			return res.status(response.code).json(response);
+		} catch (error: any) {
+			return res.status(500).json({
+				code: 500,
 				ok: false,
-				mensagem: 'Credenciais inválidas',
+				mensagem: error.toString(),
 			});
 		}
+	}
 
-		return res.status(200).json({
-			ok: true,
-			mensagem: 'Login efetuado',
-			dados: { token },
-		});
+	public async logout(req: Request, res: Response) {
+		try {
+			const { idAluno } = req.body;
+
+			const service = new AlunoService();
+			const response = await service.logout(idAluno);
+
+			return res.status(response.code).json(response);
+		} catch (error: any) {
+			return res.status(500).json({
+				code: 500,
+				ok: false,
+				mensagem: error.toString(),
+			});
+		}
 	}
 }

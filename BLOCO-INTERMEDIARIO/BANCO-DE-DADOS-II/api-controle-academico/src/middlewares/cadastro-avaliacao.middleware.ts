@@ -4,8 +4,6 @@ export class CadastroAvaliacao {
 	public validar(req: Request, res: Response, next: NextFunction) {
 		const { modulo, nota } = req.body;
 
-		console.log(req.body);
-
 		if (!modulo || !nota) {
 			return res.status(400).json({
 				code: 400,
