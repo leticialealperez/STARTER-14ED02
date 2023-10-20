@@ -27,16 +27,18 @@ export class AvaliacaoService {
 		};
 	}
 
-	public async listarTodos(idAluno: string): Promise<ResponseDTO> {
+	public async listarTodos(aluno: string | undefined): Promise<ResponseDTO> {
 		const avaliacoes = await repository.avaliacao.findMany({
-			where: { idAluno },
+			where: {
+				idAluno: aluno,
+			},
 		});
 
 		if (!avaliacoes.length) {
 			return {
 				code: 404,
 				ok: false,
-				mensagem: 'Não foram encontradas avaliações para este aluno.',
+				mensagem: 'Não foram encontradas avaliações.',
 			};
 		}
 

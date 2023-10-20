@@ -21,9 +21,9 @@ export class AvaliacaoController {
 
 	public async listar(req: Request, res: Response) {
 		try {
-			const { idAluno } = req.body;
+			const { aluno } = req.query; // ?aluno="124564-124545fgd-fdsgdfg-dfgdf" | undefined
 			const service = new AvaliacaoService();
-			const response = await service.listarTodos(idAluno);
+			const response = await service.listarTodos(aluno as string | undefined);
 
 			return res.status(response.code).json(response);
 		} catch (error: any) {
