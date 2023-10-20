@@ -21,7 +21,7 @@ interface TabelaAlunosProps {
 
 export function TabelaAlunos(props: TabelaAlunosProps) {
   return (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper} sx={{ background: "#f5f5f5" }}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
