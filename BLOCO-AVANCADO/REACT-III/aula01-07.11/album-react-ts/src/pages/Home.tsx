@@ -15,12 +15,13 @@ import {
 	Toolbar,
 	Typography,
 } from '@mui/material';
+import Footer from '../components/Footer';
 import { dados } from '../data';
 
 function Home() {
 	return (
 		<>
-			<AppBar position='static'>
+			<AppBar position='fixed'>
 				<Toolbar>
 					<CameraAltRounded sx={{ mr: 2 }} />
 
@@ -34,7 +35,10 @@ function Home() {
 				</Toolbar>
 			</AppBar>
 
-			<Box component='main'>
+			<Box
+				component='main'
+				sx={{ pt: 10 }}
+			>
 				<Box
 					component='section'
 					sx={{ pt: 8, pb: 6 }}
@@ -146,7 +150,7 @@ function Home() {
 				</Container>
 			</Box>
 
-			{/* AQUI ABAIXO O FOOTER */}
+			<Footer />
 		</>
 	);
 }
