@@ -1,10 +1,10 @@
 import { CameraAltRounded } from '@mui/icons-material';
 import { AppBar, Toolbar, Typography } from '@mui/material';
-import { useSelector } from 'react-redux';
 import { EstadoGlobal } from '../store';
+import { useAppSelector } from '../store/hooks';
 
 function Header() {
-	const contador = useSelector((estado: EstadoGlobal) => estado.counter).value;
+	const contador = useAppSelector((estado: EstadoGlobal) => estado.counter).value;
 
 	return (
 		<AppBar position='fixed'>

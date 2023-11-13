@@ -12,13 +12,13 @@ import {
 	Stack,
 	Typography,
 } from '@mui/material';
-import { useDispatch } from 'react-redux';
 import { dados } from '../data';
+import { useAppDispatch } from '../store/hooks';
 import { decrementar, incrementar, incrementarPorNumero } from '../store/modules/counter/counter.slice';
 
 function Main() {
 	// disparar ações de modificação da store
-	const dispatch = useDispatch();
+	const dispatch = useAppDispatch();
 
 	return (
 		<Box
