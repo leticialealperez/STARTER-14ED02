@@ -34,6 +34,7 @@ function ListTransactions() {
 								description={i.description}
 								type={i.type}
 								value={i.value}
+								id={i.id}
 							/>
 						))}
 					</List>
@@ -58,6 +59,7 @@ function ListTransactions() {
 								description={i.description}
 								type={i.type}
 								value={i.value}
+								id={i.id}
 							/>
 						))}
 					</List>

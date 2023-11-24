@@ -9,6 +9,8 @@ export interface ParametroCadastrar {
 	value: number;
 }
 
+export type ParametroAtualizar = Partial<ParametroCadastrar> & { id: number };
+
 // cadastrar
 export const cadastrarTransacao = createAsyncThunk('cadastrar', async (dados: ParametroCadastrar) => {
 	try {
@@ -30,5 +32,22 @@ export const listarTransacoes = createAsyncThunk('listar', async () => {
 });
 
 // atualizar
+export const atualizarTransacao = createAsyncThunk('atualizar', async (dados: ParametroAtualizar) => {
+	try {
+		const { id, description, type, value } = dados;
+		const response = await axios.put(`${URL}/transactions/${id}`, { description, type, value });
+		return response.data; // todo o body
+	} catch {
+		return null;
+	}
+});
 
 // deletar
+export const deletarTransacao = createAsyncThunk('deletar', async (id: number) => {
+	try {
+		const response = await axios.delete(`${URL}/transactions/${id}`);
+		return response.data; // retornando todo o body
+	} catch {
+		return null;
+	}
+});

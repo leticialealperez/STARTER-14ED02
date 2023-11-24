@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { cadastrarTransacao, listarTransacoes } from './actions';
+import { atualizarTransacao, cadastrarTransacao, deletarTransacao, listarTransacoes } from './actions';
 
 interface Transacao {
 	id: number;
@@ -56,6 +56,36 @@ const carteiraSlice = createSlice({
 			.addCase(cadastrarTransacao.fulfilled, (state, action) => {
 				if (!action.payload) {
 					alert('Não deu bom o cadastro!');
+					return;
+				}
+
+				state.balance = action.payload.data.balance;
+				state.transactions = action.payload.data.transactions;
+
+				alert(action.payload.message);
+			})
+
+			// DELETAR
+			.addCase(deletarTransacao.pending, () => {
+				console.log('deletando transação...');
+			})
+			.addCase(deletarTransacao.fulfilled, (state, action) => {
+				if (!action.payload) {
+					return;
+				}
+
+				state.balance = action.payload.data.balance;
+				state.transactions = action.payload.data.transactions;
+
+				alert(action.payload.message);
+			})
+
+			// ATUALIZAR
+			.addCase(atualizarTransacao.pending, () => {
+				console.log('atualizando transação...');
+			})
+			.addCase(atualizarTransacao.fulfilled, (state, action) => {
+				if (!action.payload) {
 					return;
 				}
 
