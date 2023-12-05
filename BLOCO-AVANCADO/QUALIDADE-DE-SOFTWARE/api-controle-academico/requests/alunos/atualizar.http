@@ -1,0 +1,9 @@
+PUT http://localhost:8080/alunos/idAluno HTTP/1.1
+content-type: application/json
+Authorization: TOKEN
+
+{
+    "nome": "Pedro da Silva",
+    "senha": "senha123",
+    "idade": 25
+}

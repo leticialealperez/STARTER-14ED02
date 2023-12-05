@@ -1,0 +1,2 @@
+GET http://localhost:8080/avaliacoes?aluno=736aef89-6805-49bf-9696-42d5fa88aa10 HTTP/1.1
+Authorization: 9ba235cb-3db4-4d54-9820-b06d715da622

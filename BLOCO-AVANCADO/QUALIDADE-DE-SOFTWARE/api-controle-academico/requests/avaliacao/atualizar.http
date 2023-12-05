@@ -1,0 +1,8 @@
+PUT http://localhost:8080/avaliacoes/idAvaliacao HTTP/1.1
+Content-Type: application/json
+Authorization: TOKEN
+
+{
+    "modulo": "Banco de Dados II (Atualizado)",
+    "nota": 10
+}

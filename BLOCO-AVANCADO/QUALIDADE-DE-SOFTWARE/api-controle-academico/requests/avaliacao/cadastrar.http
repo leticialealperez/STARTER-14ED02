@@ -1,0 +1,8 @@
+POST http://localhost:8080/avaliacoes HTTP/1.1
+content-type: application/json
+Authorization: TOKEN
+
+{
+    "modulo": "Front-End I",
+    "nota": 8
+}

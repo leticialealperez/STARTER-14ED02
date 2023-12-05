@@ -1,0 +1,88 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url = env("DATABASE_URL")
+}
+
+
+model Aluno {
+    id String @id @default(uuid()) @db.Uuid
+    nomeCompleto String @map("nome_completo") @db.VarChar(100)
+    email String @db.VarChar(100) @unique
+    idade Int?
+    password String @db.Text
+    authToken String? @db.Text @map("auth_token")
+
+    criadoEm DateTime @default(now()) @map("criado_em")
+    atualizadoEm DateTime @updatedAt @map("atualizado_em")
+
+    endereco Endereco?
+    avaliacao Avaliacao[]
+    matriculas Matricula[]
+
+    @@map("aluno")
+}
+
+model Endereco {
+    id String @id @default(uuid()) @db.Uuid
+    logradouro String @db.VarChar(100)
+    numero String @db.VarChar(20)
+    cep String @db.VarChar(8)
+    cidade String @db.VarChar(100)
+    uf String @db.Char(2)
+    complemento String? @db.VarChar(100)
+    criadoEm DateTime @default(now()) @map("criado_em")
+    atualizadoEm DateTime @updatedAt @map("atualizado_em")
+
+    idAluno String @db.Uuid @unique @map("id_aluno")
+    aluno Aluno @relation(fields: [idAluno], references: [id])
+
+    @@map("endereco")
+}
+
+model Avaliacao {
+    id String @id @default(uuid()) @db.Uuid
+    modulo String @db.VarChar(100)
+    nota Decimal @db.Decimal(4, 2)
+    criadoEm DateTime @default(now()) @map("criado_em")
+    atualizadoEm DateTime @updatedAt @map("atualizado_em")
+
+    idAluno String @db.Uuid @map("id_aluno")
+    aluno Aluno @relation(fields: [idAluno], references: [id])
+
+    @@map("avaliacao")
+}
+
+model Turma {
+    id String @db.Uuid @default(uuid()) @id
+    formacao String @db.VarChar(100)
+    edicao Int @db.SmallInt
+    turma String? @db.VarChar(20)
+    maxAlunos Int? @db.SmallInt @map("max_alunos")
+    criadoEm DateTime @default(now()) @map("criado_em")
+    atualizadoEm DateTime @updatedAt @map("atualizado_em")
+
+    matriculas Matricula[]
+
+    @@map("turma")
+}
+
+model Matricula {
+    numeroControle BigInt @db.BigInt @unique @map("numero_controle")
+    ativo Boolean @db.Boolean @default(true)
+    criadoEm DateTime @default(now()) @map("criado_em")
+    atualizadoEm DateTime @updatedAt @map("atualizado_em")
+
+    idAluno String @db.Uuid @map("id_aluno")
+    aluno Aluno @relation(fields: [idAluno], references: [id])
+
+    idTurma String @db.Uuid @map("id_turma")
+    turma Turma @relation(fields: [idTurma], references: [id])
+
+    @@map("matricula")
+    @@id([idAluno, idTurma])
+}
+

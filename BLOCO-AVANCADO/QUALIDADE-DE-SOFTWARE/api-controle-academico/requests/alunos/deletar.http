@@ -1,0 +1,2 @@
+DELETE http://localhost:8080/alunos/idAluno HTTP/1.1
+Authorization: TOKEN
