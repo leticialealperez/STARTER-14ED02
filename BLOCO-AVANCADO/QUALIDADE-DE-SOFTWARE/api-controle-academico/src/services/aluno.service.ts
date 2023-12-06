@@ -1,7 +1,8 @@
 import { Aluno as AlunoPrisma, Endereco as EnderecoPrisma } from '@prisma/client';
-import { randomUUID } from 'crypto';
+import { BcryptAdapter, JWTAdapter } from '../adapters';
 import repository from '../database/prisma.connection';
 import { AtualizarAlunoDTO, CadastrarAlunoDTO, LoginDTO, ResponseDTO } from '../dtos';
+import { envs } from '../envs';
 import { Aluno, Endereco } from '../models';
 
 export class AlunoService {
@@ -18,11 +19,15 @@ export class AlunoService {
 			};
 		}
 
+		// encriptografar a senha
+		const bcrypt = new BcryptAdapter(Number(envs.BCRYPT_SALT));
+		const hash = await bcrypt.gerarHash(dados.senha);
+
 		const alunoDB = await repository.aluno.create({
 			data: {
 				email: dados.email,
 				nomeCompleto: dados.nome,
-				password: dados.senha,
+				password: hash,
 				idade: dados.idade,
 			},
 		});
@@ -115,10 +120,10 @@ export class AlunoService {
 	}
 
 	public async login(dados: LoginDTO): Promise<ResponseDTO> {
+
 		const alunoEncontrado = await repository.aluno.findUnique({
 			where: {
 				email: dados.email,
-				password: dados.senha,
 			},
 		});
 
@@ -126,16 +131,23 @@ export class AlunoService {
 			return {
 				code: 401,
 				ok: false,
-				mensagem: 'Credenciais inválidas',
+				mensagem: 'Credenciais inválidas (e-mail)',
 			};
 		}
 
-		const token = randomUUID();
+		const bcrypt = new BcryptAdapter(Number(envs.BCRYPT_SALT));
+		const corresponde = await bcrypt.compararHash(dados.senha, alunoEncontrado.password);
 
-		await repository.aluno.update({
-			where: { id: alunoEncontrado.id },
-			data: { authToken: token },
-		});
+		if (!corresponde) {
+			return {
+				code: 401,
+				ok: false,
+				mensagem: 'Credenciais inválidas (senha)',
+			};
+		}
+
+		const jwt = new JWTAdapter(envs.JWT_SECRET_KEY, envs.JWT_EXPIRE_IN);
+		const token = jwt.gerarToken(alunoEncontrado);
 
 		return {
 			code: 200,
@@ -156,16 +168,6 @@ export class AlunoService {
 			ok: true,
 			mensagem: 'Aluno deslogado com sucesso',
 		};
-	}
-
-	public async validarToken(token: string): Promise<string | null> {
-		const alunoEncontrado = await repository.aluno.findFirst({
-			where: { authToken: token },
-		});
-
-		if (!alunoEncontrado) return null;
-
-		return alunoEncontrado.id;
 	}
 
 	private mapToModel(alunoDB: AlunoPrisma & { endereco: EnderecoPrisma | null }): Aluno {

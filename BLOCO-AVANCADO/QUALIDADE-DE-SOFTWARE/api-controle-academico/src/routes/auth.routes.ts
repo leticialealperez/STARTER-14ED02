@@ -8,7 +8,7 @@ export function authRoutes() {
 	const login = new Login();
 	const auth = new Auth();
 
-	router.post('/login', [login.validar], controller.login);
+	router.post('/login', [login.validar], controller.login); // autenticação - LOGIN - email e senha corretos
 	router.post('/logout', [auth.validar], controller.logout);
 
 	return router;

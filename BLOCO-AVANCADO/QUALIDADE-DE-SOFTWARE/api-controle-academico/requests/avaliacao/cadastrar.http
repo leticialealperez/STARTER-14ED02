@@ -1,6 +1,6 @@
-POST http://localhost:8080/avaliacoes HTTP/1.1
+POST http://localhost:8081/avaliacoes HTTP/1.1
 content-type: application/json
-Authorization: TOKEN
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcyZmM0MGRjLTFiOTEtNDc4MS05MzQ1LTY1YjZkNTU1MWNiYiIsIm5vbWVDb21wbGV0byI6IkpvaG4gRG9lIiwiZW1haWwiOiJqb2huZG9lQHRlc3RlLmNvbSIsImlkYWRlIjoyNywicGFzc3dvcmQiOiJzZW5oYTEyMyIsImF1dGhUb2tlbiI6bnVsbCwiY3JpYWRvRW0iOiIyMDIzLTEyLTA1VDIzOjE5OjQ5LjI4M1oiLCJhdHVhbGl6YWRvRW0iOiIyMDIzLTEyLTA1VDIzOjE5OjQ5LjI4M1oiLCJpYXQiOjE3MDE4MTkzMjAsImV4cCI6MTcwMTgyMjkyMH0.2cwYWkzRh55viM3uTK_URYJ-iSkWLX8nKylekHlbkDk
 
 {
     "modulo": "Front-End I",
