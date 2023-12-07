@@ -1,7 +1,7 @@
 import { Aluno as AlunoPrisma, Endereco as EnderecoPrisma } from '@prisma/client';
-import { BcryptAdapter, JWTAdapter } from '../adapters';
+import { BcryptAdapter } from '../adapters';
 import repository from '../database/prisma.connection';
-import { AtualizarAlunoDTO, CadastrarAlunoDTO, LoginDTO, ResponseDTO } from '../dtos';
+import { AtualizarAlunoDTO, CadastrarAlunoDTO, ResponseDTO } from '../dtos';
 import { envs } from '../envs';
 import { Aluno, Endereco } from '../models';
 
@@ -29,6 +29,7 @@ export class AlunoService {
 				nomeCompleto: dados.nome,
 				password: hash,
 				idade: dados.idade,
+				tipo: dados.tipo
 			},
 		});
 
@@ -116,57 +117,6 @@ export class AlunoService {
 			ok: true,
 			mensagem: 'Aluno excluido',
 			dados: this.mapToModel(alunoExcluido),
-		};
-	}
-
-	public async login(dados: LoginDTO): Promise<ResponseDTO> {
-
-		const alunoEncontrado = await repository.aluno.findUnique({
-			where: {
-				email: dados.email,
-			},
-		});
-
-		if (!alunoEncontrado) {
-			return {
-				code: 401,
-				ok: false,
-				mensagem: 'Credenciais inválidas (e-mail)',
-			};
-		}
-
-		const bcrypt = new BcryptAdapter(Number(envs.BCRYPT_SALT));
-		const corresponde = await bcrypt.compararHash(dados.senha, alunoEncontrado.password);
-
-		if (!corresponde) {
-			return {
-				code: 401,
-				ok: false,
-				mensagem: 'Credenciais inválidas (senha)',
-			};
-		}
-
-		const jwt = new JWTAdapter(envs.JWT_SECRET_KEY, envs.JWT_EXPIRE_IN);
-		const token = jwt.gerarToken(alunoEncontrado);
-
-		return {
-			code: 200,
-			ok: true,
-			mensagem: 'Login efetuado',
-			dados: { token },
-		};
-	}
-
-	public async logout(idAluno: string): Promise<ResponseDTO> {
-		await repository.aluno.update({
-			where: { id: idAluno },
-			data: { authToken: null },
-		});
-
-		return {
-			code: 200,
-			ok: true,
-			mensagem: 'Aluno deslogado com sucesso',
 		};
 	}
 

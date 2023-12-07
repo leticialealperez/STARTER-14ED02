@@ -4,10 +4,10 @@ import { AlunoService } from '../services';
 export class AlunoController {
 	public async cadastrar(req: Request, res: Response) {
 		try {
-			const { nome, email, senha, idade } = req.body;
+			const { nome, email, senha, idade, tipo } = req.body;
 			const service = new AlunoService();
 
-			const response = await service.cadastrar({ nome, email, senha, idade });
+			const response = await service.cadastrar({ nome, email, senha, idade, tipo });
 
 			return res.status(response.code).json(response);
 		} catch (error: any) {
@@ -75,41 +75,6 @@ export class AlunoController {
 			const service = new AlunoService();
 
 			const response = await service.deletar(id);
-
-			return res.status(response.code).json(response);
-		} catch (error: any) {
-			return res.status(500).json({
-				code: 500,
-				ok: false,
-				mensagem: error.toString(),
-			});
-		}
-	}
-
-	public async login(req: Request, res: Response) {
-		try {
-			const { email, senha } = req.body;
-
-			const service = new AlunoService();
-
-			const response = await service.login({ email, senha });
-
-			return res.status(response.code).json(response);
-		} catch (error: any) {
-			return res.status(500).json({
-				code: 500,
-				ok: false,
-				mensagem: error.toString(),
-			});
-		}
-	}
-
-	public async logout(req: Request, res: Response) {
-		try {
-			const { idAluno } = req.body;
-
-			const service = new AlunoService();
-			const response = await service.logout(idAluno);
 
 			return res.status(response.code).json(response);
 		} catch (error: any) {

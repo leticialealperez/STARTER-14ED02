@@ -9,21 +9,27 @@ datasource db {
 
 
 model Aluno {
-    id String @id @default(uuid()) @db.Uuid
-    nomeCompleto String @map("nome_completo") @db.VarChar(100)
-    email String @db.VarChar(100) @unique
-    idade Int?
-    password String @db.Text
-    authToken String? @db.Text @map("auth_token")
+    id              String      @id @default(uuid()) @db.Uuid
+    nomeCompleto    String      @map("nome_completo") @db.VarChar(100)
+    email           String      @db.VarChar(100) @unique
+    idade           Int?
+    password        String      @db.Text
+    tipo            TipoAluno   @default(M)
 
-    criadoEm DateTime @default(now()) @map("criado_em")
-    atualizadoEm DateTime @updatedAt @map("atualizado_em")
+    criadoEm        DateTime    @default(now()) @map("criado_em")
+    atualizadoEm    DateTime    @updatedAt @map("atualizado_em")
 
-    endereco Endereco?
-    avaliacao Avaliacao[]
-    matriculas Matricula[]
+    endereco    Endereco?
+    avaliacao   Avaliacao[]
+    matriculas  Matricula[]
 
     @@map("aluno")
+}
+
+enum TipoAluno {
+    M
+    T
+    F
 }
 
 model Endereco {

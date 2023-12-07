@@ -1,15 +1,13 @@
 import { Router } from 'express';
-import { AlunoController } from '../controllers';
-import { Auth, Login } from '../middlewares';
+import { AuthController } from '../controllers';
+import { Login } from '../middlewares';
 
 export function authRoutes() {
 	const router = Router();
-	const controller = new AlunoController();
+	const controller = new AuthController();
 	const login = new Login();
-	const auth = new Auth();
 
-	router.post('/login', [login.validar], controller.login); // autenticação - LOGIN - email e senha corretos
-	router.post('/logout', [auth.validar], controller.logout);
+	router.post('/login', [login.validar], controller.login);
 
 	return router;
 }
