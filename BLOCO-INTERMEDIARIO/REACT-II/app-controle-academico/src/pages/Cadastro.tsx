@@ -55,12 +55,15 @@ function Cadastro() {
 					component='h1'
 					variant='h3'
 					align='center'
+					color='secondary'
+					paddingBottom={2}
 				>
 					Cadastre-se
 				</Typography>
 
 				<form onSubmit={handleSubmit}>
 					<TextField
+						color='secondary'
 						id='nome'
 						type='text'
 						label='Nome Completo'
@@ -70,6 +73,7 @@ function Cadastro() {
 					/>
 
 					<TextField
+						color='secondary'
 						id='email'
 						type='email'
 						label='E-mail'
@@ -79,6 +83,7 @@ function Cadastro() {
 					/>
 
 					<TextField
+						color='secondary'
 						id='password'
 						type='password'
 						label='Password'
@@ -90,7 +95,7 @@ function Cadastro() {
 					<Button
 						type='submit'
 						variant='contained'
-						color='primary'
+						color='secondary'
 						fullWidth
 						sx={{ marginY: '6px' }}
 						size='large'

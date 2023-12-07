@@ -41,12 +41,13 @@ function Login() {
       sx={{ backgroundImage: 'url(https://images3.alphacoders.com/132/thumb-1920-1328226.png)', backgroundSize: 'cover'}}
     >
       <Box component={Paper} padding={4} borderRadius={3} sx={{ backgroundColor: '#ffffffac', backdropFilter: 'blur(5px)'}}>
-        <Typography component="h1" variant="h3" align="center">
+        <Typography component="h1" variant="h3" align="center" color='secondary' paddingBottom={2}>
           Login
         </Typography>
 
         <form onSubmit={handleSubmit}>
           <TextField
+            color='secondary'
             id="email"
             type="email"
             label="E-mail"
@@ -56,6 +57,7 @@ function Login() {
           />
 
           <TextField
+            color='secondary'
             id="password"
             type="password"
             label="Password"
@@ -65,9 +67,9 @@ function Login() {
           />
 
           <Button
+            color='secondary'
             type="submit"
             variant="contained"
-            color="primary"
             fullWidth
             sx={{ marginY: "6px" }}
             size="large"
