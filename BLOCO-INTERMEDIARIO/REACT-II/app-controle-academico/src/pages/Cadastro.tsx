@@ -1,4 +1,4 @@
-import { Box, Button, TextField, Typography } from '@mui/material';
+import { Box, Button, Paper, TextField, Typography } from '@mui/material';
 
 import { Link, useNavigate } from 'react-router-dom';
 import { cadastro } from '../services/auth.service';
@@ -48,8 +48,9 @@ function Cadastro() {
 			display='flex'
 			alignItems='center'
 			justifyContent='center'
+			sx={{ backgroundImage: 'url(https://images3.alphacoders.com/132/thumb-1920-1328226.png)', backgroundSize: 'cover'}}
 		>
-			<Box component='section'>
+			<Box component={Paper} padding={4} borderRadius={3}  sx={{ backgroundColor: '#ffffffac', backdropFilter: 'blur(5px)'}}>
 				<Typography
 					component='h1'
 					variant='h3'
