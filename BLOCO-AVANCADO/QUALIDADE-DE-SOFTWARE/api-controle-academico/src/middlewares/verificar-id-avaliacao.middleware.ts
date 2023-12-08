@@ -3,7 +3,7 @@ import { AvaliacaoService } from '../services';
 
 export class VerificarIdAvaliacao {
 	public async validar(req: Request, res: Response, next: NextFunction) {
-		const { idAluno } = req.body;
+		const idAluno = req.usuario.id;
 		const { id } = req.params;
 
 		const service = new AvaliacaoService();

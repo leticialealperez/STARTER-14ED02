@@ -28,7 +28,7 @@ export class Auth {
 				});
 			}
 
-			req.body.idAluno = alunoAutorizado.id;
+			req.usuario = alunoAutorizado;
 
 			return next();
 		

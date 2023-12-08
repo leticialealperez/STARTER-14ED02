@@ -37,7 +37,7 @@ export class AvaliacaoController {
 
 	public async listarPorID(req: Request, res: Response) {
 		try {
-			const { idAluno } = req.body;
+			const idAluno = req.usuario.id;
 			const { id } = req.params;
 
 			const service = new AvaliacaoService();
@@ -55,11 +55,11 @@ export class AvaliacaoController {
 
 	public async atualizar(req: Request, res: Response) {
 		try {
-			const { idAluno, modulo, nota } = req.body;
+			const { modulo, nota } = req.body;
 			const { id } = req.params;
 
 			const service = new AvaliacaoService();
-			const response = await service.atualizar({ idAluno, idAvaliacao: id, modulo, nota });
+			const response = await service.atualizar({ idAvaliacao: id, modulo, nota });
 
 			return res.status(response.code).json(response);
 		} catch (error: any) {
@@ -73,11 +73,10 @@ export class AvaliacaoController {
 
 	public async deletar(req: Request, res: Response) {
 		try {
-			const { idAluno } = req.body;
 			const { id } = req.params;
 
 			const service = new AvaliacaoService();
-			const response = await service.deletar({ idAluno, idAvaliacao: id });
+			const response = await service.deletar({ idAvaliacao: id });
 
 			return res.status(response.code).json(response);
 		} catch (error: any) {

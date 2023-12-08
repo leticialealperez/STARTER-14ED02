@@ -1,2 +1,2 @@
-DELETE http://localhost:8080/avaliacoes/idAvaliacao HTTP/1.1
-Authorization: TOKEN
+DELETE http://localhost:8081/avaliacoes/ffb86a92-1ab6-434c-bdcb-8dc338efa768 HTTP/1.1
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzOTQ0YjRmLTc0NGEtNGYwYi05NzRkLTRlNGRiZDFmNmQyMCIsIm5vbWVDb21wbGV0byI6IkFsZW1vbiIsImVtYWlsIjoiYWxlbW9uQHRlc3RlLmNvbSIsInRpcG8iOiJUIiwiaWF0IjoxNzAxOTg5OTcxLCJleHAiOjE3MDE5OTM1NzF9.JBK2FR3BmY-No3_rMLxmemYsOvZEjVu4qa90NBsFLLA

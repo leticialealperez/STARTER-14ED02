@@ -78,7 +78,6 @@ export class AvaliacaoService {
 		const avaliacaoAtualizada = await repository.avaliacao.update({
 			where: {
 				id: dados.idAvaliacao,
-				idAluno: dados.idAluno,
 			},
 			data: {
 				modulo: dados.modulo,
@@ -97,8 +96,7 @@ export class AvaliacaoService {
 	public async deletar(dados: DeletarAvaliacaoDTO): Promise<ResponseDTO> {
 		const avaliacaoExcluida = await repository.avaliacao.delete({
 			where: {
-				id: dados.idAvaliacao,
-				idAluno: dados.idAluno,
+				id: dados.idAvaliacao
 			},
 		});
 
