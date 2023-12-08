@@ -25,14 +25,15 @@ export function BoasVindas() {
             navigate('/');
         }
     }, [dadosAluno.id, navigate])
-    
 
+    if(!dadosAluno.nomeCompleto) return null;
+    
     return (
         <>
             <AppBar position="fixed">
                 <Toolbar>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                        ACADÊMICO
+                        {perfil}
                     </Typography>
                     <Button color="inherit" onClick={() => {
                         dispatch(logout())
@@ -43,7 +44,7 @@ export function BoasVindas() {
 
             <Container sx={{ height: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', gap: 2}}>
                 <Typography variant='h2' component='h1'>
-                    Bem-vindo, {dadosAluno.nomeCompleto} - {perfil}
+                    Bem-vindo, {dadosAluno.nomeCompleto}!
                 </Typography>
 
                 <Typography variant='body2'>
