@@ -1,10 +1,25 @@
 import { Box, Button, Paper, TextField, Typography } from "@mui/material";
 
+import { useEffect } from 'react';
 import { Link, useNavigate } from "react-router-dom";
-import { login } from "../services/auth.service";
+import { useAppDispatch, useAppSelector } from '../store/hooks';
+import { logar } from '../store/modules/aluno/actions';
+import { selectorAluno } from '../store/modules/aluno/aluno.slice';
 
 function Login() {
+  const { loading, dadosAluno } = useAppSelector(selectorAluno);
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+
+    if(dadosAluno.id) {
+      (document.getElementById('email') as HTMLInputElement).value = "";
+      (document.getElementById('password') as HTMLInputElement).value = "";
+
+      navigate('/welcome')
+    }
+  }, [dadosAluno, navigate])
 
   async function handleSubmit(evento: React.FormEvent<HTMLFormElement>) {
     evento.preventDefault();
@@ -14,21 +29,10 @@ function Login() {
       senha: evento.currentTarget.password.value,
     };
 
-    const resposta = await login(dados);
+    // const resposta = await login(dados);
+    dispatch(logar(dados));
 
-    // Valida o erro
-    if (resposta.ok === false) {
-      alert(resposta.mensagem);
-      return;
-    }
-
-    alert(resposta.mensagem);
-    localStorage.setItem("token", JSON.stringify(resposta.dados.token));
-
-    navigate("/home");
-
-    evento.currentTarget.email.value = "";
-    evento.currentTarget.password.value = "";
+    
   }
 
   return (
@@ -74,7 +78,7 @@ function Login() {
             sx={{ marginY: "6px" }}
             size="large"
           >
-            Entrar
+            {loading ? 'Carregando...' : 'Entrar'}
           </Button>
         </form>
 

@@ -1,5 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Aluno from "../pages/Aluno";
+import { BoasVindas } from '../pages/BoasVindas';
 import Cadastro from "../pages/Cadastro";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
   {
     path: "/aluno",
     element: <Aluno />,
+  },
+  {
+    path: "/welcome",
+    element: <BoasVindas />,
   },
 ]);
 
