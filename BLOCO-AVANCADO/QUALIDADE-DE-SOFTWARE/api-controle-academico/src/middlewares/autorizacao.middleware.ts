@@ -2,7 +2,6 @@ import { NextFunction, Request, Response } from 'express';
 
 
 class Autorizacao {
-    private dado = '11'
 
     public cadastrar(req: Request, res: Response, next: NextFunction) {
         const { tipo } = req.usuario;
@@ -33,6 +32,19 @@ class Autorizacao {
         return next();
     }
 
+    public listagemDeAvaliacoes(req: Request, res: Response, next: NextFunction) {
+        const { tipo, id } = req.usuario;
+
+        if(['M', 'F'].includes(tipo) ) {
+            // aplica filtro de listagem para o ID do aluno logado se ele tiver perfil M ou F
+            req.query = {
+                aluno: id
+            }
+        }
+
+        return next();
+    }
+
     public verificarPermissaoCadastrar(req: Request, res: Response, next: NextFunction) {
         const { idAluno } = req.body;
         const { tipo, id } = req.usuario;
@@ -45,20 +57,10 @@ class Autorizacao {
             })
         }
 
-        next();
+        return next();
     }
 
-    public verificarPermissaoListar(req: Request, res: Response, next: NextFunction) {
-        const { tipo, id } = req.usuario;
-
-        if(['M', 'F'].includes(tipo) ) {
-            req.query = {
-                aluno: id
-            }
-        }
-
-        next();
-    }
+    
 
 }
 

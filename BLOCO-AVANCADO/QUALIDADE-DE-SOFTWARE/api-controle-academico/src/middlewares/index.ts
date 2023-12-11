@@ -1,5 +1,5 @@
 export * from './auth.middleware';
-export { default as Autenticao } from './autorizacao.middleware';
+export { default as Autorizacao } from './autorizacao.middleware';
 export * from './cadastro-aluno.middleware';
 export * from './cadastro-avaliacao.middleware';
 export * from './login.middleware';
