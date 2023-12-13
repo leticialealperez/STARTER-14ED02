@@ -6,7 +6,16 @@ import { envs } from '../envs';
 import { Aluno, Endereco } from '../models';
 
 export class AlunoService {
-	public async cadastrar(dados: CadastrarAlunoDTO): Promise<ResponseDTO> {
+  /**
+   * Método que cadastra o aluno na base de dados de acordo com os dados recebidos e retorna a resposta à ser devolvida na requisição de acordo com o resultado do processamento realizado.
+   *
+   * @param dados - Objeto com as propriedades necessárias para cadastrar um aluno
+   * @returns Promise da resposta no padrão REST de acordo com a lógica executada.
+   *
+   * @author Leticia Leal <mentor13@growdev.academy>
+   * 
+   */
+	public async cadastrar(dados: CadastrarAlunoDTO): Promise<ResponseDTO<Aluno | undefined>> {
 		const alunoExiste = await repository.aluno.findUnique({
 			where: { email: dados.email },
 		});
@@ -16,6 +25,7 @@ export class AlunoService {
 				code: 400,
 				ok: false,
 				mensagem: 'E-mail já cadastrado',
+				dados: undefined
 			};
 		}
 
@@ -41,7 +51,15 @@ export class AlunoService {
 		};
 	}
 
-	public async listar(): Promise<ResponseDTO> {
+	/**
+	 * Método que busca os alunos cadastrados na base de dados e retorna resposta à ser devolvida na requisição de acordo com o resultado do processamento realizado.
+	 *
+	 * @returns Promise da resposta no padrão REST de acordo com a lógica executada.
+	 *
+	 * @author Leticia Leal <mentor13@growdev.academy>
+	 * 
+	 */
+	public async listar(): Promise<ResponseDTO<Aluno[] | undefined>> {
 		const alunosDB = await repository.aluno.findMany({
 			orderBy: { nomeCompleto: 'desc' },
 			include: { endereco: true },
@@ -52,6 +70,7 @@ export class AlunoService {
 				code: 404,
 				ok: false,
 				mensagem: 'Não foram encontrados alunos cadastrados no sistema.',
+				dados: undefined
 			};
 		}
 
@@ -63,7 +82,7 @@ export class AlunoService {
 		};
 	}
 
-	public async listarPorID(id: string): Promise<ResponseDTO> {
+	public async listarPorID(id: string): Promise<ResponseDTO<Aluno | undefined>> {
 		const alunoDB = await repository.aluno.findUnique({
 			where: {
 				id: id,
@@ -76,6 +95,7 @@ export class AlunoService {
 				code: 404,
 				ok: false,
 				mensagem: 'Aluno não encontrado',
+				dados: undefined
 			};
 		}
 
@@ -87,7 +107,7 @@ export class AlunoService {
 		};
 	}
 
-	public async atualizar(dados: AtualizarAlunoDTO): Promise<ResponseDTO> {
+	public async atualizar(dados: AtualizarAlunoDTO): Promise<ResponseDTO<Aluno>> {
 		const alunoAtualizado = await repository.aluno.update({
 			where: { id: dados.idAluno },
 			data: {
@@ -106,7 +126,7 @@ export class AlunoService {
 		};
 	}
 
-	public async deletar(id: string): Promise<ResponseDTO> {
+	public async deletar(id: string): Promise<ResponseDTO<Aluno>> {
 		const alunoExcluido = await repository.aluno.delete({
 			where: { id: id },
 			include: { endereco: true },

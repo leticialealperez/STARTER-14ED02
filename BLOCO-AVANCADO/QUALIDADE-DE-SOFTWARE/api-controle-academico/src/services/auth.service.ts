@@ -3,8 +3,24 @@ import repository from '../database/prisma.connection';
 import { LoginDTO, ResponseDTO } from '../dtos';
 import { envs } from '../envs';
 
+interface LoginResponse { 
+	token: string; 
+	dadosAluno: { 
+		id: string; 
+		email: string; 
+	}
+}
+
 export class AuthService {
-	public async login(dados: LoginDTO): Promise<ResponseDTO> {
+	/**
+	 * Método que conecta a base de dados e verifica se as credenciais informadas equivalem a algum usuário cadastrado. Caso o usuário exista na base, retorna o token de autorização junto do ID e email do usuário encontrado.
+	 *
+	 * @param dados - E-mail e senha informados na requisição
+	 * @returns ResponseDTO que contém a estrutura padrão de resposta da requisição conforme o padrão REST
+	 *
+	 * @author Leticia Leal <mentor13@growdev.academy>
+	 */
+	public async login(dados: LoginDTO): Promise<ResponseDTO<LoginResponse | undefined>> {
 
 		const alunoEncontrado = await repository.aluno.findUnique({
 			where: {
@@ -17,6 +33,7 @@ export class AuthService {
 				code: 401,
 				ok: false,
 				mensagem: 'Credenciais inválidas. E-mail não cadastrado.',
+				dados: undefined
 			};
 		}
 
@@ -28,6 +45,7 @@ export class AuthService {
 				code: 401,
 				ok: false,
 				mensagem: 'Credenciais inválidas.',
+				dados: undefined
 			};
 		}
 
