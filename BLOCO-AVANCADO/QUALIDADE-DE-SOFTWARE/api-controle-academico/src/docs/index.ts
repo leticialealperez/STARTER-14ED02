@@ -1,6 +1,6 @@
 import { badRequest, notFound, securitySchemes, serverError, unauthorized } from './components';
-import { authPath } from './paths';
-import { error } from './schemas';
+import { alunosPath, alunosPathWithId, authPath } from './paths';
+import { alunoSchema, error } from './schemas';
 
 const docs = {
     openapi: "3.0.0",
@@ -19,7 +19,8 @@ const docs = {
     ],
     paths: {
         '/auth/login': authPath,
-        '/alunos': {},
+        '/alunos': alunosPath,
+        '/alunos/{id}': alunosPathWithId,
         '/avaliacoes': {}
     },
     components: {
@@ -31,8 +32,8 @@ const docs = {
     },
     schemas: {
         error: error,
+        aluno: alunoSchema,
         avalicao: {},
-        aluno: {}
     }
 }
 

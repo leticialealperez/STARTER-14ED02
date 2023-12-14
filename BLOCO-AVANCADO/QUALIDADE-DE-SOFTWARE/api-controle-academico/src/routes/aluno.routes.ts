@@ -14,6 +14,9 @@ export function alunoRoutes() {
 	router.get('/', [auth.validar], controller.listar);
 	router.get('/:id', [auth.validar, validarFormatoId.validar], controller.listPorID);
 	router.put('/:id', [auth.validar, validarFormatoId.validar, verificarIdAluno.validar], controller.atualizar);
+
+
+
 	router.delete('/:id', [auth.validar, validarFormatoId.validar, verificarIdAluno.validar], controller.deletar);
 
 	return router;

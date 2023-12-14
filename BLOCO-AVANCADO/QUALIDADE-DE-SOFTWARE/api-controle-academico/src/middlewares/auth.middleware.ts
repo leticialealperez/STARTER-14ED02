@@ -5,15 +5,17 @@ import { envs } from '../envs';
 
 export class Auth {
 	public async validar(req: Request, res: Response, next: NextFunction) {
-		const token = req.headers.authorization;
+		const auth = req.headers.authorization;
 
-		if (!token) {
+		if (!auth) {
 			return res.status(401).json({
 				code: 401,
 				ok: false,
 				mensagem: 'Token é obrigatório',
 			});
 		}
+
+		const [, token] = auth.split(" ");
 
 		try {
 			// CHAMAR O DECODIFICAR TOKEN
