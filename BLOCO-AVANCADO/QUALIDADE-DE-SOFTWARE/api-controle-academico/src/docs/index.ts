@@ -1,4 +1,4 @@
-import { authorize, badRequest, notFound, serverError, unauthorized } from './components';
+import { badRequest, notFound, securitySchemes, serverError, unauthorized } from './components';
 import { authPath } from './paths';
 import { error } from './schemas';
 
@@ -27,7 +27,7 @@ const docs = {
         notFound: notFound,
         unauthorized: unauthorized,
         serverError: serverError,
-        securitySchemes: authorize
+        securitySchemes: securitySchemes
     },
     schemas: {
         error: error,

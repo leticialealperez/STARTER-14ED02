@@ -1,4 +1,4 @@
-export const authorize = {
+export const securitySchemes = {
     bearerAuth: {
         type: 'http',
         name: 'Authorization',
