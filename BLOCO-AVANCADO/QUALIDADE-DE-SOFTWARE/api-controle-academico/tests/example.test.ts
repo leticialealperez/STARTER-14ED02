@@ -31,10 +31,11 @@ describe("Testes para o módulo Calculadora", () => {
         expect(resultadoMultiplicacao).toBe(4);
     });
 
-    test('deve retornar um erro quando dividido qualquer valor por 0', () => {
+    test('deve gerar um erro quando dividido qualquer valor por 0', () => {
         const sut = createSut();
     
         expect(() => sut.dividir(20, 0)).toThrow(Error);
+        expect(() => sut.dividir(10, 0)).toThrow('Não é possível dividir por zero');
     });
 
     test('deve retornar 2 quando dividido 10 por 5', () => {
