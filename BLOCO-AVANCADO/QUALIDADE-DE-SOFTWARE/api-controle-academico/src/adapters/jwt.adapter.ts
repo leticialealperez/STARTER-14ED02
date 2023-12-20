@@ -24,6 +24,7 @@ export class JWTAdapter {
 
     public decodificarToken(token: string): any {
         const dado = jwt.verify(token, this._secret);
+        
         if(!dado) return undefined;
 
         return dado

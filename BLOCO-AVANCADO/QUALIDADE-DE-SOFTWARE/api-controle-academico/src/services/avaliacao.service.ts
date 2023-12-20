@@ -10,7 +10,7 @@ import {
 import { Avaliacao } from '../models';
 
 export class AvaliacaoService {
-	public async criar(dado: CadastrarAvaliacaoDTO): Promise<ResponseDTO> {
+	public async criar(dado: CadastrarAvaliacaoDTO): Promise<ResponseDTO<any>> {
 		const novaAvaliacao = await repository.avaliacao.create({
 			data: {
 				modulo: dado.modulo,
@@ -27,7 +27,7 @@ export class AvaliacaoService {
 		};
 	}
 
-	public async listarTodos(aluno: string | undefined): Promise<ResponseDTO> {
+	public async listarTodos(aluno: string | undefined): Promise<ResponseDTO<any>> {
 		const avaliacoes = await repository.avaliacao.findMany({
 			where: {
 				idAluno: aluno,
@@ -39,6 +39,7 @@ export class AvaliacaoService {
 				code: 404,
 				ok: false,
 				mensagem: 'Não foram encontradas avaliações.',
+				dados: undefined
 			};
 		}
 
@@ -50,7 +51,7 @@ export class AvaliacaoService {
 		};
 	}
 
-	public async listarPorID(dados: ListarAvaliacaoPorIdDTO): Promise<ResponseDTO> {
+	public async listarPorID(dados: ListarAvaliacaoPorIdDTO): Promise<ResponseDTO<any>> {
 		const avaliacaoEncontrada = await repository.avaliacao.findUnique({
 			where: {
 				id: dados.idAvaliacao,
@@ -63,6 +64,7 @@ export class AvaliacaoService {
 				code: 404,
 				ok: false,
 				mensagem: 'Avaliação não encontrada',
+				dados: undefined
 			};
 		}
 
@@ -74,7 +76,7 @@ export class AvaliacaoService {
 		};
 	}
 
-	public async atualizar(dados: AtualizarAvaliacaoDTO): Promise<ResponseDTO> {
+	public async atualizar(dados: AtualizarAvaliacaoDTO): Promise<ResponseDTO<any>> {
 		const avaliacaoAtualizada = await repository.avaliacao.update({
 			where: {
 				id: dados.idAvaliacao,
@@ -93,7 +95,7 @@ export class AvaliacaoService {
 		};
 	}
 
-	public async deletar(dados: DeletarAvaliacaoDTO): Promise<ResponseDTO> {
+	public async deletar(dados: DeletarAvaliacaoDTO): Promise<ResponseDTO<any>> {
 		const avaliacaoExcluida = await repository.avaliacao.delete({
 			where: {
 				id: dados.idAvaliacao
