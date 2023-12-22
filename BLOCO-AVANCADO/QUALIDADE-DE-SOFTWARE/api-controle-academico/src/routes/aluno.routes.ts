@@ -11,6 +11,21 @@ export function alunoRoutes() {
 	const auth = new Auth();
 
 	router.post('/', [cadastrarAluno.validar], controller.cadastrar);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
 	router.get('/', [auth.validar], controller.listar);
 	router.get('/:id', [auth.validar, validarFormatoId.validar], controller.listPorID);
 	router.put('/:id', [auth.validar, validarFormatoId.validar, verificarIdAluno.validar], controller.atualizar);

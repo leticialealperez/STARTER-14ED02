@@ -25,7 +25,7 @@ export class CadastroAluno {
 			return res.status(400).json({
 				code: 400,
 				ok: false,
-				mensagem: 'Mínima 6 caracteres para senha',
+				mensagem: 'Mínimo 6 caracteres para senha',
 			});
 		}
 
