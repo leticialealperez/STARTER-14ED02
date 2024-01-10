@@ -50,6 +50,7 @@ describe('Listar alunos - Integração', () => {
         const response = await request(server).get("/alunos").set('Authorization', `Bearer ${token}`);
         
         expect(response.statusCode).toBe(200);
+        expect(response.body.mensagem).toBe("Alunos listados com sucesso");
         expect(response.body.dados).toHaveLength(2);
         expect(response.body.dados[0].nome).toBe(alunos[alunos.length - 1].nomeCompleto);
     });
@@ -61,5 +62,6 @@ describe('Listar alunos - Integração', () => {
         const response = await request(server).get("/alunos").set('Authorization', `Bearer ${token}`);
         
         expect(response.statusCode).toBe(404);
+        expect(response.body.mensagem).toBe("Não foram encontrados alunos cadastrados no sistema.");
     });
 })
