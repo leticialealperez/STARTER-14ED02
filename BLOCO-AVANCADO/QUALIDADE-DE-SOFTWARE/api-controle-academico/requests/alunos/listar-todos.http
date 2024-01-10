@@ -1,2 +1,2 @@
 GET http://localhost:8080/alunos HTTP/1.1
-Authorization: "Bearer <token-aqui>"
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijc4ZjRiNjJiLWI2ZDctNDFiMC1hZTUxLWE1NGRiNzNlZThhYiIsIm5vbWVDb21wbGV0byI6IkFsZW1vbiIsImVtYWlsIjoiYWxlbW9uQHRlc3RlLmNvbSIsInRpcG8iOiJUIiwiaWF0IjoxNzA0ODg2ODg3LCJleHAiOjE3MDQ4OTA0ODd9.giSeBErFUNdJQp5cOzq9cv4F_wrwtdwQHTN38vW8OWw

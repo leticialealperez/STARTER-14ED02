@@ -29,7 +29,7 @@ export class AlunoController {
 			return res.status(500).json({
 				code: 500,
 				ok: false,
-				mensagem: error.toString(),
+				mensagem: error.toString(), 
 			});
 		}
 	}
