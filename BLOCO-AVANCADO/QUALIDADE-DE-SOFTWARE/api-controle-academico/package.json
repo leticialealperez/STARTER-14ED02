@@ -38,7 +38,7 @@
     "test:unit": "jest -c jest.unit.config.ts --silent --noStackTrace --runInBand",
     "test:integration": "jest -c jest.integration.config.ts --silent --noStackTrace --runInBand",
     "test:verbose": "jest --verbose --runInBand --detectOpenHandles",
-    "test:coverage": "jest --runInBand --coverage",
+    "test:coverage": "jest -c jest.unit.config.ts --runInBand --coverage",
     "test:watch": "jest --silent --noStackTrace --runInBand --watchAll"
   }
 }
