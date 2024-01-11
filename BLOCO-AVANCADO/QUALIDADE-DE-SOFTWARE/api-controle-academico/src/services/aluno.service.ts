@@ -65,7 +65,7 @@ export class AlunoService {
 			include: { endereco: true },
 		});
 
-		if (!alunosDB?.length) {
+		if (!alunosDB.length) {
 			return {
 				code: 404,
 				ok: false,

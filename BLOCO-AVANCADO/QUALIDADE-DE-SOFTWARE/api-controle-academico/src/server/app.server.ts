@@ -1,8 +1,9 @@
 import cors from 'cors';
 import express from 'express';
 import { serve, setup } from 'swagger-ui-express';
-import docs from './docs';
-import { alunoRoutes, authRoutes, avaliacaoRoutes } from './routes';
+import docs from '../docs';
+import { alunoRoutes, authRoutes, avaliacaoRoutes } from '../routes';
+
 
 export function createServer() {
     const app = express();
@@ -18,7 +19,3 @@ export function createServer() {
 
     return app;
 }
-
-// const server = createServer();
-// server.listen(envs.PORTA, () => console.log(`Servidor ta rodando na porta ${envs.PORTA}`));
-

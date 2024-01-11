@@ -31,14 +31,11 @@
     "typescript": "^5.2.2"
   },
   "scripts": {
-    "dev": "ts-node-dev --respawn --transpile-only ./src/server.ts",
+    "dev": "ts-node-dev --respawn --transpile-only ./src/index.ts",
     "build": "tsc",
-    "start": "node ./dist/server.js",
-    "test": "jest --silent --noStackTrace --runInBand --detectOpenHandles",
+    "start": "node ./dist/index.js",
     "test:unit": "jest -c jest.unit.config.ts --silent --noStackTrace --runInBand",
     "test:integration": "jest -c jest.integration.config.ts --silent --noStackTrace --runInBand",
-    "test:verbose": "jest --verbose --runInBand --detectOpenHandles",
-    "test:coverage": "jest -c jest.unit.config.ts --runInBand --coverage",
-    "test:watch": "jest --silent --noStackTrace --runInBand --watchAll"
+    "test:coverage": "jest -c jest.unit.config.ts --runInBand --coverage"
   }
 }

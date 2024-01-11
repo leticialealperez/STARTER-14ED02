@@ -1,4 +1,4 @@
-import { Calculadora } from '../src/models/calculadora.class';
+import { Calculadora } from '../../src/models/calculadora.class';
 
 describe("Testes para o módulo Calculadora", () => {
     function createSut() {

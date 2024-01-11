@@ -7,5 +7,5 @@ export default {
     roots: ["<rootDir>/tests"],
     collectCoverageFrom: ["<rootDir>/src/**/*.ts"],
     coverageDirectory: "coverage",
-    coveragePathIgnorePatterns: ["\\\\node_modules\\\\"]
+    coveragePathIgnorePatterns: ["\\\\node_modules\\\\"],
 };

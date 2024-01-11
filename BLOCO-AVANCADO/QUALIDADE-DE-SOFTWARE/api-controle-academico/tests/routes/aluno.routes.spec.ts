@@ -2,7 +2,7 @@ import { Aluno, TipoAluno } from '@prisma/client';
 import { JsonWebTokenError } from 'jsonwebtoken';
 import request from 'supertest';
 import { JWTAdapter } from '../../src/adapters';
-import { createServer } from '../../src/server';
+import { createServer } from '../../src/server/app.server';
 import { prismaMock } from '../config/prisma.mock';
 
 describe('POST /alunos', () => {
